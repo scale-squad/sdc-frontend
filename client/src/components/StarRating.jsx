@@ -2,6 +2,7 @@ import React from 'react'
 const StarRating = ({ rating, enableText = false, dimensions = 5 }) => {
   if (rating === undefined || rating === null) { return <div>Error Loading Stars</div>; }
   rating = Number(rating);
+  if (rating < 0 || rating > 5) { return <div>rating outside of range [0-5]</div>; }
 
   const quarter = "./icons/star-one-quarter.svg";
   const half = "./icons/star-half.svg";
