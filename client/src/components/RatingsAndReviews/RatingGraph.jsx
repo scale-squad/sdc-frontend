@@ -10,8 +10,8 @@ const RatingGraph = ({ ratings }) => {
       ratingCounts.map((count, i) => {
         const fullWidth = Math.floor(count / maxCount * maxWidth);
         const emptyWidth = maxWidth - fullWidth;
-        const fullStyle = {width:fullWidth}
-        const emptyStyle = {width:emptyWidth}
+        const fullStyle = { width: fullWidth }
+        const emptyStyle = { width: emptyWidth }
         return <div key={2 << (7 * i) + count}>
           <span className={'star-graph-full'} style={fullStyle}></span>
           <span className={'star-graph-empty'} style={emptyStyle}></span>
