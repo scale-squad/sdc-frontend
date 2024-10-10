@@ -4,3 +4,18 @@ p {
     display: flex;
     justify-content: center;
 }
+button{
+  border:1px;
+  border-style: solid;
+  background-color: rgb(255, 255, 255)
+}
+button:hover{
+  background-color: lightgray;
+}
+.add-to-cart-button:hover{
+  background-color: darkred;
+}
+.add-to-cart-button{
+  background-color: red;
+}
+
