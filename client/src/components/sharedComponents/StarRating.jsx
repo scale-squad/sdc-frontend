@@ -4,11 +4,11 @@ const StarRating = ({ rating, enableText = false, dimensions = 5 }) => {
   rating = Number(rating);
   if (rating < 0 || rating > 5) { return <div>rating outside of range [0-5]</div>; }
 
-  const quarter = "./icons/star-one-quarter.svg";
-  const half = "./icons/star-half.svg";
-  const threeQuarter = "./icons/star-three-quarter.svg";
-  const full = "./icons/star-full.svg";
-  const empty = "./icons/star-empty.svg";
+  const quarter = "../../icons/star-one-quarter.svg";
+  const half = "../../icons/star-half.svg";
+  const threeQuarter = "../../icons/star-three-quarter.svg";
+  const full = "../../icons/star-full.svg";
+  const empty = "../../icons/star-empty.svg";
 
   const fullStarCount = Math.floor(rating);
   const emptyCount = Math.floor(5 - rating)
@@ -26,9 +26,9 @@ const StarRating = ({ rating, enableText = false, dimensions = 5 }) => {
 
   return (<div>
     {enableText ? roundedRating : ""}
-    {fullStars.map((star, i) => <img key={rating * i} src={"./icons/star-full.svg"} alt={"full star"} style={topStyle} />)}
+    {fullStars.map((star, i) => <img key={rating * i} src={full} alt={"full star"} style={topStyle} />)}
     {remaining ? <img src={partialStar} style={topStyle} /> : ""}
-    {emptyStars.map((star, i) => <img key={rating * i} src={"./icons/star-empty.svg"} alt={"full star"} style={topStyle} />)}
+    {emptyStars.map((star, i) => <img key={rating * i} src={empty} alt={"empty star"} style={topStyle} />)}
   </div>
   );
 }
