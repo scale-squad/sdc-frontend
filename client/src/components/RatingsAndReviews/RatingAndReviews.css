@@ -1,14 +1,67 @@
-.star-graph-empty,.star-graph-full{
+.star-graph-label {
+  display: inline;
+  font-size: medium;
+}
+
+.rounded-rating-text {
+  font-size: 60px;
+  margin: 20px;
+}
+
+.star-graph-empty,
+.star-graph-full {
   height: 10px;
   width: 10px;
-  margin: 3px,0px;
+  margin: 3px, 0px;
   outline: 1px;
   display: inline-block;
 }
-.star-graph-empty{
+
+.star-graph-empty {
   background: gray;
 
 }
-.star-graph-full{
+
+.star-graph-full {
   background: red;
+}
+
+.reviewer-recommendation-percent {
+  margin: 10px;
+  height: 20px;
+  font-size: medium;
+}
+
+.ratings-and-reviews-heading {
+  font-size: x-large;
+  margin-left: 10px;
+}
+
+.review-entry {
+  width: 80%;
+  margin: 10px;
+  border-style: solid;
+}
+
+.review-entry-date {
+  vertical-align: top;
+  float: right;
+}
+
+.ratings-and-review-container {
+  grid-template-columns: 32% 64%;
+  display: grid;
+}
+
+.slider-segment {
+  background-color: red;
+  height: 10px;
+}
+
+.slider-label {
+  height: 10px;
+  text-align: center;
+}
+table{
+  border-spacing:20px
 }
