@@ -17,14 +17,16 @@ const Slider = ({ segments, value, title, maxWidth = 270 }) => {
       <div className="slider-title">{title}</div>
       <div style={{ width: maxWidth }}>{downArrow}</div>
       <table style={tableStyle}>
+        <tbody>
         <tr>
           {
-            segments.map((seg, i) => <td style={tableStyle} className="slider-segment" ></td>)
+            segments.map((seg, i) => <td key={seg+i+"val"} style={tableStyle} className="slider-segment" ></td>)
 
           }</tr><tr>{
-            segments.map((seg, i) => <td cstyle={tableStyle} lassName="slider-label" >{seg}</td>)
+            segments.map((seg, i) => <td key={seg+i+"label"} style={tableStyle} className="slider-label" >{seg}</td>)
           }
         </tr>
+        </tbody>
       </table>
 
     </div>

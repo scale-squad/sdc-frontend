@@ -11,7 +11,7 @@ const RatingGraph = ({ ratings }) => {
         const emptyWidth = maxWidth - fullWidth;
         const fullStyle = { width: fullWidth }
         const emptyStyle = { width: emptyWidth }
-        return <div key={2 << (7 * i) + count}>
+        return <div key={2 << (7 + i) + count}>
           <p className={'star-graph-label'}>{5 - i} stars</p><span className={'star-graph-full'} style={fullStyle}></span>
           <span className={'star-graph-empty'} style={emptyStyle}></span>
           <span>{count}</span>

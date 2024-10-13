@@ -36,9 +36,9 @@ const StarRating = ({ rating, ratingList, enableText = false, dimensions = 5 }) 
 
   return (<span className="star-rating">
     <span className="rounded-rating-text">{enableText ? roundedRating : ""}
-      {fullStars.map((star, i) => <img key={rating * i} src={full} alt={"full star"} style={topStyle} />)}
+      {fullStars.map((star, i) => <img key={averageRating * i} src={full} alt={"full star"} style={topStyle} />)}
       {remaining ? <img src={partialStar} style={topStyle} /> : ""}
-      {emptyStars.map((star, i) => <img key={rating * i} src={empty} alt={"empty star"} style={topStyle} />)}</span>
+      {emptyStars.map((star, i) => <img key={averageRating * i} src={empty} alt={"empty star"} style={topStyle} />)}</span>
   </span>
   );
 }

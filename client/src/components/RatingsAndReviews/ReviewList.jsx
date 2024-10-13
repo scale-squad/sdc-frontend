@@ -6,7 +6,7 @@ const ReviewList = ({ reviewList }) => {
   if (ReviewList === undefined) { return <div>Error Loading Component</div> }
   return (
     <div>{
-      reviewList.map(review => <ReviewListEntry review={review} />)}
+      reviewList.map((review, i) => <ReviewListEntry key={review + i} review={review} />)}
     </div>
   )
 };
