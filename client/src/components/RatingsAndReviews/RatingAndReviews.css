@@ -7,7 +7,9 @@
   font-size: 60px;
   margin: 20px;
 }
-
+.star-breakdown:hover,.star-breakdown-selected{
+  background: lightgreen;
+}
 .star-graph-empty,
 .star-graph-full {
   height: 10px;
@@ -18,12 +20,12 @@
 }
 
 .star-graph-empty {
-  background: gray;
+  background: lightgrey;
 
 }
 
 .star-graph-full {
-  background: red;
+  background: green;
 }
 
 .reviewer-recommendation-percent {
@@ -74,4 +76,7 @@
 }
 .slider-title{
   font-size: x-large;
+}
+.rating-breakdown,.size-comfort{
+  margin-left: 10px;
 }

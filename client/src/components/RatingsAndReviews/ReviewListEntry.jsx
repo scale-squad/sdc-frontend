@@ -7,8 +7,8 @@ const ReviewListEntry = ({ review }) => {
   return (
     <div className="review-entry">
       <StarRating className="review-entry-stars" rating={rating} dimensions={15} />
-      <span className="review-entry-date">{new Date(date).toDateString()}</span>
-      <div className="review-entry-title">{summary}</div>
+      <span className="review-entry-date">{ new Intl.DateTimeFormat('en-US').format(new Date(date))}</span>
+      <div className="review-entry-title">{summary.length>60?summary.slice(0,60)+'...':summary}</div>
       <div className="review-entry-text">{body}</div>
       <div><span>Helpful? <a href="">Yes</a><span>{helpfulness}</span></span>|<span><a href="">Report</a></span></div>
 

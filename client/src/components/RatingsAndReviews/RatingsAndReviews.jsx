@@ -15,19 +15,19 @@ const RatingsAndReviews = ({ productId }) => {
   let reviewList = sampleReview.results;
   //for handling scaling
   const [width, setWidth] = useState(window.innerWidth);
+  const [starFilter, setStarFilter] = useState([false,false,false,false,false]);
   const handleResize = () => setWidth(window.innerWidth);
   window.addEventListener('resize', handleResize);
-  /*useEffect(() => {
-    axios.get('/reviews').
-  }, []);*/
+
   return (
     <div className="ratings-and-review-container">
       <div>
-        <RatingBreakdown ratings={ratings} recommended={recommended} width={width} />
+        <RatingBreakdown ratings={ratings} recommended={recommended} width={width} setStarFilter={setStarFilter} starFilter={starFilter} />
         <SizeComfort characteristics={characteristics} width={width * .9} />
       </div>
       <div>
-        <ReviewList reviewList={reviewList} recommended={recommended} productId={productId}/>
+        <ReviewList reviewList={reviewList} recommended={recommended} productId={productId}
+        starFilter={starFilter}/>
       </div>
     </div>
   )
