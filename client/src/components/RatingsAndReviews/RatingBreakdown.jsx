@@ -1,7 +1,7 @@
 import StarRating from '../sharedComponents/StarRating.jsx';
 import RatingGraph from './RatingGraph.jsx';
 import React from 'react';
-const RatingBreakdown = ({ ratings, recommended, width,setStarFilter, starFilter }) => {
+const RatingBreakdown = ({ ratings, recommended, width, setStarFilter, starFilter }) => {
   if (ratings === undefined || recommended === undefined) { return <div>Error displaying Component</div> };
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
   const recommendPercentage = Number(recommended.true) / totalReviews;

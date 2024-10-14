@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
-const ReviewList = ({ reviewList = [], recommended, productId }) => {
+const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => {
   if (reviewList === undefined || recommended === undefined) { return <div>Error Loading Component</div> }
 
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
@@ -10,15 +10,17 @@ const ReviewList = ({ reviewList = [], recommended, productId }) => {
   const [rList, setRList] = useState([]);
   const [viewList, setViewList] = useState([]);
   const [page, setPage] = useState(1);
-  const countPerQuery = 2;
-
+  const countPerQuery =50;
+  console.log(starFilter);
+  console.log(viewList.map((review, i) =>review));
   const loadAllReviews = () => {
     const params = { params: { sort, product_id: productId, count: 200000 } }
     return axios
       .get('/reviews', params)
       .then(res => {
-        setRList(res.data.results)
-        setViewList(res.data.results.slice(0, countPerQuery));
+        const filteredList = res.data.results.filter(({ rating }) => starFilter[rating - 1]);
+        setRList(filteredList)
+        setViewList(filteredList.slice(0, countPerQuery));
       })
       .catch(err => console.log(err));
   };
@@ -36,7 +38,8 @@ const ReviewList = ({ reviewList = [], recommended, productId }) => {
     } else if (e.target.value === "newest") {
       sortBy = (a, b) => b.date - a.date;
     } else {
-      return loadAllReviews();
+      sortBy = (a, b) => b.date - a.date;
+      //return loadAllReviews();
 
     }
     const sortedList = rList.slice().sort(sortBy);
@@ -57,7 +60,7 @@ const ReviewList = ({ reviewList = [], recommended, productId }) => {
       </select>
     </div>
     <div>{
-      viewList.map((review, i) => <ReviewListEntry key={review + i} review={review} />)}
+      viewList.map((review, i) => <ReviewListEntry key={review.review_id } review={review} />)}
     </div>
     <button>ADD A REVIEW  +</button>
     {viewList.length < rList.length ? <button onClick={moreReviews}>MORE REVIEWS  +</button> : ''}
