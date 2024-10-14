@@ -8,7 +8,7 @@
   margin: 20px;
 }
 .star-breakdown:hover,.star-breakdown-selected{
-  background: lightgreen;
+  background: lightgrey;
 }
 .star-graph-empty,
 .star-graph-full {
@@ -20,7 +20,7 @@
 }
 
 .star-graph-empty {
-  background: lightgrey;
+  background: gray;
 
 }
 

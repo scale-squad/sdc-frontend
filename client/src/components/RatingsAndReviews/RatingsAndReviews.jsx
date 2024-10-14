@@ -15,7 +15,7 @@ const RatingsAndReviews = ({ productId }) => {
   let reviewList = sampleReview.results;
   //for handling scaling
   const [width, setWidth] = useState(window.innerWidth);
-  const [starFilter, setStarFilter] = useState(new Array(5).fill(true));
+  const [starFilter, setStarFilter] = useState([false,false,false,false,false]);
   const handleResize = () => setWidth(window.innerWidth);
   window.addEventListener('resize', handleResize);
 
