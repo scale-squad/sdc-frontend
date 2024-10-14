@@ -31,16 +31,26 @@
   height: 20px;
   font-size: medium;
 }
-
+.reviewer-recommendation-percent{
+  display:block;
+  /*width: 200px;*/
+  /*height: 50px;*/
+  margin-bottom: 50px;
+}
 .ratings-and-reviews-heading {
   font-size: x-large;
   margin-left: 10px;
 }
-
 .review-entry {
   width: 80%;
   margin: 10px;
   border-style: solid;
+}
+.review-entry-title{
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .review-entry-date {

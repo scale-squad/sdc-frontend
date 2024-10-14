@@ -1,6 +1,5 @@
 import React from 'react';
 const Slider = ({ segments, value, title, width }) => {
-  console.log(width)
   if (value === undefined) { return <div>Error Loading Slider</div> }
   else if (value < 1 || value > 5) return <div>Value out of Bounds</div>
   const spaceBetween = 5;
