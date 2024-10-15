@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./QuestionsAndAnswers.css";
 import SearchQuestion from "./SearchQuestion.jsx";
 import QuestionForm from "./QuestionForm.jsx";
@@ -57,15 +58,16 @@ const QuestionsAndAnswers = ({ productId }) => {
   );
 
   const handleMarkQuestionHelpful = (id) => {
+    console.log("hi"+ id)
     axios
-      .put(`/qa/answers/${id}/helpful`)
-      .then(() => fetchQA())
+      .put(`/qa/questions/${id}/helpful`)
+      .then(() =>fetchQA())
       .catch((e) => console.error(e));
   };
 
   const handleMarkAnsHelpful = (id) => {
     axios
-      .put(`/qa/questions/${id}/helpful`)
+      .put(`/qa/answers/${id}/helpful`)
       .then(() => fetchQA())
       .catch((e) => console.error(e));
   };
@@ -93,12 +95,14 @@ const QuestionsAndAnswers = ({ productId }) => {
       product_id: productId,
     };
 
-    axios.post(`/qa/questions`, questionBody)
+    axios
+      .post(`/qa/questions`, questionBody)
       .then(() => {
         fetchQA();
         setShowAddQuestionForm(false);
       })
-      .catch((e) => console.error(e));  };
+      .catch((e) => console.error(e));
+  };
 
   const handleAddAnswer = (e) => {
     e.preventDefault();
@@ -114,7 +118,8 @@ const QuestionsAndAnswers = ({ productId }) => {
         fetchQA();
         setCurrentQuestionId(null);
       })
-      .catch((e) => console.error(e));  };
+      .catch((e) => console.error(e));
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -146,9 +151,9 @@ const QuestionsAndAnswers = ({ productId }) => {
             const visibleCount = visibleAnswers[qa.question_id] || 2;
             return (
               <div className="qa-item" key={index}>
-                <div className="question">
-                  <h2>Q: {qa.question_body}</h2>
-                  <div className="question-actions">
+                <div className="question-actions">
+                  <h3>Q: {qa.question_body}</h3>
+                  <div>
                     <span>
                       Helpful?
                       <a
@@ -172,28 +177,60 @@ const QuestionsAndAnswers = ({ productId }) => {
                       Add Answer
                     </button>
                   </div>
-                     {answersArray.length > 2 && (
-                    <button
-                      onClick={() =>
-                        toggleAnswers(qa.question_id, answersArray.length)
-                      }
-                    >
-                      See more answers
-                    </button>
-                  )}
-
-{currentQuestionId === qa.question_id && (
-                    <AnswerForm
-                      productId={productId}
-                      currentQuestionId={currentQuestionId}
-                      handleAddAnswer={handleAddAnswer}
-                      handleAnswerChange={handleAnswerChange}
-                      ansData={ansData}
-                      setCurrentQuestionId={setCurrentQuestionId}
-                      questionData={questionData}
-                    />
-                  )}
                 </div>
+
+                {answersArray.slice(0, visibleCount).map((answer, idx) => (
+                  <div key={idx} className="answer">
+                    <p>A: {answer.body}</p>
+                    <div className="answer-info">
+                      <span>
+                        by
+                        {answer.answerer_name === "Seller" ? (
+                          <b>Seller</b>
+                        ) : (
+                          answer.answerer_name
+                        )}
+                        , {format(new Date(answer.date), "MM/dd/yyyy")}
+                      </span>
+                      <div className="actions">
+                        <span>
+                          Helpful?
+                          <a
+                            href="#"
+                            onClick={() => handleMarkAnsHelpful(answer.id)}
+                          >
+                            Yes ({answer.helpfulness})
+                          </a>
+                        </span>
+                        <a href="#" onClick={() => handleAnsReport(answer.id)}>
+                          Report
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {answersArray.length > 2 && (
+                  <button
+                    onClick={() =>
+                      toggleAnswers(qa.question_id, answersArray.length)
+                    }
+                  >
+                    See more answers
+                  </button>
+                )}
+
+                {currentQuestionId === qa.question_id && (
+                  <AnswerForm
+                    productId={productId}
+                    currentQuestionId={currentQuestionId}
+                    handleAddAnswer={handleAddAnswer}
+                    handleAnswerChange={handleAnswerChange}
+                    ansData={ansData}
+                    setCurrentQuestionId={setCurrentQuestionId}
+                    questionData={questionData}
+                  />
+                )}
               </div>
             );
           })
