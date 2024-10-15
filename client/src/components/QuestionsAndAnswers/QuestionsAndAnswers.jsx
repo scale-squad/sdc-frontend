@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { format } from "date-fns";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./QuestionsAndAnswers.css";
 import SearchQuestion from "./SearchQuestion.jsx";
 import QuestionForm from "./QuestionForm.jsx";
@@ -24,6 +23,10 @@ const QuestionsAndAnswers = ({ productId }) => {
     name: "",
     email: "",
   });
+  const [votedQA, setvotedQA] = useState({
+    questions: new Set(),
+    answers: new Set(),
+  });
 
   const params = {
     product_id: productId,
@@ -34,6 +37,15 @@ const QuestionsAndAnswers = ({ productId }) => {
   useEffect(() => {
     fetchQA();
   }, []);
+
+  const updateQA = (id, type) => {
+    setvotedQA((prev) => {
+      const newVotedQA = { ...prev };
+      type === 'questions' ? newVotedQA.questions.add(id) : newVotedQA.answers.add(id);
+      return newVotedQA;
+    });
+  };
+
 
   const fetchQA = () => {
     axios
@@ -58,17 +70,24 @@ const QuestionsAndAnswers = ({ productId }) => {
   );
 
   const handleMarkQuestionHelpful = (id) => {
-    console.log("hi"+ id)
+    if (votedQA.questions.has(id)) return;
     axios
       .put(`/qa/questions/${id}/helpful`)
-      .then(() =>fetchQA())
+      .then(() => {
+        updateQA(id, 'questions');
+        fetchQA();
+      })
       .catch((e) => console.error(e));
   };
 
   const handleMarkAnsHelpful = (id) => {
+    if (votedQA.answers.has(id)) return;
     axios
       .put(`/qa/answers/${id}/helpful`)
-      .then(() => fetchQA())
+      .then(() => {
+        updateQA(id, 'answers');
+        fetchQA();
+      })
       .catch((e) => console.error(e));
   };
 
@@ -161,19 +180,19 @@ const QuestionsAndAnswers = ({ productId }) => {
                         onClick={() =>
                           handleMarkQuestionHelpful(qa.question_id)
                         }
-                      >
+                        >
                         Yes ({qa.question_helpfulness})
                       </a>
                     </span>
                     <a
                       href="#"
                       onClick={() => handleQuestionReport(qa.question_id)}
-                    >
+                      >
                       Report
                     </a>
                     <button
                       onClick={() => setCurrentQuestionId(qa.question_id)}
-                    >
+                      >
                       Add Answer
                     </button>
                   </div>
