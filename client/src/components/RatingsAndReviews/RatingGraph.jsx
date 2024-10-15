@@ -13,13 +13,14 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
       .map((rating, i) => ratings[5 - i] || 0);
 
   const toggleSelectedStar = (starNumber) => {
-    let newStarFilter = starFilter.slice();
+    const newStarFilter = starFilter.slice();
     newStarFilter[starNumber - 1] = !newStarFilter[starNumber - 1];
+    setStarFilter([]);
     setStarFilter(newStarFilter);
   }
 
   const handleRemoveFilters = () => {
-    setStarFilter(null);
+    setStarFilter([false,false,false,false,false]);
   }
 
   return (<div>
@@ -52,7 +53,7 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
         </div>)
       })}
     {
-      starFilter ? starFilter.map((x, i) => starFilter && x ? <div>{i + 1} stars Filter enabled </div> : "") : ""
+      starFilter ? starFilter.map((x, i) => starFilter && x ? <div key ={i}>{i + 1} stars Filter enabled </div> : "") : ""
     }
     {
       starFilter.some(x=>x)?

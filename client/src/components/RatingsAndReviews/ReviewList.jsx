@@ -10,45 +10,43 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const [rList, setRList] = useState([]);
   const [viewList, setViewList] = useState([]);
   const [page, setPage] = useState(1);
-  const countPerQuery =50;
-  console.log(starFilter);
-  console.log(viewList.map((review, i) =>review));
+  const countPerQuery = 2;
   const loadAllReviews = () => {
     const params = { params: { sort, product_id: productId, count: 200000 } }
     return axios
       .get('/reviews', params)
       .then(res => {
-        const filteredList = res.data.results.filter(({ rating }) => starFilter[rating - 1]);
+        const filteredList = filterList(res.data.results);
         setRList(filteredList)
         setViewList(filteredList.slice(0, countPerQuery));
       })
       .catch(err => console.log(err));
   };
 
+  const filterList = (list) => {
+    let filteredList = list;
+    //check if filtering is disabled
+    if (!starFilter.every(x => !x)) {
+      filteredList = filteredList.filter(({ rating }) => starFilter[rating - 1]);
+    }
+    return filteredList;
+  };
+
   const moreReviews = (e) => {
     setViewList(rList.slice(0, countPerQuery * (page + 1)));
     setPage(page + 1);
   };
+
   const changeSort = (e) => {
-    setSort(e.target.value)
-
-    let sortBy = null;
-    if (e.target.value === "helpful") {
-      sortBy = (a, b) => b.helpfulness - a.helpfulness;
-    } else if (e.target.value === "newest") {
-      sortBy = (a, b) => b.date - a.date;
-    } else {
-      sortBy = (a, b) => b.date - a.date;
-      //return loadAllReviews();
-
-    }
-    const sortedList = rList.slice().sort(sortBy);
-    setViewList(sortedList.slice(0, countPerQuery * page));
+    const sortType = e.target.value;
+    setSort(sortType);
+    loadAllReviews(sortType)
+    setPage(1);
   };
 
   useEffect(() => {
     loadAllReviews();
-  }, []);
+  }, [starFilter,sort]);
 
   return (<div>
     <div>
@@ -60,7 +58,7 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
       </select>
     </div>
     <div>{
-      viewList.map((review, i) => <ReviewListEntry key={review.review_id } review={review} />)}
+      viewList.map((review, i) => <ReviewListEntry key={review.review_id} review={review} />)}
     </div>
     <button>ADD A REVIEW  +</button>
     {viewList.length < rList.length ? <button onClick={moreReviews}>MORE REVIEWS  +</button> : ''}
