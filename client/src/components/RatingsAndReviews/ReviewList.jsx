@@ -46,7 +46,7 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
 
   useEffect(() => {
     loadAllReviews();
-  }, [starFilter,sort]);
+  }, [starFilter, sort]);
 
   return (<div>
     <div>

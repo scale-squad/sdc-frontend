@@ -15,7 +15,7 @@ const RatingsAndReviews = ({ productId }) => {
   let reviewList = sampleReview.results;
   //for handling scaling
   const [width, setWidth] = useState(window.innerWidth);
-  const [starFilter, setStarFilter] = useState([false,false,false,false,false]);
+  const [starFilter, setStarFilter] = useState([false, false, false, false, false]);
   const handleResize = () => setWidth(window.innerWidth);
   window.addEventListener('resize', handleResize);
 
@@ -27,7 +27,7 @@ const RatingsAndReviews = ({ productId }) => {
       </div>
       <div>
         <ReviewList reviewList={reviewList} recommended={recommended} productId={productId}
-        starFilter={starFilter}/>
+          starFilter={starFilter} />
       </div>
     </div>
   )

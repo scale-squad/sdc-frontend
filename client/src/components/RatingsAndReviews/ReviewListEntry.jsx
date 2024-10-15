@@ -1,9 +1,9 @@
-
 import React from 'react';
-import StarRating from '../sharedComponents/StarRating.jsx'
+import axios from 'axios';
+import StarRating from '../sharedComponents/StarRating.jsx';
 const ReviewListEntry = ({ review }) => {
   if (review === undefined) { return <div>Error Loading  Component</div> }
-  const { summary, rating, body, date, photos, helpfulness, reviewer_name } = review;
+  const { summary, rating, body, date, photos, helpfulness, reviewer_name, response, recommend } = review;
   return (
     <div className="review-entry">
       <StarRating className="review-entry-stars" rating={rating} dimensions={15} />
@@ -15,6 +15,11 @@ const ReviewListEntry = ({ review }) => {
       </div>
       <div className="review-entry-text">
         {body}
+      </div>
+      {response ? <div className="review-response">Response from Seller: {response}</div> : ""}
+      <div>
+        {recommend ? <span>I recommend this product✔️</span> : ""}
+        <div className="reviewer-name">{reviewer_name}</div>
       </div>
       <div>
         <span>Helpful?          <a href="">Yes</a>

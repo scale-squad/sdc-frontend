@@ -20,7 +20,7 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
   }
 
   const handleRemoveFilters = () => {
-    setStarFilter([false,false,false,false,false]);
+    setStarFilter([false, false, false, false, false]);
   }
 
   return (<div>
@@ -53,10 +53,10 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
         </div>)
       })}
     {
-      starFilter ? starFilter.map((x, i) => starFilter && x ? <div key ={i}>{i + 1} stars Filter enabled </div> : "") : ""
+      starFilter ? starFilter.map((x, i) => starFilter && x ? <div key={i}>{i + 1} stars Filter enabled </div> : "") : ""
     }
     {
-      starFilter.some(x=>x)?
+      starFilter.some(x => x) ?
 
         <div > <a href="" onClick={handleRemoveFilters}>Remove Filters</a></div> : ""
     }
