@@ -10,7 +10,7 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const [rList, setRList] = useState([]);
   const [viewList, setViewList] = useState([]);
   const [page, setPage] = useState(1);
-  const countPerQuery = 2;
+  const countPerQuery = 20;
   const loadAllReviews = () => {
     const params = { params: { sort, product_id: productId, count: 200000 } }
     return axios
@@ -49,6 +49,7 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   }, [starFilter, sort]);
 
   return (<div>
+
     <div>
       <span>{totalReviews} reviews sorted by</span>
       <select onChange={changeSort} value={sort}>
