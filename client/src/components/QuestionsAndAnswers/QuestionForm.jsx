@@ -10,7 +10,7 @@ const QuestionForm = ({
 }) => {
 
   return (
-    <div className="add-question-form">
+    <div className="qa_form">
       <h2>Ask Your Question</h2>
       <form onSubmit={handleAddQuestion}>
         <textarea
