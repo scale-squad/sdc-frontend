@@ -10,9 +10,9 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const [rList, setRList] = useState([]);
   const [viewList, setViewList] = useState([]);
   const [page, setPage] = useState(1);
-  const countPerQuery = 20;
+  const countPerQuery = 2;
   const loadAllReviews = () => {
-    const params = { params: { sort, product_id: productId, count: 200000 } }
+    const params = { params: { sort, product_id: productId, count: 20 } }
     return axios
       .get('/reviews', params)
       .then(res => {

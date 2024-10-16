@@ -37,10 +37,7 @@ const ReviewListEntry = ({ review }) => {
       </div>
       {response ? <div className="review-response">Response from Seller: {response}</div> : ""}
       {
-        photos.map(({ url }) => {
-          return (
-          <ImageModal key={url} imageUrl={url} dimensions={50}/>)
-        })
+        photos.map(({ url }) => <ImageModal key={url} imageUrl={url} dimensions={50}/>)
       }
       <div>
         {recommend ? <span>I recommend this product✔️</span> : ""}
