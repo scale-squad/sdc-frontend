@@ -1,6 +1,6 @@
 
 import React from 'react';
-const ImageModal = ({ imageUrl, dimensions }) => {
+const ImageModal = ({ imageUrl, dimensions=50}) => {
   if (imageUrl === undefined) { return <div>N/A image</div> }
 
   const handleModalClose = () => {
@@ -34,6 +34,8 @@ const ImageModal = ({ imageUrl, dimensions }) => {
       modalDiv.setAttribute('id', 'modal-fullscreen');
       modalImage.setAttribute('id', 'modal-image');
       modalCloseButton.addEventListener('click',handleModalClose);
+      //Enable for anyclick turns off the modal
+      modalDiv.addEventListener('click',handleModalClose);
       modalDiv.append(modalCloseButton);
       modalDiv.append(modalImage);
       body.prepend(modalDiv);
@@ -42,11 +44,9 @@ const ImageModal = ({ imageUrl, dimensions }) => {
   createModalBackgroundIfNone();
   const style = {width:dimensions};
   return (
-    <span>
       <span className="modal-thumbnail">
         <img onClick={() => showModal(imageUrl)} src={imageUrl} alt="image thumbnail" style={style}></img>
       </span>
-    </span >
   )
 };
 
