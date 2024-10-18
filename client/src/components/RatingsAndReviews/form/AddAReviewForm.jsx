@@ -42,7 +42,7 @@ const AddAReviewForm = ({ productId }) => {
     const form = document.getElementById('add-review-form');
     if (form.checkValidity()) {
       const queryData = exportBody();
-      console.log(queryData);
+      //console.log(queryData);
       const queryParams = {params:{product_id:productId}}
       axios.post('/reviews',exportBody,queryParams)
       .then(res=>{
