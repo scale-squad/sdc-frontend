@@ -18,21 +18,21 @@ const AnswerEntry = ({ answer, handleMarkAnsHelpful, handleAnsReport, reportedQA
         <div className="actions">
           <span>
             Helpful?
-            <a className='link' onClick={() => handleMarkAnsHelpful(answer.id)}>
+            <a onClick={() => handleMarkAnsHelpful(answer.id)}>
               Yes ({answer.helpfulness})
             </a>
           </span>
-          {reportedQA.answers.has(answer.id) ? (
-            <p>Reported</p>
+          {reportedQA.answers.includes(answer.id) ? (
+            <span>Reported</span>
           ) : (
-            <a className='link' onClick={() => handleAnsReport(answer.id)}>Report</a>
+            <a onClick={() => handleAnsReport(answer.id)}>Report</a>
           )}
         </div>
       </div>
       {answer.photos && answer.photos.length > 0 && (
         <div className="answer-photos">
           {answer.photos.map((photo, index) => (
-            <img key={index} src={photo.url} alt={`Answer photo ${index + 1}`} />
+            <img key={index} src={photo} alt={`Answer photo ${index + 1}`} className="thumbnail" />
           ))}
         </div>
       )}

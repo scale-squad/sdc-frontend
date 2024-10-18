@@ -109,7 +109,6 @@ const QuestionsAndAnswers = ({ productId }) => {
       .put(`/qa/questions/${id}/helpful`)
       .then(() => {
         updateQA(id, "questions");
-        // fetchQA();
       })
       .catch((e) => console.error(e));
   };
@@ -120,7 +119,6 @@ const QuestionsAndAnswers = ({ productId }) => {
       .put(`/qa/answers/${id}/helpful`)
       .then(() => {
         updateQA(id, "answers");
-        // fetchQA();
       })
       .catch((e) => console.error(e));
   };
@@ -130,7 +128,6 @@ const QuestionsAndAnswers = ({ productId }) => {
       .put(`/qa/answers/${id}/report`)
       .then(() => {
         updateReportedQA(id, "answers");
-        // fetchQA();
       })
       .catch((e) => console.error(e));
   };
@@ -281,7 +278,7 @@ const QuestionsAndAnswers = ({ productId }) => {
 
                 {currentQuestionId === qa.question_id && (
                   <Modal
-                    isOpen={showAnswerForm}
+                    showModal={showAnswerForm}
                     onClose={() => setShowAnswerForm(false)}
                   >
                     <AnswerForm
@@ -315,13 +312,13 @@ const QuestionsAndAnswers = ({ productId }) => {
           className="add-question"
           onClick={() => setShowAddQuestionForm(true)}
         >
-          Add a Question
+          Question
         </button>
       </div>
 
       {showQuestionForm && (
         <Modal
-          isOpen={showQuestionForm}
+          showModal={showQuestionForm}
           onClose={() => setShowAddQuestionForm(false)}
         >
           <QuestionForm
