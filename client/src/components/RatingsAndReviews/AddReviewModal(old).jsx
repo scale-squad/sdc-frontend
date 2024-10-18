@@ -4,7 +4,7 @@ const AddReviewModal = ({ productId }) => {
   if (productId === undefined) { return <div>Error loading component</div> }
   const handleModalClose = () => {
     const modalBackground = document.getElementById('modal-fullscreen');
-    const modalImage = document.getElementById('modal-image');
+    const modalImage = document.getElementById('modal-form');
     const modalCloseButton = document.getElementById('modal-close-button');
     modalBackground.style.display = "";
     modalImage.style.display = "";
@@ -12,7 +12,7 @@ const AddReviewModal = ({ productId }) => {
   };
   const showModal = () => {
     const modalBackground = document.getElementById('modal-fullscreen');
-    const modalImage = document.getElementById('modal-image');
+    const modalImage = document.getElementById('modal-form');
     const modalCloseButton = document.getElementById('modal-close-button');
     modalBackground.style.display = "flex";
     modalImage.style.display = "flex";

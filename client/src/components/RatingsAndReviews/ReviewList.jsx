@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
+import AddAReviewForm from './form/AddAReviewForm.jsx';
 const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => {
   if (reviewList === undefined || recommended === undefined) { return <div>Error Loading Component</div> }
 
@@ -11,13 +12,14 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const [viewList, setViewList] = useState([]);
   const [page, setPage] = useState(1);
   const countPerQuery = 2;
+
   const loadAllReviews = () => {
-    const params = { params: { sort, product_id: productId, count: 20 } }
+    const params = { params: { sort, product_id: productId, count: 500 } }
     return axios
       .get('/reviews', params)
       .then(res => {
         const filteredList = filterList(res.data.results);
-        setRList(filteredList)
+        setRList(filteredList);
         setViewList(filteredList.slice(0, countPerQuery));
       })
       .catch(err => console.log(err));
@@ -40,7 +42,7 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const changeSort = (e) => {
     const sortType = e.target.value;
     setSort(sortType);
-    loadAllReviews(sortType)
+    loadAllReviews(sortType);
     setPage(1);
   };
 
@@ -61,8 +63,8 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
     <div>{
       viewList.map((review, i) => <ReviewListEntry key={review.review_id} review={review} />)}
     </div>
-    <button>ADD A REVIEW  +</button>
     {viewList.length < rList.length ? <button onClick={moreReviews}>MORE REVIEWS  +</button> : ''}
+    <AddAReviewForm productId={productId} />
   </div>
   )
 };
