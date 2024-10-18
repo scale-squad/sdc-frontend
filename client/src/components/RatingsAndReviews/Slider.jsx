@@ -11,7 +11,6 @@ const Slider = ({ segments, value, title, width }) => {
   const remainingWidth = width - spaceLength;
   const singleSegmentWidth = Math.floor(remainingWidth / segments.length);
   const tableStyle = { borderSpacing: spaceBetween, width: width };
-
   return (
     <div className="slider">
       <div className="slider-title">{title}</div>
@@ -21,12 +20,12 @@ const Slider = ({ segments, value, title, width }) => {
           <tr>
             {
               segments.map((seg, i) => <td key={seg + i + "val"} style={tableStyle} className="slider-segment" ></td>)
-
-            }</tr><tr>
+            }</tr>
+          <tr>
             {
-              width / segments.length > 70 ?
-                segments.map((seg, i) => <td key={seg + i + "label"} style={tableStyle} className="slider-label" >{seg}</td>)
-                : ""
+              segments.map((seg, i) => <td key={seg + i + "label"} style={tableStyle} className="slider-label" >
+                {width / segments.length > 70 ? seg : ""}
+              </td>)
             }
           </tr>
         </tbody>

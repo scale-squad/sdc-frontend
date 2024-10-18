@@ -3,56 +3,36 @@ import React, { useState, useEffect } from 'react';
 import FormComponent from './FormComponent.jsx';
 import axios from 'axios';
 const AddAReviewForm = ({ productId }) => {
-  let test = {
-    "product_id": 65631,
-    "summary": "recommendrecommendrecommend",
-    "body": "recommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommendrecommend",
-    //"rating": 4,
-    "recommend": "1",
-    "name": "recommend",
-    "email": "dagdgfsdgdsgdsfgsdgdg@aasdfsdaf.com",
-    "characteristics": {
-      "14": "1",
-      "15": "1",
-      "16": "1",
-      "17": "1",
-      "18": "1",
-      "19": "1"
-    },
-    "size": "1",
-    "width": "1",
-    "comfort": "1",
-    "quality": "1",
-    "length": "1",
-    "fit": "1"
-  };
 
-  //const [formData, setFormData] = useState({ ...test });
+  const [characteristicsID, setcharacteristicsID] = useState({});
   const [formData, setFormData] = useState({});
-  const [productName,setProductName] =useState("Name Has not loaded Yes");
-  useEffect(()=>{
-    //const query = {params:{product_id:productId}};
+  const [productName, setProductName] = useState("Name Has not loaded Yes");
+
+  useEffect(() => {
     axios
-    .get(`/products/${productId}`)
-    .then(res=>setProductName(res.data.name))
-    .catch(err=>console.log(err));
-  },[])
+      .get(`/products/${productId}`)
+      .then(res => setProductName(res.data.name))
+      .then(res => getCharacteristics())
+      .then(res => setcharacteristicsID(res))
+      .catch(err => console.log(err));
+
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = document.getElementById('add-review-form');
     if (form.checkValidity()) {
       const queryData = exportBody();
-      //console.log(queryData);
-      const queryParams = {params:{product_id:productId}}
-      axios.post('/reviews',exportBody,queryParams)
-      .then(res=>{
-        alert("thanks for your submission");
-        handleModalButtonClick();
-      })
-      .catch(err=>{
-        alert("error submitting data");
-        console.log(err)
-      });
+      axios.post('/reviews', queryData)
+        .then(res => {
+          alert("thanks for your submission");
+          handleModalClose();
+          setFormData({});
+        })
+        .catch(err => {
+          alert("error submitting data");
+          console.log(err)
+        });
     } else {
       form.reportValidity();
     }
@@ -63,20 +43,39 @@ const AddAReviewForm = ({ productId }) => {
     form.showModal();
   };
 
+  const getCharacteristics = () => {
+    let queryParams = { params: { product_id: productId } };
+    return axios
+      .get('/reviews/meta', queryParams).
+      then(res => res.data.characteristics)
+      .catch(err => console.log(err));
+  }
+
   const exportBody = () => {
-    const characteristics = {
-      14: formData.size, 15: formData.width,
-      16: formData.comfort, 17: formData.quality,
-      18: formData.length, 19: formData.fit
-    }
+    const charObjects = {};
+    if (characteristicsID.Size)
+      charObjects[characteristicsID.Size.id] = +formData.size;
+    if (characteristicsID.Length)
+      charObjects[characteristicsID.Length.id] = +formData.length;
+    if (characteristicsID.Fit)
+      charObjects[characteristicsID.Fit.id] = +formData.fit;
+    if (characteristicsID.Quality)
+      charObjects[characteristicsID.Quality.id] = +formData.quality;
+    if (characteristicsID.Width)
+      charObjects[characteristicsID.Width.id] = +formData.width;
+    if (characteristicsID.Comfort)
+      charObjects[characteristicsID.Comfort.id] = +formData.comfort;
+
     const { rating, summary, body, recommend, name, email } = formData;
     const exportedBody = {
-      product_id: productId,
-      rating, summary, body, recommend: recommend === '1', name, email, characteristics
+      product_id: Number(productId),
+      rating: Number(rating), summary, body, recommend: recommend === '1', name, email,
+      characteristics: charObjects
     }
     return exportedBody;
   };
-  const handleModalClose = ()=>{
+
+  const handleModalClose = () => {
     let form = document.getElementById('add-review-form-modal');
     form.close();
   }
@@ -129,7 +128,7 @@ const AddAReviewForm = ({ productId }) => {
   return (
     <span id="add-review-form-container">
       <dialog id="add-review-form-modal"><div><p>Write Your Review</p>
-      <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div>
+        <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div>
         <div className="form-group">
           <p>
             <span>About the {productName}</span>
