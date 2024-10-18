@@ -20,6 +20,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     body: "",
     name: "",
     email: "",
+    photos: [],
   });
   const [ansData, setNewAnswerData] = useState({
     body: "",
@@ -28,12 +29,12 @@ const QuestionsAndAnswers = ({ productId }) => {
     photos: [],
   });
   const [votedQA, setvotedQA] = useState({
-    questions: new Set(),
-    answers: new Set(),
+    questions: [],
+    answers: [],
   });
   const [reportedQA, setReportedQA] = useState({
-    questions: new Set(),
-    answers: new Set(),
+    questions: JSON.parse(localStorage.getItem('reportedQuestions')) || [],
+    answers: JSON.parse(localStorage.getItem('reportedAnswers')) || [],
   });
 
   const params = {
@@ -49,9 +50,15 @@ const QuestionsAndAnswers = ({ productId }) => {
   const updateQA = (id, type) => {
     setvotedQA((prev) => {
       const newVotedQA = { ...prev };
-      type === "questions"
-        ? newVotedQA.questions.add(id)
-        : newVotedQA.answers.add(id);
+      if (type === "questions") {
+        if (!newVotedQA.questions.includes(id)) {
+          newVotedQA.questions.push(id);
+        }
+      } else {
+        if (!newVotedQA.answers.includes(id)) {
+          newVotedQA.answers.push(id);
+        }
+      }
       return newVotedQA;
     });
   };
@@ -59,9 +66,17 @@ const QuestionsAndAnswers = ({ productId }) => {
   const updateReportedQA = (id, type) => {
     setReportedQA((prev) => {
       const newReportedQA = { ...prev };
-      type === "questions"
-        ? newReportedQA.questions.add(id)
-        : newReportedQA.answers.add(id);
+      if (type === "questions") {
+        if (!newReportedQA.questions.includes(id)) {
+          newReportedQA.questions.push(id);
+          localStorage.setItem('reportedQuestions', JSON.stringify(newReportedQA.questions));
+        }
+      } else {
+        if (!newReportedQA.answers.includes(id)) {
+          newReportedQA.answers.push(id);
+          localStorage.setItem('reportedAnswers', JSON.stringify(newReportedQA.answers));
+        }
+      }
       return newReportedQA;
     });
   };
@@ -89,23 +104,23 @@ const QuestionsAndAnswers = ({ productId }) => {
   );
 
   const handleMarkQuestionHelpful = (id) => {
-    if (votedQA.questions.has(id)) return;
+    if (votedQA.questions.includes(id)) return;
     axios
       .put(`/qa/questions/${id}/helpful`)
       .then(() => {
         updateQA(id, "questions");
-        fetchQA();
+        // fetchQA();
       })
       .catch((e) => console.error(e));
   };
 
   const handleMarkAnsHelpful = (id) => {
-    if (votedQA.answers.has(id)) return;
+    if (votedQA.answers.includes(id)) return;
     axios
       .put(`/qa/answers/${id}/helpful`)
       .then(() => {
         updateQA(id, "answers");
-        fetchQA();
+        // fetchQA();
       })
       .catch((e) => console.error(e));
   };
@@ -113,14 +128,20 @@ const QuestionsAndAnswers = ({ productId }) => {
   const handleAnsReport = (id) => {
     axios
       .put(`/qa/answers/${id}/report`)
-      .then(() => fetchQA())
+      .then(() => {
+        updateReportedQA(id, "answers");
+        // fetchQA();
+      })
       .catch((e) => console.error(e));
   };
 
   const handleQuestionReport = (id) => {
+    if (reportedQA.questions.includes(id)) return;
     axios
       .put(`/qa/questions/${id}/report`)
-      .then(() => fetchQA())
+      .then(() => {
+        updateReportedQA(id, "questions");
+      })
       .catch((e) => console.error(e));
   };
 
@@ -177,9 +198,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     }));
   };
 
-  const handleImageUpload = (e) => {
-
-  };
+  const handleImageUpload = (e) => {};
 
   return (
     <div className="qa-section">
@@ -200,16 +219,20 @@ const QuestionsAndAnswers = ({ productId }) => {
                   <div>
                     <span>
                       Helpful?
-                      <a
-                        className="link"
-                        onClick={() =>
-                          handleMarkQuestionHelpful(qa.question_id)
-                        }
-                      >
-                        Yes ({qa.question_helpfulness})
-                      </a>
+                      {votedQA.questions.includes(qa.question_id) ? (
+                        <p>Yes</p>
+                      ) : (
+                        <a
+                          className="link"
+                          onClick={() =>
+                            handleMarkQuestionHelpful(qa.question_id)
+                          }
+                        >
+                          Yes ({qa.question_helpfulness})
+                        </a>
+                      )}
                     </span>
-                    {reportedQA.questions.has(qa.question_id) ? (
+                    {reportedQA.questions.includes(qa.question_id) ? (
                       <span>Reported</span>
                     ) : (
                       <a
@@ -219,9 +242,11 @@ const QuestionsAndAnswers = ({ productId }) => {
                         Report
                       </a>
                     )}
+
                     <a
                       className="link"
                       onClick={() => {
+                        console.log("Add Answer clicked for question ID:", qa.question_id);
                         setCurrentQuestionId(qa.question_id);
                         setShowAnswerForm(true);
                       }}
