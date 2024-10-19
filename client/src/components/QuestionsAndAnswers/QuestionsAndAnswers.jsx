@@ -7,6 +7,7 @@ import QuestionForm from "./QuestionForm.jsx";
 import AnswerForm from "./AnswerForm.jsx";
 import AnswerEntry from "./AnswerEntry.jsx";
 import Modal from "./Modal.jsx";
+import QAActions from "./QAActions.jsx";
 
 const QuestionsAndAnswers = ({ productId }) => {
   const [qaList, setQuestionsAndAns] = useState([]);
@@ -211,50 +212,15 @@ const QuestionsAndAnswers = ({ productId }) => {
             const visibleCount = visibleAnswers[qa.question_id] || 2;
             return (
               <div className="qa-item" key={index}>
-                <div className="question-actions">
-                  <h3>Q: {qa.question_body}</h3>
-                  <div>
-                    <span>
-                      Helpful?
-                      {votedQA.questions.includes(qa.question_id) ? (
-                        <span>Yes ({qa.question_helpfulness})</span>
-                      ) : (
-                        <a
-                          className="link"
-                          onClick={() =>
-                            handleMarkQuestionHelpful(qa.question_id)
-                          }
-                        >
-                          Yes ({qa.question_helpfulness})
-                        </a>
-                      )}
-                    </span>
-                    {reportedQA.questions.includes(qa.question_id) ? (
-                      <span>Reported</span>
-                    ) : (
-                      <a
-                        className="link"
-                        onClick={() => handleQuestionReport(qa.question_id)}
-                      >
-                        Report
-                      </a>
-                    )}
-
-                    <a
-                      className="link"
-                      onClick={() => {
-                        console.log(
-                          "Add Answer clicked for question ID:",
-                          qa.question_id
-                        );
-                        setCurrentQuestionId(qa.question_id);
-                        setShowAnswerForm(true);
-                      }}
-                    >
-                      Add Answer
-                    </a>
-                  </div>
-                </div>
+                <QAActions
+                  qa={qa}
+                  votedQA={votedQA}
+                  reportedQA={reportedQA}
+                  handleMarkQuestionHelpful={handleMarkQuestionHelpful}
+                  handleQuestionReport={handleQuestionReport}
+                  setCurrentQuestionId={setCurrentQuestionId}
+                  setShowAnswerForm={setShowAnswerForm}
+                />
 
                 {answersArray.slice(0, visibleCount).map((answer, idx) => (
                   <AnswerEntry
