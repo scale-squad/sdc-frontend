@@ -60,8 +60,9 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
         <option value='helpful'>Helpfulness</option>
       </select>
     </div>
+
     <div>{
-      viewList.map((review, i) => <ReviewListEntry key={review.review_id} review={review} />)}
+      viewList.map((review, i) => <ReviewListEntry key={review.review_id} review={review} loadReviews={loadAllReviews} />)}
     </div>
     {viewList.length < rList.length ? <button onClick={moreReviews}>MORE REVIEWS  +</button> : ''}
     <AddAReviewForm productId={productId} />

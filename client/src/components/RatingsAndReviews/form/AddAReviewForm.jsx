@@ -8,6 +8,46 @@ const AddAReviewForm = ({ productId }) => {
   const [formData, setFormData] = useState({});
   const [productName, setProductName] = useState("Name Has not loaded Yes");
 
+  const handleModalClose = () => {
+    const modalBackground = document.getElementById('modal-fullscreen');
+    const modalForm = document.getElementById('add-review-form-modal');
+    const modalCloseButton = document.getElementById('add-review-form-modal-close-button');
+    modalBackground.style.display = "";
+    modalForm.style.display = "";
+    modalCloseButton.style.display = "";
+  };
+
+  const handleModalButtonClick = (img) => {
+    const modalBackground = document.getElementById('modal-fullscreen');
+    const modalForm = document.getElementById('add-review-form-modal');
+    const modalCloseButton = document.getElementById('add-review-form-modal-close-button');
+    modalBackground.innerHTML = ``;
+    modalBackground.prepend(modalForm);
+    modalForm.style.display = 'flex';
+    modalBackground.style.display = "flex";
+    modalCloseButton.style.display = "flex";
+  }
+
+  const createModalBackgroundIfNone = () => {
+    const modalBackground = document.getElementById('modal-fullscreen');
+    if (!modalBackground) {
+      const body = document.body;
+      let modalDiv = document.createElement('div');
+      let modalCloseButton = document.createElement('div');
+      let modalContents = document.createElement('div');
+      modalCloseButton.setAttribute('id', 'add-review-form-modal-close-button');
+      modalCloseButton.append('𝕩');
+      modalDiv.setAttribute('id', 'modal-fullscreen');
+      modalContents.setAttribute('id', 'modal-contents');
+      modalCloseButton.addEventListener('click', handleModalClose);
+      modalDiv.append(modalCloseButton);
+      modalDiv.append(modalContents);
+      body.prepend(modalDiv);
+    }
+  }
+  createModalBackgroundIfNone();
+
+
   useEffect(() => {
     axios
       .get(`/products/${productId}`)
@@ -38,18 +78,13 @@ const AddAReviewForm = ({ productId }) => {
     }
   };
 
-  const handleModalButtonClick = () => {
-    const form = document.getElementById('add-review-form-modal');
-    form.showModal();
-  };
-
   const getCharacteristics = () => {
     let queryParams = { params: { product_id: productId } };
     return axios
       .get('/reviews/meta', queryParams).
       then(res => res.data.characteristics)
       .catch(err => console.log(err));
-  }
+  };
 
   const exportBody = () => {
     const charObjects = {};
@@ -67,18 +102,15 @@ const AddAReviewForm = ({ productId }) => {
       charObjects[characteristicsID.Comfort.id] = +formData.comfort;
 
     const { rating, summary, body, recommend, name, email } = formData;
+    const photos = formData.photos || [];
     const exportedBody = {
       product_id: Number(productId),
       rating: Number(rating), summary, body, recommend: recommend === '1', name, email,
-      characteristics: charObjects
+      photos, characteristics: charObjects
     }
     return exportedBody;
   };
 
-  const handleModalClose = () => {
-    let form = document.getElementById('add-review-form-modal');
-    form.close();
-  }
   //FORM FIELDS/////////////////////////////////////////////////////////////////////////////////////
   const rating = {
     'type': 'star-selection', required: true, title: 'Rating', value: 'rating'
@@ -118,6 +150,9 @@ const AddAReviewForm = ({ productId }) => {
   const body = {
     type: 'text-area', required: true, title: 'Review-Body', value: 'body', maxLength: 1000, minLength: 50
   };
+  const photos = {
+    type: 'imageUpload', title: 'Photos to include', value: 'photos'
+  };
   const name = {
     type: 'text-input', required: true, title: 'Display Name', value: 'name', placeholder: 'Example: jackson11!', maxLength: 60
   };
@@ -125,9 +160,11 @@ const AddAReviewForm = ({ productId }) => {
     type: 'email', required: true, title: 'Email', value: 'email', placeholder: 'Example: jackson11@email.com', maxLength: 60
   };
 
+  const noDisplayStyle = { 'display': 'none', 'backgroundColor': 'white', 'overflow': 'auto' };
+
   return (
-    <span id="add-review-form-container">
-      <dialog id="add-review-form-modal"><div><p>Write Your Review</p>
+    <span id="add-review-form-container" >
+      <div id="add-review-form-modal" style={noDisplayStyle}><div><p>Write Your Review</p>
         <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div>
         <div className="form-group">
           <p>
@@ -145,6 +182,7 @@ const AddAReviewForm = ({ productId }) => {
           <FormComponent formItem={fit} formData={formData} setFormData={setFormData} />
           <FormComponent formItem={summary} formData={formData} setFormData={setFormData} />
           <FormComponent formItem={body} formData={formData} setFormData={setFormData} />
+          <FormComponent formItem={photos} formData={formData} setFormData={setFormData} />
           <FormComponent formItem={name} formData={formData} setFormData={setFormData} />
           <div >For privacy reasons, do not use your full name or email address</div>
           <FormComponent formItem={email} formData={formData} setFormData={setFormData} />
@@ -152,7 +190,7 @@ const AddAReviewForm = ({ productId }) => {
           <button type='submit' onClick={handleSubmit}>Submit review</button>
         </form >
       </div >
-      </dialog>
+      </div>
       <span>
         <button onClick={handleModalButtonClick}>ADD A REVIEW  +</button>
       </span>

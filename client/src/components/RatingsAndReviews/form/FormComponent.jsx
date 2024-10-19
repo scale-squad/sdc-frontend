@@ -1,6 +1,7 @@
 
 import React from 'react';
 import StarSelection from './StarSelection.jsx';
+import UploadImage from './UploadImage.jsx';
 const FormComponent = ({ formItem, formData, setFormData }) => {
   if (formItem === undefined) { return <div>Error loading component</div> }
   if (formData === undefined) { return <div>Error loading formData</div> }
@@ -20,12 +21,11 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
   const handleChange = (e) => {
     const newFormData = { ...formData };
     newFormData[value] = e.target.value;
-    //console.log(e.target.value);
     setFormData(newFormData);
-    //console.log(newFormData);
-  }
+  };
+
   if (formItem.type === 'star-selection') {
-    const starStyle = {'opacity':'0'}//{ 'display': 'none' };
+    const starStyle = { 'opacity': '0' }//{ 'display': 'none' };
     const ratingText = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
     return (
       <div className="form-group" >
@@ -41,12 +41,22 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
           <span>
             {
               ratingText[(formData[value] - 1)]
-          }
+            }
           </span>
         </div>
       </div>
     )
-  } else if (formItem.type === 'radio-group') {
+  } else if (formItem.type === 'imageUpload') {
+    formData[value] = formData[value] || [];
+    const updateFormData = (list) => {
+      const newFormData = {...formData};
+      newFormData[value] = [...list];
+      setFormData(newFormData);
+    }
+
+    return <UploadImage imageList={formData[value]} setImageList={updateFormData} />
+  }
+  else if (formItem.type === 'radio-group') {
     let { groups } = formItem;
     return (
       <div className="form-group" >
