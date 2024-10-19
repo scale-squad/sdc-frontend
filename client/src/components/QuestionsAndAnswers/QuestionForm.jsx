@@ -24,7 +24,7 @@ const QuestionForm = ({
           name="name"
           value={questionData.name}
           onChange={handleInputChange}
-          placeholder="Your name"
+          placeholder="Example: jackson11!"
           required
         />
         <input
@@ -32,9 +32,12 @@ const QuestionForm = ({
           name="email"
           value={questionData.email}
           onChange={handleInputChange}
-          placeholder="Your email"
+          placeholder="Why did you like or not?"
           required
         />
+          <span >
+          For authentication reasons, you will not be emailed
+        </span>
         <button type="submit">Submit</button>
         <button type="button" onClick={() => setShowAddQuestionForm(false)}>
           Cancel
