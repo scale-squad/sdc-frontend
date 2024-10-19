@@ -9,18 +9,19 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
   const full = "../../icons/star-full.svg";
   const empty = "../../icons/star-empty.svg";
 
-  let { title } = formItem;
-  let required = formItem.required || false;
-  let placeholder = formItem.placeholder || '';
-  let maxLength = formItem.maxLength || Number.MAX_SAFE_INTEGER;
-  let minLength = formItem.minLength || 0;
+  const { title } = formItem;
+  const required = formItem.required || false;
+  const placeholder = formItem.placeholder || '';
+  const maxLength = formItem.maxLength || Number.MAX_SAFE_INTEGER;
+  const minLength = formItem.minLength || 0;
 
-  let value = formItem['value'] || title.toLowerCase();
+  const value = formItem['value'] || title.toLowerCase();
   formData[value] = formData[value] || "";
 
   const handleChange = (e) => {
     const newFormData = { ...formData };
     newFormData[value] = e.target.value;
+    localStorage.setItem(`Ratings_and_reviews_form_${value}`, e.target.value);
     setFormData(newFormData);
   };
 
@@ -49,12 +50,12 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
   } else if (formItem.type === 'imageUpload') {
     formData[value] = formData[value] || [];
     const updateFormData = (list) => {
-      const newFormData = {...formData};
+      const newFormData = { ...formData };
       newFormData[value] = [...list];
       setFormData(newFormData);
     }
 
-    return <UploadImage imageList={formData[value]} setImageList={updateFormData} />
+    return <UploadImage formData={formData} setFormData={setFormData} imageList={formData[value]} setImageList={updateFormData} />
   }
   else if (formItem.type === 'radio-group') {
     let { groups } = formItem;

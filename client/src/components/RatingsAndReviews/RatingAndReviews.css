@@ -139,6 +139,7 @@
 }
 
 .review-entry-text {
+  overflow-wrap: break-word;
   margin: 5px;
   margin-bottom: 10px;
 }
@@ -152,6 +153,14 @@
   vertical-align: top;
 
 }
+
+.mark-btn a,
+b,
+span {
+  padding-left: 5px;
+  /* padding-right: 11px; */
+}
+
 
 #add-review-form-modal-close-button {
   color: white;
@@ -201,7 +210,8 @@
   padding: auto;
   justify-content: center;
 }
-#Review-Body{
+
+#Review-Body {
   width: 250px;
   height: 200px;
 }
@@ -210,8 +220,4 @@
   margin: auto;
   padding: auto;
   margin: 20px;
-}
-
-.cloudinary-navbar{
-  background-color: aqua;
 }

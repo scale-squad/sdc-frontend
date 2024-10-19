@@ -2,53 +2,38 @@
 import React, { useState, useEffect } from 'react';
 import FormComponent from './FormComponent.jsx';
 import axios from 'axios';
+import Modal from './Modal.jsx'
 const AddAReviewForm = ({ productId }) => {
 
   const [characteristicsID, setcharacteristicsID] = useState({});
   const [formData, setFormData] = useState({});
   const [productName, setProductName] = useState("Name Has not loaded Yes");
-
-  const handleModalClose = () => {
-    const modalBackground = document.getElementById('modal-fullscreen');
-    const modalForm = document.getElementById('add-review-form-modal');
-    const modalCloseButton = document.getElementById('add-review-form-modal-close-button');
-    modalBackground.style.display = "";
-    modalForm.style.display = "";
-    modalCloseButton.style.display = "";
-  };
-
-  const handleModalButtonClick = (img) => {
-    const modalBackground = document.getElementById('modal-fullscreen');
-    const modalForm = document.getElementById('add-review-form-modal');
-    const modalCloseButton = document.getElementById('add-review-form-modal-close-button');
-    modalBackground.innerHTML = ``;
-    modalBackground.prepend(modalForm);
-    modalForm.style.display = 'flex';
-    modalBackground.style.display = "flex";
-    modalCloseButton.style.display = "flex";
-  }
-
-  const createModalBackgroundIfNone = () => {
-    const modalBackground = document.getElementById('modal-fullscreen');
-    if (!modalBackground) {
-      const body = document.body;
-      let modalDiv = document.createElement('div');
-      let modalCloseButton = document.createElement('div');
-      let modalContents = document.createElement('div');
-      modalCloseButton.setAttribute('id', 'add-review-form-modal-close-button');
-      modalCloseButton.append('𝕩');
-      modalDiv.setAttribute('id', 'modal-fullscreen');
-      modalContents.setAttribute('id', 'modal-contents');
-      modalCloseButton.addEventListener('click', handleModalClose);
-      modalDiv.append(modalCloseButton);
-      modalDiv.append(modalContents);
-      body.prepend(modalDiv);
-    }
-  }
-  createModalBackgroundIfNone();
-
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
+
+    const saved = {
+      "review_id": localStorage.getItem(`Ratings_and_reviews_form_review_id`),
+      "rating": localStorage.getItem(`Ratings_and_reviews_form_rating`),
+      "summary": localStorage.getItem(`Ratings_and_reviews_form_summary`),
+      "recommend": localStorage.getItem(`Ratings_and_reviews_form_recommend`),
+      "response": localStorage.getItem(`Ratings_and_reviews_form_response`),
+      "body": localStorage.getItem(`Ratings_and_reviews_form_body`),
+      "date": localStorage.getItem(`Ratings_and_reviews_form_date`),
+      "reviewer_name": localStorage.getItem(`Ratings_and_reviews_form_reviewer_name`),
+      "helpfulness": localStorage.getItem(`Ratings_and_reviews_form_helpfulness`),
+      "name": localStorage.getItem(`Ratings_and_reviews_form_name`),
+      "size": localStorage.getItem(`Ratings_and_reviews_form_size`),
+      "fit": localStorage.getItem(`Ratings_and_reviews_form_fit`),
+      "length": localStorage.getItem(`Ratings_and_reviews_form_length`),
+      "quality": localStorage.getItem(`Ratings_and_reviews_form_quality`),
+      "width": localStorage.getItem(`Ratings_and_reviews_form_width`),
+      "comfort": localStorage.getItem(`Ratings_and_reviews_form_comfort`),
+      "email": localStorage.getItem(`Ratings_and_reviews_form_email`),
+      "photos": JSON.parse(localStorage.getItem('Ratings_and_reviews_form_photos')) || []
+    }
+    //console.log(saved);
+    setFormData(saved);
     axios
       .get(`/products/${productId}`)
       .then(res => setProductName(res.data.name))
@@ -66,7 +51,9 @@ const AddAReviewForm = ({ productId }) => {
       axios.post('/reviews', queryData)
         .then(res => {
           alert("thanks for your submission");
-          handleModalClose();
+          //handleModalClose();
+          setShowForm(false);
+          localStorage.clear();
           setFormData({});
         })
         .catch(err => {
@@ -160,39 +147,43 @@ const AddAReviewForm = ({ productId }) => {
     type: 'email', required: true, title: 'Email', value: 'email', placeholder: 'Example: jackson11@email.com', maxLength: 60
   };
 
-  const noDisplayStyle = { 'display': 'none', 'backgroundColor': 'white', 'overflow': 'auto' };
-
+  //const noDisplayStyle = { 'display': 'none', 'backgroundColor': 'white', 'overflow': 'auto' };
+  //style={noDisplayStyle}
   return (
     <span id="add-review-form-container" >
-      <div id="add-review-form-modal" style={noDisplayStyle}><div><p>Write Your Review</p>
-        <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div>
-        <div className="form-group">
-          <p>
-            <span>About the {productName}</span>
-          </p>
+      <Modal showModal={showForm} onClose={() => setShowForm(false)}>
+        <div id="add-review-form-modal" ><div><p>Write Your Review</p>
+          {/* <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div> */}
+          <div className="form-group">
+            <p>
+              <span>About the {productName}</span>
+            </p>
+          </div>
+          <form id="add-review-form">
+            <FormComponent formItem={rating} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={recommend} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={size} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={width} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={comfort} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={quality} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={length} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={fit} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={summary} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={body} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={photos} formData={formData} setFormData={setFormData} />
+            <FormComponent formItem={name} formData={formData} setFormData={setFormData} />
+            <div >For privacy reasons, do not use your full name or email address</div>
+            <FormComponent formItem={email} formData={formData} setFormData={setFormData} />
+            <div>For authentication reasons, you will not be emailed</div>
+            <button type='submit' onClick={handleSubmit}>Submit review</button>
+          </form >
+        </div >
         </div>
-        <form id="add-review-form">
-          <FormComponent formItem={rating} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={recommend} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={size} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={width} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={comfort} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={quality} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={length} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={fit} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={summary} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={body} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={photos} formData={formData} setFormData={setFormData} />
-          <FormComponent formItem={name} formData={formData} setFormData={setFormData} />
-          <div >For privacy reasons, do not use your full name or email address</div>
-          <FormComponent formItem={email} formData={formData} setFormData={setFormData} />
-          <div>For authentication reasons, you will not be emailed</div>
-          <button type='submit' onClick={handleSubmit}>Submit review</button>
-        </form >
-      </div >
-      </div>
+
+
+      </Modal>
       <span>
-        <button onClick={handleModalButtonClick}>ADD A REVIEW  +</button>
+        <button onClick={() => setShowForm(true)}>ADD A REVIEW  +</button>
       </span>
     </span>
   )

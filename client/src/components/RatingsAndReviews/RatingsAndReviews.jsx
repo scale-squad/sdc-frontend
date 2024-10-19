@@ -20,7 +20,7 @@ const RatingsAndReviews = ({ productId }) => {
   window.addEventListener('resize', handleResize);
 
   return (
-    <div className="ratings-and-review-container">
+    <div id="test" className="ratings-and-review-container">
       <div>
         <RatingBreakdown ratings={ratings} recommended={recommended} width={width} setStarFilter={setStarFilter} starFilter={starFilter} />
         <SizeComfort characteristics={characteristics} width={width * .9} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from './Slider.jsx';
-const SizeComfort = ({ characteristics, width=270 }) => {
-  if(!characteristics) return (<div>Error Loading Component</div>)
+const SizeComfort = ({ characteristics, width = 270 }) => {
+  if (!characteristics) return (<div>Error Loading Component</div>)
   const { Comfort, Fit, Length, Quality, Size } = characteristics;
   const WidthValue = characteristics.width;
 

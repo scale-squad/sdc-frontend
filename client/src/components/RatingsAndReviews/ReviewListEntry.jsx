@@ -18,7 +18,7 @@ const ReviewListEntry = ({ review, loadReviews }) => {
         const key = `FECreview_helpful_${review.review_id}`;
         localStorage.setItem(key, true);
         setHelpful(true);
-        setHelpfulCount(helpfullCount+1);
+        setHelpfulCount(helpfullCount + 1);
       })
       .catch(err => console.log(err))
   }
@@ -71,13 +71,14 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       </div>
       <div>
 
-        <span>Helpful?           {
+        <span className="mark-btn">Helpful?           {
           helpful ?
-            <b>Yes</b> :
+            <b >Yes</b> :
             <a href="#" onClick={handleHelpful}>Yes</a>
         }
-          <span >{helpfullCount}</span>
-        </span>|
+          <span>{helpfullCount}</span>
+        </span>
+        <span>|</span>
         <span>
           {
             report ?
