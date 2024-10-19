@@ -99,7 +99,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .get(`/qa/questions/`, { params })
       .then((res) => setQuestionsAndAns(res.data.results))
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const toggleAnswers = (questionId, totalAnswers) => {
@@ -122,7 +122,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .put(`/qa/questions/${id}/helpful`)
       .then(() => updateQA(id, "questions"))
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleMarkAnsHelpful = (id) => {
@@ -130,14 +130,14 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .put(`/qa/answers/${id}/helpful`)
       .then(() => updateQA(id, "answers"))
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleAnsReport = (id) => {
     axios
       .put(`/qa/answers/${id}/report`)
       .then(() => updateReportedQA(id, "answers"))
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleQuestionReport = (id) => {
@@ -145,7 +145,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .put(`/qa/questions/${id}/report`)
       .then(() => updateReportedQA(id, "questions"))
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleAddQuestion = (e) => {
@@ -161,7 +161,7 @@ const QuestionsAndAnswers = ({ productId }) => {
         fetchQA();
         setShowAddQuestionForm(false);
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleAddAnswer = (e) => {
@@ -177,7 +177,7 @@ const QuestionsAndAnswers = ({ productId }) => {
         setCurrentQuestionId(null);
         setShowAnswerForm(false);
       })
-      .catch((e) => console.error(e));
+      .catch(e => console.error(e));
   };
 
   const handleInputChange = (e) => {

@@ -27,7 +27,7 @@ const QAActions = ({
           )}
         </span>
         {reportedQA.questions.includes(qa.question_id) ? (
-          <span>Reported</span>
+          <span>Reported </span>
         ) : (
           <a
             className="link"
