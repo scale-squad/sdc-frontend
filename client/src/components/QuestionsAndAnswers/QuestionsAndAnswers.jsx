@@ -29,14 +29,13 @@ const QuestionsAndAnswers = ({ productId }) => {
     photos: [],
   });
   const [votedQA, setvotedQA] = useState({
-    questions: [],
-    answers: [],
+    questions: JSON.parse(localStorage.getItem("votedQuestions")),
+    answers: JSON.parse(localStorage.getItem("votedAnswers")),
   });
   const [reportedQA, setReportedQA] = useState({
-    questions: JSON.parse(localStorage.getItem('reportedQuestions')) || [],
-    answers: JSON.parse(localStorage.getItem('reportedAnswers')) || [],
+    questions: JSON.parse(localStorage.getItem("reportedQuestions")),
+    answers: JSON.parse(localStorage.getItem("reportedAnswers")),
   });
-
   const params = {
     product_id: productId,
     page: 1,
@@ -53,10 +52,18 @@ const QuestionsAndAnswers = ({ productId }) => {
       if (type === "questions") {
         if (!newVotedQA.questions.includes(id)) {
           newVotedQA.questions.push(id);
+          localStorage.setItem(
+            "votedQuestions",
+            JSON.stringify(newVotedQA.questions)
+          );
         }
       } else {
         if (!newVotedQA.answers.includes(id)) {
           newVotedQA.answers.push(id);
+          localStorage.setItem(
+            "votedAnswers",
+            JSON.stringify(newVotedQA.answers)
+          );
         }
       }
       return newVotedQA;
@@ -69,12 +76,18 @@ const QuestionsAndAnswers = ({ productId }) => {
       if (type === "questions") {
         if (!newReportedQA.questions.includes(id)) {
           newReportedQA.questions.push(id);
-          localStorage.setItem('reportedQuestions', JSON.stringify(newReportedQA.questions));
+          localStorage.setItem(
+            "reportedQuestions",
+            JSON.stringify(newReportedQA.questions)
+          );
         }
       } else {
         if (!newReportedQA.answers.includes(id)) {
           newReportedQA.answers.push(id);
-          localStorage.setItem('reportedAnswers', JSON.stringify(newReportedQA.answers));
+          localStorage.setItem(
+            "reportedAnswers",
+            JSON.stringify(newReportedQA.answers)
+          );
         }
       }
       return newReportedQA;
@@ -107,9 +120,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     if (votedQA.questions.includes(id)) return;
     axios
       .put(`/qa/questions/${id}/helpful`)
-      .then(() => {
-        updateQA(id, "questions");
-      })
+      .then(() => updateQA(id, "questions"))
       .catch((e) => console.error(e));
   };
 
@@ -117,18 +128,14 @@ const QuestionsAndAnswers = ({ productId }) => {
     if (votedQA.answers.includes(id)) return;
     axios
       .put(`/qa/answers/${id}/helpful`)
-      .then(() => {
-        updateQA(id, "answers");
-      })
+      .then(() => updateQA(id, "answers"))
       .catch((e) => console.error(e));
   };
 
   const handleAnsReport = (id) => {
     axios
       .put(`/qa/answers/${id}/report`)
-      .then(() => {
-        updateReportedQA(id, "answers");
-      })
+      .then(() => updateReportedQA(id, "answers"))
       .catch((e) => console.error(e));
   };
 
@@ -136,18 +143,14 @@ const QuestionsAndAnswers = ({ productId }) => {
     if (reportedQA.questions.includes(id)) return;
     axios
       .put(`/qa/questions/${id}/report`)
-      .then(() => {
-        updateReportedQA(id, "questions");
-      })
+      .then(() => updateReportedQA(id, "questions"))
       .catch((e) => console.error(e));
   };
 
   const handleAddQuestion = (e) => {
     e.preventDefault();
     const questionBody = {
-      body: questionData.body,
-      name: questionData.name,
-      email: questionData.email,
+      ...questionData,
       product_id: productId,
     };
 
@@ -163,10 +166,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   const handleAddAnswer = (e) => {
     e.preventDefault();
     const ansBody = {
-      body: ansData.body,
-      name: ansData.name,
-      email: ansData.email,
-      photos: ansData.photos,
+      ...ansData,
       product_id: productId,
     };
     axios
@@ -217,7 +217,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                     <span>
                       Helpful?
                       {votedQA.questions.includes(qa.question_id) ? (
-                        <p>Yes</p>
+                        <span>Yes ({qa.question_helpfulness})</span>
                       ) : (
                         <a
                           className="link"
@@ -243,7 +243,10 @@ const QuestionsAndAnswers = ({ productId }) => {
                     <a
                       className="link"
                       onClick={() => {
-                        console.log("Add Answer clicked for question ID:", qa.question_id);
+                        console.log(
+                          "Add Answer clicked for question ID:",
+                          qa.question_id
+                        );
                         setCurrentQuestionId(qa.question_id);
                         setShowAnswerForm(true);
                       }}
@@ -260,6 +263,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                     handleMarkAnsHelpful={handleMarkAnsHelpful}
                     handleAnsReport={handleAnsReport}
                     reportedQA={reportedQA}
+                    votedQA={votedQA}
                   />
                 ))}
 
