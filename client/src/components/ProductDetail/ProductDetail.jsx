@@ -6,6 +6,7 @@ import ProductGallery from './ProductGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import StarRating from '../sharedComponents/StarRating.jsx'
+import './ProductDetail.css'
 
 const ProductDetail = ({ productId, styleId, setStyleId }) => {
   if (productId === undefined) { return <div>Error loading product id</div> }
