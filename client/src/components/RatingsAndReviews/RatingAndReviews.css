@@ -108,7 +108,7 @@
 }
 
 .review-entry {
-  width: 80%;
+  width: 93%;
   margin: 10px;
   border-style: solid;
 }
@@ -182,7 +182,9 @@ span {
 
 
 .ratings-and-review-container {
-  grid-template-columns: 32% 64%;
+  margin: auto;
+  justify-content: center;
+  grid-template-columns: 35% 40%;
   display: grid;
 }
 
