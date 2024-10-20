@@ -30,12 +30,12 @@ const QuestionsAndAnswers = ({ productId }) => {
     photos: [],
   });
   const [votedQA, setvotedQA] = useState({
-    questions: JSON.parse(localStorage.getItem("votedQuestions")),
-    answers: JSON.parse(localStorage.getItem("votedAnswers")),
+    questions: JSON.parse(localStorage.getItem("votedQuestions")) || [],
+    answers: JSON.parse(localStorage.getItem("votedAnswers")) || [],
   });
   const [reportedQA, setReportedQA] = useState({
-    questions: JSON.parse(localStorage.getItem("reportedQuestions")),
-    answers: JSON.parse(localStorage.getItem("reportedAnswers")),
+    questions: JSON.parse(localStorage.getItem("reportedQuestions")) || [],
+    answers: JSON.parse(localStorage.getItem("reportedAnswers")) || [],
   });
   const params = {
     product_id: productId,
