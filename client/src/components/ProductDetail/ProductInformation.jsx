@@ -35,7 +35,7 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
 
   return (
     <div>
-      <StarRating ratingList={reviews}/>
+      <StarRating ratingList={reviews} dimensions={40}/>
       <h4>{product?.category.toUpperCase()}</h4>
       <h1>{product?.name}</h1>
       <h4>{calcPrice()}</h4>
