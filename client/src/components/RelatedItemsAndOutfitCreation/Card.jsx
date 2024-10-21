@@ -23,16 +23,16 @@ const Card = ({ item, type, setProductId }) => {
             </div>
           </div> :
           <div className="related-card-corner-star">
-            <div className='right-corner-star'>
-              <button>
-                X
-              </button>
-            </div>
             <div className='card-preview-image'>
               <img src={
                 thumbnail_url ||
                 "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               } className="thumbnail-style" alt="Card Image" />
+            <div className='right-corner-star'>
+              <button>
+                X
+              </button>
+            </div>
             </div>
           </div>
       }</div>
