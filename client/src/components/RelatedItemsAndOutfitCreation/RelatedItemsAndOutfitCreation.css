@@ -1,0 +1,31 @@
+.original-pricestrike-out{
+  text-decoration: line-through;
+}
+.sale-price{
+  color:red;
+}
+
+
+.card-preview-image {
+  position:relative;
+}
+
+.thumbnail-style{
+  object-fit:inherit;
+  width: 250px;
+  height: 250px;
+  margin:7px
+}
+.right-corner-star {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+}
+/* .card-preview-image{
+  min-height: 600px;
+} */
+.related-carousel{
+  display: inline-flex;
+  height: 600px;
+  /* max */
+}
