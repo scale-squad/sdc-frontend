@@ -10,13 +10,13 @@ body {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  font-size: 24px;
+.qa-section h1 {
+  font-size: 23px;
+  color: #353535;
   margin-bottom: 20px;
-  text-align: center;
+  font-weight: bold;
 }
 
 .search-bar {
@@ -33,6 +33,7 @@ h1 {
   border: none;
   font-size: 16px;
   border-radius: 5px 0 0 5px;
+  font-weight:bold
 }
 
 .search-bar button {
@@ -53,20 +54,20 @@ h1 {
   overflow: visible;
 }
 
-.qa-item {
+.answer-group {
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
   padding-right: 10px;
 }
 
-.qa-item::-webkit-scrollbar {
+.answer-group::-webkit-scrollbar {
   width: 8px;
 }
 
-.qa-item::-webkit-scrollbar-thumb {
+.answer-group::-webkit-scrollbar-thumb {
   background-color: #adb3b9;
   border-radius: 4px;
 }
@@ -75,19 +76,22 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 15px;
   color: #555;
   gap: 10px;
+}
+
+
+.question-actions .actions .link {
+  font-size: 11px;
 }
 
 .question-actions span {
   padding-right: 5px;
   padding-left: 5px;
+  font-size: 11px;
 }
 
-.answer span{
-  padding-left: 10px;
-}
 
 .question-actions a {
   color: rgb(50, 112, 228);
@@ -112,10 +116,16 @@ h1 {
 
 .answer-info {
   display: flex;
-  justify-content: space-between;
   font-size: 12px;
-  gap: 10px;
   color: #888;
+}
+
+.answer span{
+  padding-left: px;
+  font-size: 11px;
+}
+.answer-item {
+  margin: 20px;
 }
 
 .actions a {
@@ -126,15 +136,13 @@ h1 {
   text-decoration: underline;
 }
 
-.answer {
-  padding: 10px 0;
-  border-top: 1px solid #e0e0e0;
-  margin-top: 10px;
+.answer-actions a {
+  color: rgb(50, 112, 228);
+  text-decoration: underline;
 }
 
 .actions {
   display: flex;
-  gap: 10px;
 }
 
 button {
@@ -148,18 +156,6 @@ button {
   margin: 10px;
 }
 
-button:hover {
-  background-color: #adb0b4;
-}
-
-button.add-question {
-  background-color: #abb0b4;
-}
-
-button.add-question:hover {
-  background-color: #005bb5;
-}
-
 button.more-questions {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
@@ -170,29 +166,19 @@ button.more-questions:hover {
   background-color: #e0e0e0;
 }
 
-.bottom-buttons button {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
+button.add-question {
   background-color: #f5f5f5;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
+  border: 1px solid #ccc;
+  color: #333;
 }
 
-.bottom-buttons button:hover {
+button.add-question:hover {
   background-color: #e0e0e0;
 }
 
 
 
-.qa_form h3 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-weight: bold;
-  color: #333;
-}
+
 
 .qa_form form {
   display: flex;
@@ -233,3 +219,36 @@ button.more-questions:hover {
   background-color: #bbb;
 }
 
+.answer-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 5px;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.remove-btn {
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 20px;
+}

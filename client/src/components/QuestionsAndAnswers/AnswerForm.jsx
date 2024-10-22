@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./Modal.jsx";
+import ImageUpload from "../sharedComponents/ImageUpload.jsx";
+import { Cloudinary } from "cloudinary-core";
 
 const AnswerForm = ({
   productId,
@@ -8,73 +10,85 @@ const AnswerForm = ({
   handleAnswerChange,
   setCurrentQuestionId,
   ansData,
-  handleImageUpload
+  handleImageUpload,
 }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImages, setSelectedImages] = useState([]);
   const [showImageModal, setShowImageModal] = useState(false);
 
-  const handleImageChange = (e) => {
-
+  const handleRemoveImage = (index) => {
+    const updatedImages = selectedImages.filter((img, i) => i !== index);
+    setSelectedImages(updatedImages);
   };
-
 
   return (
     <div className="qa_form">
       <h3>Submit Your Answer</h3>
       <form onSubmit={handleAddAnswer}>
-        <textarea
-          name="body"
-          value={ansData.body}
-          onChange={handleAnswerChange}
-          placeholder="Type your answer here..."
-          maxLength="1000"
-          required
-        />
-        <input
-          name="name"
-          value={ansData.name}
-          onChange={handleAnswerChange}
-          placeholder="Example: jack543!"
-          maxLength="60"
-          required
-        />
-        <span >
+        <label>
+          Your Answer:
+          <textarea
+            name="body"
+            value={ansData.body}
+            onChange={handleAnswerChange}
+            placeholder="Type your answer here..."
+            maxLength="1000"
+            required
+          />
+        </label>
+        <label>
+          What is your nickname:
+          <input
+            name="name"
+            value={ansData.name}
+            onChange={handleAnswerChange}
+            placeholder="Example: jack543!"
+            maxLength="60"
+            required
+          />
+        </label>
+        <span>
           For privacy reasons, do not use your full name or email address
         </span>
-        <input
-          type="email"
-          name="email"
-          value={ansData.email}
-          onChange={handleAnswerChange}
-          placeholder="Example: jack@email.com"
-          maxLength="60"
-          required
-        />
-        <span >
-          For authentication reasons, you will not be emailed
-        </span>
-        <input
-          type="file"
-          name="image"
-          onChange={handleImageChange}
-          accept="image/*"
-        />
-        {selectedImage && (
-          <div className="thumbnail-container">
-            <img
-              src={selectedImage}
-              alt="Thumbnail"
-              className="thumbnail"
-              onClick={handleThumbnailClick}
-            />
-          </div>
-        )}
-        <button className="submit-btn" type="submit">Submit</button>
-        <button className="cancel-btn" type="button" onClick={() => setCurrentQuestionId(null)}>
+        <label>
+          Your email:
+          <input
+            type="email"
+            name="email"
+            value={ansData.email}
+            onChange={handleAnswerChange}
+            placeholder="Example: jack@email.com"
+            maxLength="60"
+            required
+          />
+        </label>
+        <span>For authentication reasons, you will not be emailed</span>
+        <ImageUpload handleImageUpload={handleImageUpload} handleImageRemove={handleRemoveImage} />
+
+        <div className="thumbnail-container">
+          {selectedImages.map((image, index) => (
+            <div key={index} className="thumbnail-wrapper">
+              <img
+                src={image}
+                alt="Thumbnail"
+                className="thumbnail"
+              />
+              <button type="button" className="remove-btn" onClick={() => handleRemoveImage(index)}>
+                x
+              </button>
+            </div>
+          ))}
+        </div>
+        <button className="submit-btn" type="submit">
+          Submit
+        </button>
+        <button
+          className="cancel-btn"
+          type="button"
+          onClick={() => setCurrentQuestionId(null)}
+        >
           Cancel
         </button>
       </form>
-
     </div>
   );
 };

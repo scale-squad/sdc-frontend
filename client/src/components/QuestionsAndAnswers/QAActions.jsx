@@ -12,7 +12,7 @@ const QAActions = ({
   return (
     <div className="question-actions">
       <h3>Q: {qa.question_body}</h3>
-      <div>
+      <div className="actions">
         <span>
           Helpful?
           {votedQA.questions.includes(qa.question_id) ? (
@@ -22,7 +22,7 @@ const QAActions = ({
               className="link"
               onClick={() => handleMarkQuestionHelpful(qa.question_id)}
             >
-              Yes ({qa.question_helpfulness})
+              Yes ({qa.question_helpfulness}) |
             </a>
           )}
         </span>
@@ -33,19 +33,18 @@ const QAActions = ({
             className="link"
             onClick={() => handleQuestionReport(qa.question_id)}
           >
-            Report
+            Report |
           </a>
         )}
 
         <a
           className="link"
           onClick={() => {
-            console.log("Add Answer clicked for question ID:", qa.question_id);
             setCurrentQuestionId(qa.question_id);
             setShowAnswerForm(true);
           }}
         >
-          Add Answer
+          Add Answer 
         </a>
       </div>
     </div>

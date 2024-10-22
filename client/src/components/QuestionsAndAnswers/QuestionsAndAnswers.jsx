@@ -17,6 +17,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   const [showQuestionForm, setShowAddQuestionForm] = useState(false);
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
+  const [selectedQuestionId, setselectedQuestionId] = useState(null);
   const [questionData, setNewQuestionData] = useState({
     body: "",
     name: "",
@@ -102,11 +103,8 @@ const QuestionsAndAnswers = ({ productId }) => {
       .catch(e => console.error(e));
   };
 
-  const toggleAnswers = (questionId, totalAnswers) => {
-    setVisibleAnswers((prev) => ({
-      ...prev,
-      [questionId]: prev[questionId] === totalAnswers ? 2 : totalAnswers,
-    }));
+  const toggleQuestion = (questionId) => {
+    setselectedQuestionId(prev => (prev === questionId ? null : questionId));
   };
 
   const handleSearch = (e) => {
@@ -121,7 +119,21 @@ const QuestionsAndAnswers = ({ productId }) => {
     if (votedQA.questions.includes(id)) return;
     axios
       .put(`/qa/questions/${id}/helpful`)
-      .then(() => updateQA(id, "questions"))
+      .then(() => {
+        setQuestionsAndAns((prev) => {
+          const updatedQuestion = prev.map((question) => {
+            if (question.question_id === id) {
+              return {
+                ...question,
+                question_helpfulness: question.question_helpfulness + 1,
+              };
+            }
+            return question;
+          });
+          return updatedQuestion;
+        });
+        updateQA(id, "questions");
+      })
       .catch(e => console.error(e));
   };
 
@@ -129,7 +141,25 @@ const QuestionsAndAnswers = ({ productId }) => {
     if (votedQA.answers.includes(id)) return;
     axios
       .put(`/qa/answers/${id}/helpful`)
-      .then(() => updateQA(id, "answers"))
+      .then(() => {
+        setQuestionsAndAns((prev) => {
+          const updatedAns = prev.map((question) => {
+            const curAnswers = { ...question.answers };
+            if (curAnswers[id]) {
+              curAnswers[id] = {
+                ...curAnswers[id],
+                helpfulness: curAnswers[id].helpfulness + 1,
+              };
+            }
+            return {
+              ...question,
+              answers: curAnswers,
+            };
+          });
+          return updatedAns;
+        });
+        updateQA(id, "answers");
+      })
       .catch(e => console.error(e));
   };
 
@@ -190,13 +220,18 @@ const QuestionsAndAnswers = ({ productId }) => {
 
   const handleAnswerChange = (e) => {
     const { name, value } = e.target;
-    setNewAnswerData((prev) => ({
+    setNewAnswerData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleImageUpload = (e) => {};
+  const handleImageUpload = (url) => {
+    setNewAnswerData(prev => ({
+      ...prev,
+      photos: [...prev.photos, url],
+    }));
+  };
 
   return (
     <div className="qa-section">
@@ -209,7 +244,8 @@ const QuestionsAndAnswers = ({ productId }) => {
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
-            const visibleCount = visibleAnswers[qa.question_id] || 2;
+            const isExpanded = selectedQuestionId === qa.question_id;
+            const visibleCount = isExpanded ? answersArray.length : 1;
             return (
               <div className="qa-item" key={index}>
                 <QAActions
@@ -222,29 +258,26 @@ const QuestionsAndAnswers = ({ productId }) => {
                   setShowAnswerForm={setShowAnswerForm}
                 />
 
-                {answersArray.slice(0, visibleCount).map((answer, idx) => (
-                  <AnswerEntry
-                    key={idx}
-                    answer={answer}
-                    handleMarkAnsHelpful={handleMarkAnsHelpful}
-                    handleAnsReport={handleAnsReport}
-                    reportedQA={reportedQA}
-                    votedQA={votedQA}
-                  />
-                ))}
-
-                {answersArray.length > 2 && (
-                  <a
-                    className="link-more-ans"
-                    onClick={() =>
-                      toggleAnswers(qa.question_id, answersArray.length)
-                    }
-                  >
-                    {visibleCount === answersArray.length
-                      ? "COLLAPSE ANSWERS"
-                      : "LOAD MORE ANSWERS"}
-                  </a>
-                )}
+                <div className="answer-group">
+                  {answersArray.slice(0, visibleCount).map((answer, idx) => (
+                    <AnswerEntry
+                      key={idx}
+                      answer={answer}
+                      handleMarkAnsHelpful={handleMarkAnsHelpful}
+                      handleAnsReport={handleAnsReport}
+                      reportedQA={reportedQA}
+                      votedQA={votedQA}
+                    />
+                  ))}
+                  {answersArray.length > 1 && (
+                    <a
+                      className="link-more-ans"
+                      onClick={() => toggleQuestion(qa.question_id)}
+                    >
+                      {isExpanded ? "COLLAPSE ANSWERS" : "SHOW MORE ANSWERS"}
+                    </a>
+                  )}
+                </div>
 
                 {currentQuestionId === qa.question_id && (
                   <Modal
@@ -273,18 +306,16 @@ const QuestionsAndAnswers = ({ productId }) => {
           className="more-questions"
           onClick={() => setVisibleQuestions(visibleQuestions + 2)}
         >
-          More Answered Questions
+          MORE ANSWERED QUESTIONS
         </button>
       )}
 
-      <div className="bottom-buttons">
-        <button
-          className="add-question"
-          onClick={() => setShowAddQuestionForm(true)}
-        >
-          Question
-        </button>
-      </div>
+      <button
+        className="add-question"
+        onClick={() => setShowAddQuestionForm(true)}
+      >
+        ADD A QUESTION +
+      </button>
 
       {showQuestionForm && (
         <Modal

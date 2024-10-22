@@ -1,13 +1,13 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/client/src');
-var DIST_DIR = path.join(__dirname, '/client/dist');
+const path = require('path');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
-  entry: `${SRC_DIR}/index.js`,
+  entry: path.join(__dirname, '/client/src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: DIST_DIR
+    path: path.join(__dirname, '/client/dist')
   },
   devtool: 'source-map',
   module: {
@@ -18,17 +18,8 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react"
-            ],
-            plugins: [
-              ["@babel/plugin-transform-runtime",
-                {
-                  "regenerator": true
-                }
-              ]
-            ]
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: [["@babel/plugin-transform-runtime", { regenerator: true }]]
           }
         }
       },
@@ -37,5 +28,8 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
     ],
-  }
+  },
+  plugins: [
+    new Dotenv(),
+  ]
 };
