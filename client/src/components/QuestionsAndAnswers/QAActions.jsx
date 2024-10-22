@@ -22,7 +22,7 @@ const QAActions = ({
               className="link"
               onClick={() => handleMarkQuestionHelpful(qa.question_id)}
             >
-              Yes ({qa.question_helpfulness})
+              Yes ({qa.question_helpfulness}) |
             </a>
           )}
         </span>
@@ -33,7 +33,7 @@ const QAActions = ({
             className="link"
             onClick={() => handleQuestionReport(qa.question_id)}
           >
-            Report
+            Report |
           </a>
         )}
 
@@ -44,7 +44,7 @@ const QAActions = ({
             setShowAnswerForm(true);
           }}
         >
-          Add Answer
+          Add Answer 
         </a>
       </div>
     </div>

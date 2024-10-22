@@ -17,6 +17,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   const [showQuestionForm, setShowAddQuestionForm] = useState(false);
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   const [currentQuestionId, setCurrentQuestionId] = useState(null);
+  const [selectedQuestionId, setselectedQuestionId] = useState(null);
   const [questionData, setNewQuestionData] = useState({
     body: "",
     name: "",
@@ -102,11 +103,8 @@ const QuestionsAndAnswers = ({ productId }) => {
       .catch(e => console.error(e));
   };
 
-  const toggleAnswers = (questionId, totalAnswers) => {
-    setVisibleAnswers((prev) => ({
-      ...prev,
-      [questionId]: prev[questionId] === totalAnswers ? 2 : totalAnswers,
-    }));
+  const toggleQuestion = (questionId) => {
+    setselectedQuestionId(prev => (prev === questionId ? null : questionId));
   };
 
   const handleSearch = (e) => {
@@ -222,13 +220,18 @@ const QuestionsAndAnswers = ({ productId }) => {
 
   const handleAnswerChange = (e) => {
     const { name, value } = e.target;
-    setNewAnswerData((prev) => ({
+    setNewAnswerData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleImageUpload = (e) => {};
+  const handleImageUpload = (url) => {
+    setNewAnswerData(prev => ({
+      ...prev,
+      photos: [...prev.photos, url],
+    }));
+  };
 
   return (
     <div className="qa-section">
@@ -241,7 +244,8 @@ const QuestionsAndAnswers = ({ productId }) => {
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
-            const visibleCount = visibleAnswers[qa.question_id] || 2;
+            const isExpanded = selectedQuestionId === qa.question_id;
+            const visibleCount = isExpanded ? answersArray.length : 1;
             return (
               <div className="qa-item" key={index}>
                 <QAActions
@@ -265,20 +269,15 @@ const QuestionsAndAnswers = ({ productId }) => {
                       votedQA={votedQA}
                     />
                   ))}
+                  {answersArray.length > 1 && (
+                    <a
+                      className="link-more-ans"
+                      onClick={() => toggleQuestion(qa.question_id)}
+                    >
+                      {isExpanded ? "COLLAPSE ANSWERS" : "SHOW MORE ANSWERS"}
+                    </a>
+                  )}
                 </div>
-
-                {answersArray.length > 2 && (
-                  <a
-                    className="link-more-ans"
-                    onClick={() =>
-                      toggleAnswers(qa.question_id, answersArray.length)
-                    }
-                  >
-                    {visibleCount === answersArray.length
-                      ? "COLLAPSE ANSWERS"
-                      : "LOAD MORE ANSWERS"}
-                  </a>
-                )}
 
                 {currentQuestionId === qa.question_id && (
                   <Modal
@@ -307,7 +306,7 @@ const QuestionsAndAnswers = ({ productId }) => {
           className="more-questions"
           onClick={() => setVisibleQuestions(visibleQuestions + 2)}
         >
-          More Answered Questions
+          MORE ANSWERED QUESTIONS
         </button>
       )}
 
@@ -315,7 +314,7 @@ const QuestionsAndAnswers = ({ productId }) => {
         className="add-question"
         onClick={() => setShowAddQuestionForm(true)}
       >
-        Question
+        ADD A QUESTION +
       </button>
 
       {showQuestionForm && (
