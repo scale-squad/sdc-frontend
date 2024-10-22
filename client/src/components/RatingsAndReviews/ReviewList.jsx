@@ -4,7 +4,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
 import AddAReviewForm from './form/AddAReviewForm.jsx';
 const ReviewList = ({ reviewList, recommended, productId, starFilter }) => {
-  if (reviewList === undefined || recommended === undefined) { return <div>Error Loading Component</div> }
+  if (/*reviewList === undefined ||*/ recommended === undefined) { return <div>Error Loading Component</div> }
 
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
   const [sort, setSort] = useState('relevant');
