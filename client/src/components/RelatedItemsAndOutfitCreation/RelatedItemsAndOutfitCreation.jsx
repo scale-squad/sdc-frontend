@@ -6,25 +6,23 @@ import Card from './Card.jsx';
 
 const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
   let [relatedList, setRelatedList] = useState([]);
-  const [outfitList, setOutfitList] = useState([]);
+  const [outfitList, setOutfitList] = useState(JSON.parse(localStorage.getItem('fecOutfitList'))||[]);
   const [relatedPage, setRelatedPage] = useState(0);
   const [outfitPage, setOutfitPage] = useState(0);
   const itemCount = 4;
   const arrow = './icons/right-arrow3.png';
 
   const changePage = (increment, cardType) => {
-    let setFn = null;
     let page = null;
     if (cardType === 'related') {
       page = (relatedPage + increment + relatedList.length) % relatedList.length;
-      setFn = setRelatedPage;
+      setRelatedPage(page)
     } else if (cardType === 'outfit') {
       page = (outfitPage + increment + outfitList.length) % outfitList.length;
-      setFn = setOutfitPage;
+      setOutfitPage(page);
     } else {
       return console.warn('invalid card related/outfit type: ' + cardType);
     }
-    setRelatedPage(page)
   };
 
   const getRelatedItemsList = () => {
@@ -116,12 +114,12 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
         {
           outfitList.length >= itemCount - 1 ?
             [...outfitList, ...outfitList]
-              .slice(relatedPage, relatedPage + itemCount - 1)
-              .map((item, i) => <Card key={'outfit' + item.product_id * i} item={item} type="outfit" setProductId={setProductId} />)
+              .slice(outfitPage, outfitPage + itemCount - 1)
+              .map((item, i) => <Card key={'outfit' + item.product_id * i} item={item} type="outfit" setProductId={setProductId} setOutfitList={setOutfitList}/>)
             : outfitList.length >= 1 ?
-              outfitList.map((item, i) => <Card key={'outfit' + item.product_id * i} item={item} type="outfit" setProductId={setProductId} />)
+              outfitList.map((item, i) => <Card key={'outfit' + item.product_id * i} item={item} type="outfit" setProductId={setProductId} setOutfitList={setOutfitList} />)
               : <div>
-                "No Related Items Available"
+                "No Outfit selected"
               </div>
         }</div>
       {

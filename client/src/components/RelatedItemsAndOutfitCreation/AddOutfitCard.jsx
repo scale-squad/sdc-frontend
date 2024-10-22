@@ -5,16 +5,17 @@ import axios from 'axios';
 
 import './RelatedItemsAndOutfitCreation.css'
 const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
-
   const handleAddOutfit = () => {
-    console.log(productId);
-    console.log(outfitList.find(outfit => outfit.product_id === productId))
-    console.log(outfitList)
-    if (outfitList.find(outfit => outfit.product_id === productId)) return;
     getOutfitData(productId)
-      .then(item => setOutfitList([...outfitList, item]))
+      .then(item => {
+        if (outfitList.find(outfit => outfit.product_id === item.product_id)) return;
+        setOutfitList((outfitList) => {
+          const newRelatedList = [...outfitList, item];
+          localStorage.setItem('fecOutfitList',JSON.stringify(newRelatedList));
+          return newRelatedList
+        });
+      })
       .catch(err => console.log(err));
-
   };
 
   const getOutfitData = (pID) => {
@@ -46,8 +47,6 @@ const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
 
   return (
     <div className="card-item" onClick={handleAddOutfit}>
-      {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxsHiUzleM5qDREK3ww2aBMBUVYhjSMIX2JA&s"
-          className="add-outfit-button" alt="Add to Outfit" /> */}
       <FiPlusCircle className="add-outfit-button" />
     </div>
   )
