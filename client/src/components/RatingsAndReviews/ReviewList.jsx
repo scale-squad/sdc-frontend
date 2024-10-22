@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
 import AddAReviewForm from './form/AddAReviewForm.jsx';
-const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => {
+const ReviewList = ({ reviewList, recommended, productId, starFilter }) => {
   if (reviewList === undefined || recommended === undefined) { return <div>Error Loading Component</div> }
 
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
@@ -13,8 +13,8 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const [page, setPage] = useState(1);
   const countPerQuery = 2;
 
-  const loadAllReviews = () => {
-    const params = { params: { sort, product_id: productId, count: 500 } }
+  const loadAllReviews = (sortType=sort) => {
+    const params = { params: { sort:sortType, product_id: productId, count: 500 } }
     return axios
       .get('/reviews', params)
       .then(res => {
@@ -42,13 +42,13 @@ const ReviewList = ({ reviewList = [], recommended, productId, starFilter }) => 
   const changeSort = (e) => {
     const sortType = e.target.value;
     setSort(sortType);
-    loadAllReviews(sortType);
-    setPage(1);
+    loadAllReviews(sortType)
+    .then(r=>setPage(1))
   };
 
   useEffect(() => {
     loadAllReviews();
-  }, [starFilter, sort]);
+  }, [starFilter, sort,productId]);
 
   return (<div>
 
