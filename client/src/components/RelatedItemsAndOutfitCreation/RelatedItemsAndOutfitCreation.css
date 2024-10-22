@@ -1,0 +1,65 @@
+.original-pricestrike-out{
+  text-decoration: line-through;
+}
+.sale-price{
+  color:red;
+  padding-left:5px;
+}
+
+
+.card-preview-image {
+  position:relative;
+}
+
+.thumbnail-style,.add-outfit-button{
+  object-fit:inherit;
+  width: 250px;
+  height: 250px;
+  /* margin:7px */
+}
+.add-outfit-button{
+  /* transform: translateY(20%); */
+}
+.right-corner-star {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+}
+
+.related-carousel,.outfit-carousel{
+
+  height: 450px;
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr;
+}
+.related-card-name{
+  font-size: medium;
+  font-weight: bold;
+}
+.card-item{
+  margin: 7px;
+  height:350px;
+
+}
+.card-item:hover{
+  /* border-width: 2px; */
+  /* border-style: solid; */
+  background-color: bisque;
+  /* padding: 10px; */
+}
+.related-gallery,.outfit-gallery{
+  display: inline-flex;
+}
+.scroll-button{
+
+}
+
+.scroll-button-img,.scroll-button-img-flip{
+  object-fit: contain;
+  height: 265px;
+  width: 95px;
+}
+.scroll-button-img-flip{
+  transform:rotate(180deg);
+  align-items: left;
+}
