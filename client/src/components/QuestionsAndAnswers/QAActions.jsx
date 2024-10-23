@@ -13,7 +13,7 @@ const QAActions = ({
     <div className="question-actions">
       <h3>Q: {qa.question_body}</h3>
       <div className="actions">
-        <span>
+        <span className="help-text">
           Helpful?
           {votedQA.questions.includes(qa.question_id) ? (
             <span>Yes ({qa.question_helpfulness})</span>
@@ -44,7 +44,7 @@ const QAActions = ({
             setShowAnswerForm(true);
           }}
         >
-          Add Answer 
+          Add Answer
         </a>
       </div>
     </div>

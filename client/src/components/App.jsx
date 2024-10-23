@@ -10,7 +10,6 @@ const App = () => {
   let [productId, setProductId] = useState(65631);
   let [styleId, setStyleId] = useState(1);
   return (<div>
-    <p>{productId}</p>
     <ProductDetail productId={productId} styleId={styleId} setStyleId={setStyleId}/>
     <RelatedItemsAndOutfitCreation productId={productId} setProductId={setProductId} styleId={styleId}  />
     <QuestionsAndAnswers productId={productId}/>

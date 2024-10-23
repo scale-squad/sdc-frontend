@@ -9,16 +9,22 @@
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
+  color: #252525;
 }
 
 .star-graph-label {
   display: inline;
   font-size: medium;
+  margin-right: 3px;
 }
 
 .rounded-rating-text {
   font-size: 48px;
   font-weight: bold;
+}
+
+.star-breakdown {
+  margin: 4px 0;
 }
 
 .star-breakdown:hover,
@@ -117,17 +123,25 @@
   flex: 1;
   min-width: 300px;
   padding-right: 20px;
+  font-size: 25px;
+}
+
+.review-body {
+  padding-top: 60px;
+}
+
+.review-title {
+  font-weight: bold;
 }
 
 .review-entry {
   width: 93%;
   margin: 10px;
-  border-style: solid;
+  border-bottom: 2px solid #cac8c8;
 }
 
 .review-entry-title {
-  text-align: center;
-  font-size: larger;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -136,6 +150,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 6px;
 }
 
 .review-response {
@@ -148,6 +163,8 @@
 
 .review-entry-date {
   padding-left: 10px;
+  font-size: 12px;
+  color: #666;
 }
 
 .review-entry-text {
@@ -165,9 +182,12 @@
 }
 
 .mark-btn a,
-b,
-span {
+b {
   padding-left: 5px;
+}
+
+.button-group {
+  padding-bottom:10px
 }
 
 
@@ -186,6 +206,13 @@ span {
   vertical-align: top;
   position: absolute;
   z-index: 1;
+}
+
+.sort-dropdown {
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
 }
 
 .slider {
@@ -222,6 +249,7 @@ span {
 .rating-breakdown,
 .size-comfort {
   margin-left: 10px;
+  color: #252525;
 }
 
 .add-review-form {

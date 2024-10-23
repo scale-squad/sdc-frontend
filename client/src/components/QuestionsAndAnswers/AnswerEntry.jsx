@@ -40,14 +40,14 @@ const AnswerEntry = ({
             <span className="help-text">
               Helpful?
               {votedQA.answers.includes(answer.id) ? (
-                <span>Yes ({answer.helpfulness})</span>
+                <span>Yes ({answer.helpfulness}) | </span>
               ) : (
-                <span
+                <a
                   className="link"
                   onClick={() => handleMarkAnsHelpful(answer.id)}
                 >
                   Yes ({answer.helpfulness}) |
-                </span>
+                </a>
               )}
             </span>
             {reportedQA.answers.includes(answer.id) ? (
