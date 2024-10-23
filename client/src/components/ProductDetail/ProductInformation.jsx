@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import StarRating from '../sharedComponents/StarRating.jsx'
-
+import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebook } from "react-icons/fa";
+import { FaPinterest } from "react-icons/fa";
 
 const ProductInformation = ({currentProductStyle, product, reviews}) => {
   if(product === undefined){return <div>Error loading product</div>}
@@ -38,6 +40,11 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
       <StarRating ratingList={reviews} dimensions={40}/>
       <h4>{product?.category.toUpperCase()}</h4>
       <h1>{product?.name}</h1>
+      <div>
+        <a href="https://www.facebook.com"><FaFacebook /></a>
+        <a href="https://twitter.com"><FaXTwitter /></a>
+        <a href="https://www.pinterest.com"><FaPinterest /></a>
+      </div>
       <h4>{calcPrice()}</h4>
     </div>
   )
