@@ -76,25 +76,30 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
         for (let i = 0; i < (res.length / 3); i++) {
           const { product_id } = res[i];
           const defaultStyle = res[i].results.find(x => x['default?']) || res[i].results[0];
-          const { original_price, sale_price } = defaultStyle;
+          const { original_price, sale_price,skus } = defaultStyle;
           const thumbnail_url = defaultStyle.photos[0].thumbnail_url;
-          newRelatedList[i] = { original_price, sale_price, product_id, thumbnail_url };
+          newRelatedList[i] = { product_id, original_price, sale_price, skus, thumbnail_url };
         }
 
         for (let i = res.length / 3; i < 2 / 3 * res.length; i++) {
-          const { ratings } = res[i];
+          const {  ratings, characteristics, recommended  } = res[i];
           const entries = Object.entries(ratings)
           const [total, count] = entries.reduce(([sumTotal, sumCount], [k, v]) =>
             [sumTotal + Number(k) * Number(v), sumCount + Number(v)]
             , [0, 0]);
           const avgRating = total / count;
           newRelatedList[i % (res.length / 3)]['avgRating'] = avgRating;
+          if(characteristics){
+          newRelatedList[i % (res.length / 3)]['characteristics'] = characteristics;
+          }
+          newRelatedList[i % (res.length / 3)]['recommended'] = recommended;
         }
 
         for (let i = 2 / 3 * res.length; i < res.length; i++) {
-          const { id, name, category } = res[i];
+          const { id, name, category, description, features, slogan  } = res[i];
           const currItem = newRelatedList[i % (res.length / 3)];
-          newRelatedList[i % (res.length / 3)] = { ...currItem, id, name, category };
+          newRelatedList[i % (res.length / 3)] = { ...currItem, id, name, category,
+            features,   slogan};
         }
         return newRelatedList;
       })
@@ -106,7 +111,7 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
     getCurrentProductInfo();
     getRelatedItemsList();
   }, [productId])
-  console.log(currentProduct)
+
 
   return (<div className='related-products'>
     <h3>Related Products</h3>

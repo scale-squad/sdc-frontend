@@ -7,8 +7,8 @@ const CardComparison = ({ item1, item2 }) => {
 
 
 
-  //console.log(item1);
-  //console.log(item2);
+  console.log(item1);
+  console.log(item2);
   //item2.sale_price=50;
   return (<div id='card-comparison'>
     <table>
@@ -22,20 +22,24 @@ const CardComparison = ({ item1, item2 }) => {
         <tr><td><StarRating rating={item1.avgRating} dimensions={40} /></td><td><StarRating rating={item2.avgRating} dimensions={40} /></td></tr>
         <tr><td>{item1.category}</td><td>{item2.category}</td></tr>
         <tr><td>{
-          item1.sale_price?<span className='original-pricestrike-out '>${item1.original_price}</span>:<span>${item1.original_price}</span>
-          }
+          item1.sale_price ? <span className='original-pricestrike-out '>${item1.original_price}</span> : <span>${item1.original_price}</span>
+        }
           {
-            item1.sale_price?<span className='sale-price'>${item1.sale_price}</span>:""
+            item1.sale_price ? <span className='sale-price'>${item1.sale_price}</span> : ""
           }
         </td>
           <td>
-          {
-          item2.sale_price?<span className='original-pricestrike-out '>${item2.original_price}</span>:<span>${item2.original_price}</span>
-          }
-          {
-            item2.sale_price?<span className='sale-price'>${item2.sale_price}</span>:""
-          }
+            {
+              item2.sale_price ? <span className='original-pricestrike-out '>${item2.original_price}</span> : <span>${item2.original_price}</span>
+            }
+            {
+              item2.sale_price ? <span className='sale-price'>${item2.sale_price}</span> : ""
+            }
           </td>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
         </tr>
       </tbody>
     </table>
