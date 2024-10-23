@@ -1,14 +1,14 @@
 
 
 .ratings-and-review-container {
-  margin: auto;
+  /* margin: auto; */
   justify-content: center;
   grid-template-columns: 33% 66%;
   display: grid;
-  margin: 0 auto;
+   margin: 0 auto;
   background-color: #fff;
   border-radius: 8px;
-  padding: 12%;
+  padding:1% 12% 0 12%;
   color: #252525;
 }
 
