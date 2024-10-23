@@ -6,6 +6,7 @@ import Card from './Card.jsx';
 
 const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
   let [relatedList, setRelatedList] = useState([]);
+  let [currentProduct, setCurrentProduct] = useState({});
   const [outfitList, setOutfitList] = useState(JSON.parse(localStorage.getItem('fecOutfitList'))||[]);
   const [relatedPage, setRelatedPage] = useState(0);
   const [outfitPage, setOutfitPage] = useState(0);
@@ -23,6 +24,34 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
     } else {
       return console.warn('invalid card related/outfit type: ' + cardType);
     }
+  };
+
+  const getCurrentProductInfo = () => {
+    let productInfo = {};
+    const query = { params: { product_id: productId } }
+    Promise.all(
+      [axios.get(`/products/${productId}/styles`).then(res => res.data),
+      axios.get(`/reviews/meta`, query).then(res => res.data),
+      axios.get(`/products/${productId}`).then(res => res.data)])
+      .then(res => {
+        const { product_id } = res[0];
+        const defaultStyle = res[0].results.find(x => x['default?']) || res[0].results[0];
+        const { original_price, sale_price } = defaultStyle;
+        const thumbnail_url = defaultStyle.photos[0].thumbnail_url;
+        productInfo = { original_price, sale_price, product_id, thumbnail_url };
+        const { ratings } = res[1];
+        const entries = Object.entries(ratings)
+        const [total, count] = entries.reduce(([sumTotal, sumCount], [k, v]) =>
+          [sumTotal + Number(k) * Number(v), sumCount + Number(v)]
+          , [0, 0]);
+        const avgRating = total / count;
+        productInfo['avgRating'] = avgRating;
+        const { id, name, category } = res[2];
+        productInfo = { ...productInfo, id, name, category };
+        return productInfo;
+      })
+      .then(item => setCurrentProduct(item))
+      .catch(err => console.log(err))
   };
 
   const getRelatedItemsList = () => {
@@ -74,11 +103,13 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
   };
 
   useEffect(() => {
+    getCurrentProductInfo();
     getRelatedItemsList();
   }, [productId])
 
 
-  return (<div className='related-products'>Related Products
+  return (<div className='related-products'>
+    <h3>Related Products</h3>
 
     <div className="related-carousel">
       <div className="scroll-button" onClick={() => changePage(-1, 'related')}>
@@ -89,7 +120,7 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
           relatedList.length >= itemCount ?
             [...relatedList, ...relatedList]
               .slice(relatedPage, relatedPage + itemCount)
-              .map((item, i) => <Card key={item.product_id * i} item={item} type="related" setProductId={setProductId} />)
+              .map((item, i) => <Card key={item.product_id * i} item={item} type="related" setProductId={setProductId} currentProduct={currentProduct}/>)
             : relatedList.length >= 1 ?
               relatedList.map((item, i) => <Card key={item.product_id * i} item={item} type="related" setProductId={setProductId} />)
               : <div>
@@ -101,7 +132,7 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
         <img className="scroll-button-img-flip" src={arrow} />
       </div>
     </div>
-    Your Outfit
+    <h3>Your Outfit</h3>
     <div className="outfit-carousel">
       {
         outfitList.length >= itemCount - 1 ?

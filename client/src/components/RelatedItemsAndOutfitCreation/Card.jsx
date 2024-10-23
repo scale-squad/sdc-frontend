@@ -1,25 +1,40 @@
 import React, { useState, useEffect } from "react";
 import StarRating from '../sharedComponents/StarRating.jsx';
+import axios from 'axios';
+import Modal from '../sharedComponents/Modal.jsx';
+import CardComparison from './CardComparison.jsx';
+import './RelatedItemsAndOutfitCreation.css';
+const Card = ({ item, type, setProductId, setOutfitList, currentProduct }) => {
+  if (!item || !currentProduct) { return <div>Cannot render component</div> }
 
-import './RelatedItemsAndOutfitCreation.css'
-const Card = ({ item, type, setProductId, setOutfitList }) => {
-  if (!item) { return <div>Cannot render component</div> }
   const { original_price, sale_price, product_id,
     thumbnail_url, avgRating, category, name } = item;
+  //const [currentProductInfo, setCurrentProductInfo] = useState({});
+  const [showComparison, setShowComparison] = useState(false);
+
+
 
   const handleDelete = (product_id) => {
     setOutfitList(() => {
-      const prev = JSON.parse(localStorage.getItem('fecOutfitList'))
+      const prev = JSON.parse(localStorage.getItem('fecOutfitList'));
       const filterRelatedList = prev.filter(product => {
-        return product.product_id!= product_id
+        return product.product_id != product_id;
       })
-      localStorage.setItem('fecOutfitList',JSON.stringify(filterRelatedList));
-      return filterRelatedList
+      localStorage.setItem('fecOutfitList', JSON.stringify(filterRelatedList));
+      return filterRelatedList;
     })
+  };
 
-  }
+  const handleOpenModal=(e)=>{
+    e.stopPropagation();
+    setShowComparison(true);
+  };
 
-  return (<div className="card-item" onClick={() => setProductId(product_id)}>
+  return (<span>
+    <Modal showModal={showComparison} onClose={() => setShowComparison(false)} modalClassName='comparison-modal'>
+      <CardComparison item1={currentProduct } item2={item} />
+      </Modal>
+  <div className="card-item" onClick={() => setProductId(product_id)}>
     <div>
       {
         type === 'related' ?
@@ -30,7 +45,7 @@ const Card = ({ item, type, setProductId, setOutfitList }) => {
                 "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               } className="thumbnail-style" alt="Card Image" />
 
-              <div className='right-corner-star'>
+              <div className='right-corner-star' onClick={handleOpenModal}>
                 <img src='/icons/star-empty.svg' />
               </div>
             </div>
@@ -42,7 +57,7 @@ const Card = ({ item, type, setProductId, setOutfitList }) => {
                 "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
               } className="thumbnail-style" alt="Card Image" />
               <div className='right-corner-star'>
-                <button onClick={()=>handleDelete(product_id)}>
+                <button onClick={() => handleDelete(product_id)}>
                   X
                 </button>
               </div>
@@ -64,6 +79,7 @@ const Card = ({ item, type, setProductId, setOutfitList }) => {
       <StarRating rating={avgRating} dimensions={20} />
     </div>
   </div>
+  </span>
   )
 };
 
