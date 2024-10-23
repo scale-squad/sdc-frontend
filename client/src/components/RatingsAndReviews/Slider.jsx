@@ -14,7 +14,7 @@ const Slider = ({ segments, value, title, width }) => {
   return (
     <div className="slider">
       <div className="slider-title">{title}</div>
-      <div style={{ width }}>{downArrow}</div>
+      <div  className="slider-track" style={{ width }}>{downArrow}</div>
       <table style={tableStyle}>
         <tbody>
           <tr>
