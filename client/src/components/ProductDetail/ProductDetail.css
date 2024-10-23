@@ -98,17 +98,22 @@
 
 .thumbnailDiv {
   position: absolute;
-  top: 40px;
+  top: 36px;
   left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  /*max-height: calc(100% - 20px);*/
+  max-height: calc(100% - 20px);
   overflow-y: auto;
   z-index: 10;
+  scrollbar-width: none;
 }
 
-.thumbnail img{
+.thumbnail-gallary {
+  height: 100px;
+  object-fit: cover;
+}
+
+.thumbnail-gallary img{
   border: 1px solid black;
   border-radius: 4px;
   height: 60px;
@@ -150,10 +155,10 @@ button:hover{
 
 
 .style-selector-image-crop {
-  width: 50px;
-  height: 50px;
-  margin:10px;
-  position:relative;
+  width: 78px;
+  height: 73px;
+  margin: 8px;
+  position: relative;
   overflow: hidden;
   border-radius: 50%;
   border: 1px black;
@@ -177,11 +182,6 @@ button:hover{
   max-width:500px;
 }
 
-.topRow{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
 #size-select {
   width: 50%;
   padding: 10px;
@@ -190,19 +190,21 @@ button:hover{
 #quantity-select {
   width: 30%;
   padding: 10px;
+  margin-left:8px;
+
 }
 
 .bottom-row{
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 10px;
 }
 #addToCartBtn {
   width: 70%;
-  padding: 10px;
 }
 
 #starHeartBtn {
   width: 15%;
-  padding: 10px;
+  margin-left:8px;
 }
+
