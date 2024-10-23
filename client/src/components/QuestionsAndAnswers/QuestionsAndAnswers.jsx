@@ -46,7 +46,7 @@ const QuestionsAndAnswers = ({ productId }) => {
 
   useEffect(() => {
     fetchQA();
-  }, []);
+  }, [productId]);
 
   const updateQA = (id, type) => {
     setvotedQA((prev) => {
