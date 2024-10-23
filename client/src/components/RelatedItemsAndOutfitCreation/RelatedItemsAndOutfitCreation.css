@@ -47,7 +47,6 @@
 .card-item {
   margin: 7px;
   height: 280px;
-
 }
 
 .card-item:hover {
@@ -58,6 +57,17 @@
 .related-gallery,
 .outfit-gallery {
   display: inline-flex;
+}
+
+.related-gallery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.related-gallery .card {
+  margin: 0 10px;
 }
 
 .scroll-button-right {
@@ -76,10 +86,44 @@
   align-items: left;
 }
 
+.scroll-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -29px;
+}
+
+.scroll-button-cir {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -29px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-left:110px;
+}
+
+.scroll-button-cii {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: -29px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  margin-left:110px;
+}
+
+
+.scroll-button-cir:hover {
+  transform: scale(1.1);
+  color: #cac7c2;
+}
+
 #card-comparison {
   display: grid;
-  /* grid-template-columns: 50% 50%;
-  grid-template-rows: 25fr 15fr 15fr 15fr 15fr 15fr; */
   object-fit: contain;
   text-align: center;
   font-weight: bold;

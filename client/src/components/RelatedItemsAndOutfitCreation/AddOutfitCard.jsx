@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import StarRating from '../sharedComponents/StarRating.jsx';
-import { FiPlusCircle } from "react-icons/fi";
+import { LuImagePlus } from "react-icons/lu";
+
 import axios from 'axios';
 
 import './RelatedItemsAndOutfitCreation.css'
@@ -47,7 +48,7 @@ const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
 
   return (
     <div className="card-item" onClick={handleAddOutfit}>
-      <FiPlusCircle className="add-outfit-button" />
+      <LuImagePlus className="scroll-button-cii" size={80}/>
     </div>
   )
 };

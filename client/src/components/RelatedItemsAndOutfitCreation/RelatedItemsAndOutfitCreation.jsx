@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddOutfitCard from './AddOutfitCard.jsx';
 import axios from 'axios';
 import Card from './Card.jsx';
-
+import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 
 const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
   let [relatedList, setRelatedList] = useState([]);
@@ -112,8 +112,8 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
     <h3>Related Products</h3>
 
     <div className="related-carousel">
-      <div className="scroll-button" onClick={() => changePage(-1, 'related')}>
-        <img className="scroll-button-img" src={arrow} />
+      <div className="scroll-button-right" onClick={() => changePage(-1, 'related')}>
+      <FiArrowLeftCircle  className="scroll-button-cii" size={90}/>
       </div>
       <div className='related-gallery'>
         {
@@ -128,16 +128,15 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
               </div>
         }</div>
       <div className="scroll-button-right" onClick={() => changePage(-1, 'related')}>
-
-        <img className="scroll-button-img-flip" src={arrow} />
+      <FiArrowRightCircle  className="scroll-button-cir" size={90}/>
       </div>
     </div>
     <h3>Your Outfit</h3>
     <div className="outfit-carousel">
       {
         outfitList.length >= itemCount - 1 ?
-          <div className="scroll-button" onClick={() => changePage(1, 'outfit')}>
-            <img className="scroll-button-img" src={arrow} />
+          <div className="scroll-button-right" onClick={() => changePage(1, 'outfit')}>
+          <FiArrowLeftCircle className="scroll-button-cii" size={90}/>
           </div> : <div></div>
       }
       <div className='outfit-gallery'>
@@ -156,8 +155,8 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
       {
         outfitList.length >= itemCount - 1 ?
           <div className="scroll-button-right" onClick={() => changePage(-1, 'outfit')}>
-            <img className="scroll-button-img-flip" src={arrow} />
-          </div>
+          <FiArrowRightCircle className="scroll-button-cir" size={90}/>
+      </div>
           : <div></div>
       }
     </div>

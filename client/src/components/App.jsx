@@ -7,7 +7,7 @@ import ProductDetail from './ProductDetail/ProductDetail.jsx';
 import RelatedItemsAndOutfitCreation from './RelatedItemsAndOutfitCreation/RelatedItemsAndOutfitCreation.jsx';
 import RatingsAndReviews from './RatingsAndReviews/RatingsAndReviews.jsx';
 const App = () => {
-  let [productId, setProductId] = useState(65631);
+  let [productId, setProductId] = useState(40344);
   let [styleId, setStyleId] = useState(1);
   return (<div>
     <ProductDetail productId={productId} styleId={styleId} setStyleId={setStyleId}/>
