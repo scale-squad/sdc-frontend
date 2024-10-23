@@ -14,7 +14,7 @@ const ProductThumbnail = ({photo, index, currentPhotoIndex, setCurrentPhotoIndex
       <img src={photo.thumbnail_url} onClick={thumbnailClicked}/>
 
       {currentPhotoIndex===index ?
-        <div id="selectedThumbnail"></div>
+        <div className="selectedThumbnail"></div>
       : ""}
     </div>
   )

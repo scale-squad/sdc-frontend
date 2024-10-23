@@ -1,9 +1,4 @@
-/*body {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-*/
+
 /*PRODUCT DETAIL */
 .product-wrapper {
   display:grid;
@@ -43,6 +38,11 @@
   object-fit:cover;
 }
 
+#expandButton{
+  position: absolute;
+  right:10px;
+  top:10px;
+}
 
 #mainImageLeftButton{
   position: absolute;
@@ -81,15 +81,15 @@
 
   position: relative;
 }
-/*
-.mainImage img{
-  width: auto;
-  height: 650px;
-  object-fit: cover;
-  display: grid;
-  z-index: 10;
+#mainImageRightButton{
+  z-index:9;
+
 }
-*/
+
+#mainImageLeftButton{
+  z-index: 9;
+  left: 20%;
+}
 
 .product-slogan{
   display: grid;
@@ -121,8 +121,10 @@
   object-fit: cover;
 }
 
-#selectedThumbnail {
+.selectedThumbnail {
   border-bottom: 5px solid #b25930;
+  position: absolute;
+  z-index: 10;
 }
 
 
@@ -139,6 +141,19 @@ button{
 button:hover{
   background-color: lightgray;
 }
+
+.facebook{
+  fill: black;
+}
+.facebook :hover{
+  fill: blue;
+}
+
+.centerLogo{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .add-to-cart-button:hover{
   background-color: darkred;
 }
@@ -197,6 +212,21 @@ button:hover{
 .bottom-row{
   display: flex;
   justify-content: space-between;
+}
+
+#addedToBag{
+  width:70%;
+  padding-top:10px;
+  padding-bottom: 10px;
+  background-color: rgb(239, 238, 145);
+  color: rgb(50, 46, 46);
+  border-radius: 5px;
+}
+
+.third-row{
+  display: flex;
+  text-align: center;
+  width: 100%;
 }
 #addToCartBtn {
   width: 70%;

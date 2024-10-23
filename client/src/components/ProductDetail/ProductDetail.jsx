@@ -7,7 +7,7 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import StarRating from '../sharedComponents/StarRating.jsx'
 import './ProductDetail.css'
-import { IoMdExpand } from "react-icons/io";
+
 
 
 const ProductDetail = ({ productId, styleId, setStyleId }) => {
@@ -41,13 +41,13 @@ const ProductDetail = ({ productId, styleId, setStyleId }) => {
     }).catch(err=>{
       console.log('error in useEffect', err);
     })
-  }, []);
+  }, [productId]);
 
 
   return (
     <div className="product-wrapper">
       <div className={`first-column${isExpanded ? '-expanded' : ''}`}>
-      <button id="expandButton" onClick={expandButtonClicked}><IoMdExpand /></button>
+
 
         <ProductGallery currentProductStyle={currentProductStyle} setCurrentPhotoIndex={setCurrentPhotoIndex} currentPhotoIndex={currentPhotoIndex} isExpanded={isExpanded} setIsExpanded={setIsExpanded}/>
       </div>
