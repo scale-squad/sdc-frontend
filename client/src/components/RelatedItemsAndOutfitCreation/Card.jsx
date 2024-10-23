@@ -5,11 +5,10 @@ import Modal from '../sharedComponents/Modal.jsx';
 import CardComparison from './CardComparison.jsx';
 import './RelatedItemsAndOutfitCreation.css';
 const Card = ({ item, type, setProductId, setOutfitList, currentProduct }) => {
-  if (!item || !currentProduct) { return <div>Cannot render component</div> }
+  if (!item || (!currentProduct&&type==='related')) { return <div>Cannot render component</div> }
 
   const { original_price, sale_price, product_id,
     thumbnail_url, avgRating, category, name } = item;
-  //const [currentProductInfo, setCurrentProductInfo] = useState({});
   const [showComparison, setShowComparison] = useState(false);
 
 
