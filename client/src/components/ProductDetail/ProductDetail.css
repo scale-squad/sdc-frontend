@@ -1,28 +1,99 @@
-body {
+/*body {
   display:flex;
   justify-content: center;
   align-items: center;
 }
-
+*/
+/*PRODUCT DETAIL */
 .product-wrapper {
   display:grid;
-  gap:1.5rem;
-  grid-template-columns: 2fr 1fr;
-  margin: auto;
-  width: 80%;
+  gap:20px;
+  grid-template-columns: minmax(50%, 66%) minmax(25%, 33%);
+  margin: 0 auto;
+  width: 70%;
+  position:relative;
+
+}
+.first-column{
+  grid-column: 1;
+  height: 650px;
+  position: relative;
+  z-index: 1;
 }
 
-/*PRODUCT DETAIL */
-.mainImage {
-  grid-column: 1;
+.first-column  .mainImage{
+  cursor: zoom-in;
   position: relative;
 }
 
+.first-column-expanded{
+  grid-column:  1 / span 2;
+  width:100%;
+  object-fit: cover;
+  height: 650px;
+  position: relative;
+  overflow: visible;
+  z-index: 2;
+}
+
+.first-column-expanded img{
+  transform: translate(100px);
+  scale: 2.5;
+
+  object-fit:cover;
+}
+
+
+#mainImageLeftButton{
+  position: absolute;
+  top: 50%;
+  z-index: 50;
+}
+
+#mainImageRightButton {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  z-index: 50;
+}
+
+
+
+#productImage{
+  /*object-fit: cover;*/
+}
+.second-column {
+  display: grid;
+  grid-column: 2;
+  grid-template-rows: 1fr 1fr 1fr;
+  position:relative;
+  z-index: 5;
+}
+
+.gallery-container {
+  grid-column: 1;
+  position: relative;
+  max-height: 1000px;
+}
+
+.mainImage{
+  height:650px;
+
+  position: relative;
+}
+/*
 .mainImage img{
-  width: 650px;
+  width: auto;
   height: 650px;
   object-fit: cover;
-  display: block;
+  display: grid;
+  z-index: 10;
+}
+*/
+
+.product-slogan{
+  display: grid;
+  grid-column: 1 / span 2;
 }
 
 .thumbnailDiv {
@@ -32,16 +103,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: calc(100% - 20px);
+  /*max-height: calc(100% - 20px);*/
   overflow-y: auto;
+  z-index: 10;
 }
-
-/*
-.thumbnail:focus{
-  border:2px solid red;
-  padding: 5px;
-}
-*/
 
 .thumbnail img{
   border: 1px solid black;
@@ -51,10 +116,10 @@ body {
   object-fit: cover;
 }
 
-.second-column {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+#selectedThumbnail {
+  border-bottom: 5px solid #b25930;
 }
+
 
 p {
     font-size: 30px;

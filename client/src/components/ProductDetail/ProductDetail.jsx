@@ -7,6 +7,8 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 import StarRating from '../sharedComponents/StarRating.jsx'
 import './ProductDetail.css'
+import { IoMdExpand } from "react-icons/io";
+
 
 const ProductDetail = ({ productId, styleId, setStyleId }) => {
   if (productId === undefined) { return <div>Error loading product id</div> }
@@ -16,8 +18,14 @@ const ProductDetail = ({ productId, styleId, setStyleId }) => {
   const [product, setProduct] = useState();
   const [productStyles, setProductStyles] = useState();
   const [currentProductStyle, setCurrentProductStyle] = useState();
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState("0");
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [reviews, setReviews] = useState();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const expandButtonClicked = () => {
+    setIsExpanded(!isExpanded);
+
+  }
 
 
   useEffect(() => {
@@ -38,24 +46,27 @@ const ProductDetail = ({ productId, styleId, setStyleId }) => {
 
   return (
     <div className="product-wrapper">
-      <div className="mainImage">
-        <ProductGallery currentProductStyle={currentProductStyle} setCurrentPhotoIndex={setCurrentPhotoIndex} currentPhotoIndex={currentPhotoIndex}/>
+      <div className={`first-column${isExpanded ? '-expanded' : ''}`}>
+      <button id="expandButton" onClick={expandButtonClicked}><IoMdExpand /></button>
+
+        <ProductGallery currentProductStyle={currentProductStyle} setCurrentPhotoIndex={setCurrentPhotoIndex} currentPhotoIndex={currentPhotoIndex} isExpanded={isExpanded} setIsExpanded={setIsExpanded}/>
       </div>
+      {!isExpanded ?
+        <div className="second-column" >
+          <div>
+            <ProductInformation currentProductStyle={currentProductStyle} product={product}  reviews={reviews} />
+          </div>
+          <div>
+            <StyleSelector currentProductStyle={currentProductStyle} setCurrentProductStyle={setCurrentProductStyle} productStyles={productStyles} currentPhotoIndex={currentPhotoIndex}/>
+          </div>
+          <div>
+            <AddToCart currentProductStyle={currentProductStyle} />
+          </div>
 
-      <div className="second-column">
-        <div>
-          <ProductInformation currentProductStyle={currentProductStyle} product={product}  reviews={reviews} />
         </div>
-        <div>
-          <StyleSelector currentProductStyle={currentProductStyle} setCurrentProductStyle={setCurrentProductStyle} productStyles={productStyles} currentPhotoIndex={currentPhotoIndex}/>
-        </div>
-        <div>
-          <AddToCart currentProductStyle={currentProductStyle} />
-        </div>
+      : <div></div>}
 
-      </div>
-
-      <div>
+      <div className="product-slogan">
           <ProductSlogan product={product} />
       </div>
 
