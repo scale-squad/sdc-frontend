@@ -15,7 +15,6 @@ const UploadImage = ({ formData, setFormData, setImageList, imageList }) => {
       maxFiles: (5 - imageList.length)
     }, (error, result) => {
       if (result.event === 'success') {
-        //addImage(result.info.secure_url);
         let prevPhotos = JSON.parse(localStorage.getItem(`Ratings_and_reviews_form_photos`)) || [];
         localStorage.setItem("Ratings_and_reviews_form_photos", JSON.stringify([...prevPhotos, result.info.secure_url]));
       }
@@ -41,7 +40,7 @@ const UploadImage = ({ formData, setFormData, setImageList, imageList }) => {
     if (tempImageList.length < 5)
       setTempImageList(tempImageList.concat(url))
   };
-  // good!
+
   const saveImageList = () => {
     setImageList(tempImageList.slice(0, 5));
   };
@@ -60,7 +59,7 @@ const UploadImage = ({ formData, setFormData, setImageList, imageList }) => {
             }}>
               Upload
             </button>
-          </div> : ""
+          </div> : <div></div>
       }
     </div>
   );
