@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import ProductThumbnail from './ProductThumbnail.jsx';
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa6";
+import { IoMdExpand } from "react-icons/io";
 
 
 const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhotoIndex, isExpanded, setIsExpanded}) => {
@@ -11,6 +12,7 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
 
   const expand = useCallback(()=>{
     setIsExpanded(!isExpanded);
+
   }, [isExpanded])
 
   const increment = useCallback(()=>{
@@ -40,21 +42,17 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
     let bgPosX = (mouseX / rect.width * 100);
     let bgPosY = (mouseY / rect.height * 100);
 
-    console.log('bgs', bgPosX, bgPosY);
-
     image.style.backgroundPosition = `${bgPosX}% ${bgPosY}%`;
 
   }
 
 
-
-
   return (
     <div className="gallery-container ">
       <div className="mainImage"  >
+      <button id="expandButton" onClick={expand}><IoMdExpand /></button>
 
-
-        {currentPhotoIndex !== 0 ?
+        {currentPhotoIndex !== 0 && !isExpanded ?
           <button id="mainImageLeftButton" onClick={decrement}><FaArrowLeft/></button>
         : ""}
 
@@ -71,7 +69,7 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
         </div>
 
 
-        {currentPhotoIndex < currentProductStyle.photos.length - 1 ?
+        {currentPhotoIndex < currentProductStyle.photos.length - 1 && !isExpanded ?
           <button id="mainImageRightButton" onClick={increment}><FaArrowRight/></button>
           : ""}
 

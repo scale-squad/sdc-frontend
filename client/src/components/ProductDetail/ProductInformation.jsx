@@ -37,13 +37,13 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
 
   return (
     <div>
-      <StarRating ratingList={reviews} dimensions={40}/>
+      <StarRating ratingList={reviews} dimensions={20}/>
       <h4>{product?.category.toUpperCase()}</h4>
       <h1>{product?.name}</h1>
-      <div>
-        <a href="https://www.facebook.com"><FaFacebook /></a>
-        <a href="https://twitter.com"><FaXTwitter /></a>
-        <a href="https://www.pinterest.com"><FaPinterest /></a>
+      <div className="shareLogos">
+        <a className="facebook" href="https://www.facebook.com"><FaFacebook /></a>
+        <a className="centerLogo twitter" href="https://twitter.com"><FaXTwitter /></a>
+        <a className="pinterest" href="https://www.pinterest.com"><FaPinterest /></a>
       </div>
       <h4>{calcPrice()}</h4>
     </div>
