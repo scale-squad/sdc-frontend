@@ -36,19 +36,14 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
         return (<div key={i}
           className={!allFiltersEnabled && starFilter[starNumber - 1] ? 'star-breakdown-selected' : 'star-breakdown'}
           onClick={() => toggleSelectedStar(starNumber)} >
-          <p className={'star-graph-label'}>{starNumber} stars</p>
+          <div className={'star-graph-label'}>{starNumber} stars</div>
 
           <div className={'star-graph-full'} style={fullStyle}></div>
-          {width > 250 ?
-            <span>
-              <div className={'star-graph-empty'} style={emptyStyle}>
+              <div className={width > 120 ?'star-graph-empty':""} style={emptyStyle}>
               </div>
-              <span>
-                {count}
-              </span>
-            </span>
-            : ""
-          }
+          <div>
+           {width>160?count:""}
+           </div>
 
         </div>)
       })}

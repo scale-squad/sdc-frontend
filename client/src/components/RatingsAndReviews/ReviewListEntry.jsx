@@ -11,7 +11,8 @@ const ReviewListEntry = ({ review, loadReviews }) => {
   let [report, setReport] = useState(localStorage.getItem(`FECreview_report_${review.review_id}`));
   let [helpfullCount, setHelpfulCount] = useState(helpfulness);
 
-  const handleHelpful = () => {
+  const handleHelpful = (e) => {
+    e.preventDefault();
     axios
       .put(`/reviews/${review.review_id}/helpful`)
       .then(r => {
@@ -23,7 +24,8 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       .catch(err => console.log(err))
   }
 
-  const handleReport = () => {
+  const handleReport = (e) => {
+    e.preventDefault();
     axios
       .put(`/reviews/${review.review_id}/report`)
       .then(r => {

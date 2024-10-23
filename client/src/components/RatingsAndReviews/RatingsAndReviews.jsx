@@ -28,8 +28,8 @@ const RatingsAndReviews = ({ productId }) => {
   return (
     <div id="test" className="ratings-and-review-container">
       <div>
-        <RatingBreakdown ratings={metaData.ratings} recommended={metaData.recommended} width={width} setStarFilter={setStarFilter} starFilter={starFilter} />
-        <SizeComfort characteristics={metaData.characteristics} width={width * .9} />
+        <RatingBreakdown ratings={metaData.ratings} recommended={metaData.recommended} width={width*.6} setStarFilter={setStarFilter} starFilter={starFilter} />
+        <SizeComfort characteristics={metaData.characteristics} width={width * .6} />
       </div>
       <div>
         <ReviewList recommended={metaData.recommended} productId={productId}

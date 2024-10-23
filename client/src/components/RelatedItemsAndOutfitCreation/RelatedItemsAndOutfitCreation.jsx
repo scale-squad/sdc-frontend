@@ -112,7 +112,7 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
       <div className='outfit-gallery'>
         <AddOutfitCard productId={productId} setOutfitList={setOutfitList} outfitList={outfitList} />
         {
-          outfitList.length >= itemCount - 1 ?
+          outfitList.length >= Math.max(itemCount - 1,0) ?
             [...outfitList, ...outfitList]
               .slice(outfitPage, outfitPage + itemCount - 1)
               .map((item, i) => <Card key={'outfit' + item.product_id * i} item={item} type="outfit" setProductId={setProductId} setOutfitList={setOutfitList}/>)
@@ -124,12 +124,11 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
         }</div>
       {
         outfitList.length >= itemCount - 1 ?
-          <div className="scroll-button" onClick={() => changePage(-1, 'outfit')}>
+          <div className="scroll-button-right" onClick={() => changePage(-1, 'outfit')}>
             <img className="scroll-button-img-flip" src={arrow} />
           </div>
           : <div></div>
       }
-
     </div>
   </div>
   )

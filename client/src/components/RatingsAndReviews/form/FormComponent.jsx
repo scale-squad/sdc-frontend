@@ -26,7 +26,7 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
   };
 
   if (formItem.type === 'star-selection') {
-    const starStyle = { 'opacity': '0' }//{ 'display': 'none' };
+    const starStyle = { 'opacity': '0','width':'10px','height':'auto' }//{ 'display': 'none' };
     const ratingText = ['Poor', 'Fair', 'Average', 'Good', 'Great'];
     return (
       <div className="form-group" >

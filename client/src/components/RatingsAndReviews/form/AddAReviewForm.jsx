@@ -52,7 +52,6 @@ const AddAReviewForm = ({ productId }) => {
       axios.post('/reviews', queryData)
         .then(res => {
           alert("thanks for your submission");
-          //handleModalClose();
           setShowForm(false);
           localStorage.clear();
           setFormData({});
@@ -149,16 +148,15 @@ const AddAReviewForm = ({ productId }) => {
   };
 
   return (
-    <span id="add-review-form-container" >
-      <Modal showModal={showForm} onClose={() => setShowForm(false)} className="add-review" className="add-review-modal">
-        <div id="add-review-form-modal" ><div><p>Write Your Review</p>
+    <div>
 
-          <div className="form-group">
-            <p>
-              <span>About the {productName}</span>
-            </p>
-          </div>
+
+      <Modal showModal={showForm} onClose={() => setShowForm(false)} className="add-review" className="add-review-modal">
+        <div id="add-review-form-modal" >
           <form id="add-review-form">
+
+              <div><h3>Write Your Review about the {productName}</h3></div>
+
             <FormComponent formItem={rating} formData={formData} setFormData={setFormData} />
             <FormComponent formItem={recommend} formData={formData} setFormData={setFormData} />
             <FormComponent formItem={size} formData={formData} setFormData={setFormData} />
@@ -177,6 +175,7 @@ const AddAReviewForm = ({ productId }) => {
             <button type='submit' onClick={handleSubmit}>Submit review</button>
           </form >
         </div >
+        <div>
         </div>
 
 
@@ -184,7 +183,7 @@ const AddAReviewForm = ({ productId }) => {
       <span>
         <button onClick={() => setShowForm(true)}>ADD A REVIEW  +</button>
       </span>
-    </span>
+      </div>
   )
 }
 export default AddAReviewForm;

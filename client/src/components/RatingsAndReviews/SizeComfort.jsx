@@ -18,7 +18,7 @@ const SizeComfort = ({ characteristics, width = 270 }) => {
       {WidthValue ? <Slider segments={widthSegments} value={WidthValue.value} title={"Width"} width={width / 3} /> : ""}
       {Comfort ? <Slider segments={comfortSegments} value={Comfort.value} title={"Comfort"} width={width / 3} /> : ""}
       {Quality ? <Slider segments={qualitySegments} value={Quality.value} title={"Quality"} width={width / 3} /> : ""}
-      {Length ? <Slider segments={lengthSegments} value={Length.value} title={"length"} width={width / 3} /> : ""}
+      {Length ? <Slider segments={lengthSegments} value={Length.value} title={"Length"} width={width / 3} /> : ""}
       {Fit ? <Slider segments={fitSegments} value={Fit.value} title={"Fit"} width={width / 3} /> : ""}
     </div>
   )
