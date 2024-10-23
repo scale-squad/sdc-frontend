@@ -50,7 +50,6 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
           const { original_price, sale_price } = defaultStyle;
           const thumbnail_url = defaultStyle.photos[0].thumbnail_url;
           newRelatedList[i] = { original_price, sale_price, product_id, thumbnail_url };
-          console.log(thumbnail_url);
         }
 
         for (let i = res.length / 3; i < 2 / 3 * res.length; i++) {
