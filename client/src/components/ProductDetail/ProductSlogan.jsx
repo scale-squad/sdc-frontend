@@ -3,20 +3,18 @@ import React from "react";
 const ProductSlogan = ({ product }) => {
   return (
     <div className="product-container">
-      <div className="description">
+      <div className="info-list">
         <h3>{product?.slogan}</h3>
-        <h3>{product?.category}</h3>
-        {product?.features?.map((e, i) => (
+        <span>{product?.description}</span>
+      </div>
+      <div className="description">
+        {product?.features?.map((feature, i) => (
           <div key={i} className="feature-item">
-            <h3>{e.feature}</h3>
-            <p>{e.value}</p>
+           ✔️<span>{feature.value}</span>  <span>{feature.feature}</span>
           </div>
         ))}
       </div>
 
-      <div className="info-list">
-        <h3>{product?.description}</h3>
-      </div>
     </div>
   );
 };
