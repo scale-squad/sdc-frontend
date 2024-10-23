@@ -4,7 +4,6 @@ import ReviewList from './ReviewList.jsx';
 import './RatingAndReviews.css';
 import RatingBreakdown from './RatingBreakdown.jsx';
 import SizeComfort from './SizeComfort.jsx';
-//import { sampleReview, sampleMeta } from './sampleData.js';
 import axios from 'axios';
 
 const RatingsAndReviews = ({ productId }) => {
