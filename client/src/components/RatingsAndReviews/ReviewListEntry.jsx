@@ -66,7 +66,10 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       </div>
       {response ? <div className="review-response">Response from Seller: {response}</div> : ""}
       {
-        photos.map(({ url }) => <ImageModal key={url} imageUrl={url} dimensions={50} />)
+        photos.map(({ url }) => {
+          if(url.startsWith('blob')) return "";
+        <ImageModal key={url} imageUrl={url} dimensions={50} />
+      })
       }
       <div>
         {recommend ? <span>✔️I recommend this product</span> : ""}

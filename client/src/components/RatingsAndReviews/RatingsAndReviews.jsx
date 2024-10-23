@@ -26,7 +26,7 @@ const RatingsAndReviews = ({ productId }) => {
   const handleResize = () => setWidth(window.innerWidth);
   window.addEventListener('resize', handleResize);
   return (
-    <div id="test" className="ratings-and-review-container">
+    <div id="rating-and-reviews-module" className="ratings-and-review-container">
       <div>
         <RatingBreakdown ratings={metaData.ratings} recommended={metaData.recommended} width={width*.6} setStarFilter={setStarFilter} starFilter={starFilter} />
         <SizeComfort characteristics={metaData.characteristics} width={width * .6} />
