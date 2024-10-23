@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
 import AddAReviewForm from './form/AddAReviewForm.jsx';
-const ReviewList = ({ reviewList, recommended, productId, starFilter }) => {
-  if (/*reviewList === undefined ||*/ recommended === undefined) { return <div>Error Loading Component</div> }
+const ReviewList = ({  recommended, productId, starFilter }) => {
+  if ( recommended === undefined) { return <div>Error Loading Component</div> }
 
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
   const [sort, setSort] = useState('relevant');
@@ -14,7 +14,7 @@ const ReviewList = ({ reviewList, recommended, productId, starFilter }) => {
   const countPerQuery = 2;
 
   const loadAllReviews = (sortType=sort) => {
-    const params = { params: { sort:sortType, product_id: productId, count: 500 } }
+    const params = { params: { sort:sortType, product_id: productId, count: 500 } };
     return axios
       .get('/reviews', params)
       .then(res => {

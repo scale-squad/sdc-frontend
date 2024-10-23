@@ -6,7 +6,7 @@ import SearchQuestion from "./SearchQuestion.jsx";
 import QuestionForm from "./QuestionForm.jsx";
 import AnswerForm from "./AnswerForm.jsx";
 import AnswerEntry from "./AnswerEntry.jsx";
-import Modal from "./Modal.jsx";
+import Modal from '../../components/sharedComponents/Modal.jsx';
 import QAActions from "./QAActions.jsx";
 
 const QuestionsAndAnswers = ({ productId }) => {
@@ -41,9 +41,8 @@ const QuestionsAndAnswers = ({ productId }) => {
   const params = {
     product_id: productId,
     page: 1,
-    count: 100,
+    count: 10000000,
   };
-
   useEffect(() => {
     fetchQA();
   }, [productId]);

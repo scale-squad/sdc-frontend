@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import FormComponent from './FormComponent.jsx';
 import axios from 'axios';
-import Modal from './Modal.jsx'
+import './AddReviewForm.css'
+import Modal from '../../sharedComponents/Modal.jsx'
 const AddAReviewForm = ({ productId }) => {
 
   const [characteristicsID, setcharacteristicsID] = useState({});
@@ -32,7 +33,7 @@ const AddAReviewForm = ({ productId }) => {
       "email": localStorage.getItem(`Ratings_and_reviews_form_email`),
       "photos": JSON.parse(localStorage.getItem('Ratings_and_reviews_form_photos')) || []
     }
-    //console.log(saved);
+
     setFormData(saved);
     axios
       .get(`/products/${productId}`)
@@ -147,13 +148,11 @@ const AddAReviewForm = ({ productId }) => {
     type: 'email', required: true, title: 'Email', value: 'email', placeholder: 'Example: jackson11@email.com', maxLength: 60
   };
 
-  //const noDisplayStyle = { 'display': 'none', 'backgroundColor': 'white', 'overflow': 'auto' };
-  //style={noDisplayStyle}
   return (
     <span id="add-review-form-container" >
-      <Modal showModal={showForm} onClose={() => setShowForm(false)}>
+      <Modal showModal={showForm} onClose={() => setShowForm(false)} className="add-review" className="add-review-modal">
         <div id="add-review-form-modal" ><div><p>Write Your Review</p>
-          {/* <div id='add-review-form-modal-close-button' onClick={handleModalClose}>X</div> */}
+
           <div className="form-group">
             <p>
               <span>About the {productName}</span>
