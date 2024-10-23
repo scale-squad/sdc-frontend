@@ -50,11 +50,11 @@ const ReviewList = ({ reviewList, recommended, productId, starFilter }) => {
     loadAllReviews();
   }, [starFilter, sort,productId]);
 
-  return (<div>
+  return (<div className="review-body">
 
-    <div>
-      <span>{totalReviews} reviews sorted by</span>
-      <select onChange={changeSort} value={sort}>
+    <div >
+      <span className="review-title">{totalReviews} reviews sorted by</span>
+      <select className="sort-dropdown" onChange={changeSort} value={sort}>
         <option value='relevant'>Relevant</option>
         <option value='newest'>Newest</option>
         <option value='helpful'>Helpfulness</option>

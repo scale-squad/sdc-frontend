@@ -67,9 +67,9 @@ const ReviewListEntry = ({ review, loadReviews }) => {
         photos.map(({ url }) => <ImageModal key={url} imageUrl={url} dimensions={50} />)
       }
       <div>
-        {recommend ? <span>I recommend this product✔️</span> : ""}
+        {recommend ? <span>✔️I recommend this product</span> : ""}
       </div>
-      <div>
+      <div className="button-group">
 
         <span className="mark-btn">Helpful?           {
           helpful ?

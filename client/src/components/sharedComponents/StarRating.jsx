@@ -26,7 +26,7 @@ const StarRating = ({ rating, ratingList, enableText = false, dimensions = 5 }) 
   const roundedRating = Math.floor(averageRating) + Math.round(remaining * 4) / 4;
   const fullStars = new Array(fullStarCount).fill();
   const emptyStars = new Array(emptyCount).fill();
-  const topStyle = { 'verticalAlign': 'top', 'marginTop': dimensions * .75, width: dimensions, height: dimensions }
+  const topStyle = { 'verticalAlign': 'top', width: dimensions, height: dimensions }
   let partialStar = empty;
 
   if (remaining <= 1 && remaining >= .875) partialStar = full;
