@@ -196,8 +196,7 @@ button:hover{
 
 .bottom-row{
   display: flex;
-  /* justify-content: space-between; */
-  margin-bottom: 10px;
+  justify-content: space-between;
 }
 #addToCartBtn {
   width: 70%;
@@ -208,3 +207,20 @@ button:hover{
   margin-left:8px;
 }
 
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  align-items: center;
+}
+
+.description {
+  flex: 3;
+  border-left: 1px solid #8a6262;
+  padding-left: 20px;
+}
+
+.info-list {
+  flex: 6.5;
+}
