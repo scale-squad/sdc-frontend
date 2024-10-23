@@ -7,9 +7,9 @@ const CardComparison = ({ item1, item2 }) => {
 
 
 
-  console.log(item1);
-  console.log(item2);
-  item2.sale_price=50;
+  //console.log(item1);
+  //console.log(item2);
+  //item2.sale_price=50;
   return (<div id='card-comparison'>
     <table>
       <thead><tr><th></th><th></th></tr></thead>
