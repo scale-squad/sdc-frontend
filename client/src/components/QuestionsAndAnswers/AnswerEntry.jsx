@@ -8,6 +8,8 @@ const AnswerEntry = ({
   reportedQA,
   votedQA,
 }) => {
+  let newDate = new Date(answer.date);
+  newDate.setTime(newDate.getTime() + (4*60*60*1000));
   return (
     <div className="answer">
       <span>
@@ -34,7 +36,7 @@ const AnswerEntry = ({
             ) : (
               answer.answerer_name
             )}
-            , {format(new Date(answer.date), "MM/dd/yyyy")} |
+            , {format(new Date(newDate), "MM/dd/yyyy")} |
           </span>
           <div className="answer-actions">
             <span className="help-text">
