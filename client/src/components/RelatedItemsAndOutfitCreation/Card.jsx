@@ -11,9 +11,6 @@ const Card = ({ item, type, setProductId, setOutfitList, currentProduct }) => {
     thumbnail_url, avgRating, category, name } = item;
   const [showComparison, setShowComparison] = useState(false);
 
-
-  //console.log(item);
-  //console.log(currentProduct);
   const handleDelete = (product_id) => {
     setOutfitList(() => {
       const prev = JSON.parse(localStorage.getItem('fecOutfitList'));
@@ -31,7 +28,7 @@ const Card = ({ item, type, setProductId, setOutfitList, currentProduct }) => {
   };
 
   return (<span>
-    <Modal showModal={showComparison} onClose={() => setShowComparison(false)} modalClassName='comparison-modal'>
+    <Modal showModal={showComparison} onClose={() => setShowComparison(false)} >
       <CardComparison item1={currentProduct} item2={item} />
     </Modal>
     <div className="card-item" onClick={() => setProductId(product_id)}>

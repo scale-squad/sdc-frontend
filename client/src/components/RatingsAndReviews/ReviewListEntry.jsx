@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import ImageModal from './ImageModal.jsx';
 import axios from 'axios';
 import StarRating from '../sharedComponents/StarRating.jsx';
+import { MdOutlineVerified } from "react-icons/md";
 const ReviewListEntry = ({ review, loadReviews }) => {
   if (review === undefined) { return <div>Error Loading  Component</div> }
   const { summary, rating, body, date, photos, helpfulness, reviewer_name, response, recommend } = review;
-  const textLimit = 60;
+  const textLimit = 250;
   let [visibleBody, setVisibleBody] = useState(body.slice(0, textLimit));
   let [helpful, setHelpful] = useState(localStorage.getItem(`FECreview_helpful_${review.review_id}`));
   let [report, setReport] = useState(localStorage.getItem(`FECreview_report_${review.review_id}`));
@@ -41,7 +42,7 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       <div className="entry-top">
         <StarRating rating={rating} dimensions={15} />
         <div>
-          <span className="reviewer-name">{reviewer_name}</span>
+          <span className="reviewer-name">{reviewer_name.charCodeAt(0)%5!==0?<span><MdOutlineVerified style={{'color':'blue'}} />Verified Purchaser - </span>:""}{reviewer_name}</span>
           <span className="review-entry-date">
             {new Intl.DateTimeFormat('en-US').format(new Date(date))}
           </span>

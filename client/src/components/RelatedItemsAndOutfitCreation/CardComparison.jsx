@@ -44,8 +44,8 @@ const CardComparison = ({ item1, item2 }) => {
         </tr>
         {
           Object
-            .keys(item1.characteristics || [])//.map(x=>console.log(x))
-            .filter(key => (key in item2.characteristics))//.map(x=>console.log(x))
+            .keys(item1.characteristics || [])
+            .filter(key => (key in item2.characteristics))
             .map((name, i) => {
               return (<tr key={name + i}>
                 <td>{Number(item1.characteristics[name].value).toFixed(2)}</td>
