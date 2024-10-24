@@ -5,7 +5,7 @@ import StarRating from '../sharedComponents/StarRating.jsx';
 const ReviewListEntry = ({ review, loadReviews }) => {
   if (review === undefined) { return <div>Error Loading  Component</div> }
   const { summary, rating, body, date, photos, helpfulness, reviewer_name, response, recommend } = review;
-  const textLimit = 60;
+  const textLimit = 250;
   let [visibleBody, setVisibleBody] = useState(body.slice(0, textLimit));
   let [helpful, setHelpful] = useState(localStorage.getItem(`FECreview_helpful_${review.review_id}`));
   let [report, setReport] = useState(localStorage.getItem(`FECreview_report_${review.review_id}`));
