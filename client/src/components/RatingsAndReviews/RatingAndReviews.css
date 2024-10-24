@@ -53,8 +53,18 @@
   background: rgb(61, 62, 61);
 }
 
+
+
+.thumbnail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
 .modal-thumbnail {
   object-fit: contain;
+  gap:10px;
+  flex-direction:column;
+  height: auto;
 
 }
 
@@ -73,8 +83,6 @@
 }
 
 .rr-modal-fullscreen-image {
-    /* justify-content: center; */
-    /* background-color: #fefefe; */
     background-color: rgba(0, 0, 0, 0.0);
     margin: auto;
     padding: auto;
@@ -82,15 +90,12 @@
     height: 100%;
     width: auto;
     display: flex;
-    /* width: 80%; */
-    /*display: flex;*/
-     /* transform: translateX(-25%);
-    transform: translateY(25%); */
-    /* text-align: center;
-    vertical-align:middle; */
+
     justify-content: center;
 }
-
+.mark-btn{
+  padding-right: 10px;
+}
 .modal-close-button {
 
   color: white;
@@ -111,9 +116,10 @@
 
 .modal-thumbnail img {
   margin: 10px;
-  width: 75px;
   border: solid;
   border-width: 5px;
+  height: 63px;
+  object-fit: cover;
 }
 
 .reviewer-recommendation-percent {
