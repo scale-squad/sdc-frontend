@@ -110,9 +110,9 @@ const QuestionsAndAnswers = ({ productId }) => {
     setSearchTerm(e.target.value);
   };
 
-  const questionsBody = qaList.filter((qa) =>
+  const questionsBody = searchTerm.length < 3 ? qaList : (qaList.filter((qa) =>
     qa.question_body.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ))
 
   const handleMarkQuestionHelpful = (id) => {
     if (votedQA.questions.includes(id)) return;
