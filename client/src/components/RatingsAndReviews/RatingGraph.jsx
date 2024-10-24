@@ -19,7 +19,8 @@ const RatingGraph = ({ ratings, width = 270, setStarFilter, starFilter }) => {
     setStarFilter(newStarFilter);
   }
 
-  const handleRemoveFilters = () => {
+  const handleRemoveFilters = (e) => {
+    e.preventDefault();
     setStarFilter([false, false, false, false, false]);
   }
 
