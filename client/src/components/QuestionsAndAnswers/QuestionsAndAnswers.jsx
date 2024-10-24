@@ -243,14 +243,14 @@ const QuestionsAndAnswers = ({ productId }) => {
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
-            const sortedAnswers = answers.sort((a, b) => {
+            const sortedAnswers = answersArray.sort((a, b) => {
               if (a.answerer_name === "Seller" && b.answerer_name !== "Seller") return -1;
               if (a.answerer_name !== "Seller" && b.answerer_name === "Seller") return 1;
               return b.helpfulness - a.helpfulness;
             });
 
             const isExpanded = selectedQuestionId === qa.question_id;
-            const visibleCount = isExpanded ? answersArray.length : 1;
+            const visibleCount = isExpanded ? sortedAnswers.length : 1;
             return (
               <div className="qa-item" key={index}>
                 <QAActions
@@ -274,7 +274,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                       votedQA={votedQA}
                     />
                   ))}
-                  {answersArray.length > 1 && (
+                  {sortedAnswers.length > 1 && (
                     <a
                       className="link-more-ans"
                       onClick={() => toggleQuestion(qa.question_id)}
