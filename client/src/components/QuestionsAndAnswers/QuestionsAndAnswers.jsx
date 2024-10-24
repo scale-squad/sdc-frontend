@@ -21,8 +21,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   const [questionData, setNewQuestionData] = useState({
     body: "",
     name: "",
-    email: "",
-    photos: [],
+    email: ""
   });
   const [ansData, setNewAnswerData] = useState({
     body: "",
