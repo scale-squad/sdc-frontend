@@ -95,6 +95,15 @@
   display: inline-flex;
   font-size: 0px;
 }
+
+.link-to-reviews{
+  padding-left: 10px;
+}
+
+.rounded-rating-text {
+  padding-right: 5px;
+}
+
 .totalReviews a{
   color: black;
 }
@@ -261,4 +270,12 @@ button:hover{
 .info-list {
   flex: 6.5;
   border-right: 1.5px solid #8a6262;
+}
+
+.totalReviews {
+  display: flex;
+}
+
+.totalReviews .rounded-rating-text {
+  font-size: 10px
 }

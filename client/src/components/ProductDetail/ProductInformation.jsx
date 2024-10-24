@@ -48,9 +48,7 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
     <div>
       <div className="totalReviews">
         <StarRating className="starsInProduct" ratingList={reviews} dimensions={20}/>
-        <span>
-        <a href="#rating-and-reviews-module">Read all {calcTotalReviews()} reviews</a>
-        </span>
+        <a className="link-to-reviews" href="#rating-and-reviews-module">Read all {calcTotalReviews()} reviews</a>
       </div>
       <h4>{product?.category.toUpperCase()}</h4>
       <h1>{product?.name}</h1>
