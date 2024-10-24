@@ -11,9 +11,6 @@ const Card = ({ item, type, setProductId, setOutfitList, currentProduct }) => {
     thumbnail_url, avgRating, category, name } = item;
   const [showComparison, setShowComparison] = useState(false);
 
-
-  //console.log(item);
-  //console.log(currentProduct);
   const handleDelete = (product_id) => {
     setOutfitList(() => {
       const prev = JSON.parse(localStorage.getItem('fecOutfitList'));
