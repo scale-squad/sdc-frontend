@@ -169,9 +169,9 @@ const AddAReviewForm = ({ productId }) => {
             <FormComponent formItem={body} formData={formData} setFormData={setFormData} />
             <FormComponent formItem={photos} formData={formData} setFormData={setFormData} />
             <FormComponent formItem={name} formData={formData} setFormData={setFormData} />
-            <div >For privacy reasons, do not use your full name or email address</div>
+            <div className="note" >For privacy reasons, do not use your full name or email address</div>
             <FormComponent formItem={email} formData={formData} setFormData={setFormData} />
-            <div>For authentication reasons, you will not be emailed</div>
+            <div className="note">For authentication reasons, you will not be emailed</div>
             <button type='submit' onClick={handleSubmit}>Submit review</button>
           </form >
         </div >
