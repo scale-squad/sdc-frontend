@@ -255,10 +255,10 @@ button:hover{
 
 .description {
   flex: 3;
-  border-left: 1px solid #8a6262;
   padding-left: 20px;
 }
 
 .info-list {
   flex: 6.5;
+  border-right: 1.5px solid #8a6262;
 }
