@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import ReviewListEntry from './ReviewListEntry.jsx';
 import axios from 'axios';
 import AddAReviewForm from './form/AddAReviewForm.jsx';
-const ReviewList = ({  recommended, productId, starFilter }) => {
-  if ( recommended === undefined) { return <div>Error Loading Component</div> }
+const ReviewList = ({ recommended, productId, starFilter }) => {
+  if (recommended === undefined) { return <div>Error Loading Component</div> }
 
   const totalReviews = (Number(recommended.false) + Number(recommended.true));
   const [sort, setSort] = useState('relevant');
@@ -13,12 +13,13 @@ const ReviewList = ({  recommended, productId, starFilter }) => {
   const [page, setPage] = useState(1);
   const countPerQuery = 2;
 
-  const loadAllReviews = (sortType=sort) => {
-    const params = { params: { sort:sortType, product_id: productId, count: 500 } };
+  const loadAllReviews = (sortType = sort) => {
+    const params = { params: { sort: sortType, product_id: productId, count: 500 } };
     return axios
       .get('/reviews', params)
       .then(res => {
         const filteredList = filterList(res.data.results);
+        console.log(filteredList);
         setRList(filteredList);
         setViewList(filteredList.slice(0, countPerQuery));
       })
@@ -30,6 +31,12 @@ const ReviewList = ({  recommended, productId, starFilter }) => {
     //check if filtering is disabled
     if (!starFilter.every(x => !x)) {
       filteredList = filteredList.filter(({ rating }) => starFilter[rating - 1]);
+    }
+    if (sort === 'relevant') {
+      //a.Helpfulness-b.Helpfulness+
+
+      filteredList = filteredList.sort((a, b) =>a.helpfulness - b.helpfulness).slice(0,50).sort((a,b)=>new Date(b.date) - new Date(a.date))
+
     }
     return filteredList;
   };
@@ -43,12 +50,12 @@ const ReviewList = ({  recommended, productId, starFilter }) => {
     const sortType = e.target.value;
     setSort(sortType);
     loadAllReviews(sortType)
-    .then(r=>setPage(1))
+      .then(r => setPage(1))
   };
 
   useEffect(() => {
     loadAllReviews();
-  }, [starFilter, sort,productId]);
+  }, [starFilter, sort, productId]);
 
   return (<div className="review-body">
 
