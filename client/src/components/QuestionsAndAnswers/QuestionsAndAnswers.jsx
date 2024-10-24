@@ -239,7 +239,7 @@ const QuestionsAndAnswers = ({ productId }) => {
 
       <div className="questions-list">
         {questionsBody.length === 0 ? (
-          <p>Loading...</p>
+          <p>No Data...</p>
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
