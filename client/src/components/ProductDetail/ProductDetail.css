@@ -29,6 +29,7 @@
   position: relative;
   overflow: visible;
   z-index: 2;
+  cursor: zoom-out;
 }
 
 .first-column-expanded img{
@@ -57,11 +58,11 @@
   z-index: 50;
 }
 
-
-
-#productImage{
-  /*object-fit: cover;*/
+.upDownButton {
+  z-index: 10;
 }
+
+
 .second-column {
   display: grid;
   grid-column: 2;
@@ -194,6 +195,16 @@ button:hover{
   overflow: hidden;
   border-radius: 50%;
   border: 1px black;
+}
+
+.checkIcon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 5px;
+  right: 5px;
+  background-color: white;
+  border-radius: 50%;
 }
 .style-image{
   position: absolute;
