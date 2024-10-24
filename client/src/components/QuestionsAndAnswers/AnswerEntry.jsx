@@ -28,7 +28,7 @@ const AnswerEntry = ({
         )}
         <div className="answer-info">
           <span>
-            by
+            by {" "}
             {answer.answerer_name === "Seller" ? (
               <b>Seller</b>
             ) : (
