@@ -179,6 +179,17 @@ button:hover{
   background-color: red;
 }
 
+
+.originalPrice{
+  color: black;
+}
+.salePrice{
+  color: red;
+}
+.strikethroughPrice{
+  color: black;
+}
+
 /*STYLE SELECTOR*/
 .style-selector {
   display: grid;
