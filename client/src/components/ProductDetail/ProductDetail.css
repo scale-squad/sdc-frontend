@@ -7,7 +7,7 @@
   margin: 0 auto;
   width: 70%;
   position:relative;
-
+  padding-top: 20px;
 }
 .first-column{
   grid-column: 1;
