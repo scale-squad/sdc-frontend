@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const ImageUpload = ({ handleImageUpload, handleImageRemove }) => {
   const [selectedImages, setSelectedImages] = useState([]);
-
   const handleImageChange = (e) => {
     if (selectedImages.length >= 5) return;
     const file = e.target.files[0];

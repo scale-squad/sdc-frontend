@@ -63,32 +63,39 @@ const ReviewListEntry = ({ review, loadReviews }) => {
               </button>
             </span> : ""
         }
-      </div>
+      </div >
       {response ? <div className="review-response">Response from Seller: {response}</div> : ""}
+
+      <div  className="thumbnail-container">
       {
         photos.map(({ url }) => {
           if(url.startsWith('blob')) return "";
-        <ImageModal key={url} imageUrl={url} dimensions={50} />
-      })
-      }
+        return (
+             <ImageModal key={url} imageUrl={url} dimensions={50} />
+            )
+          })
+        }
+        </div>
+
+
       <div>
         {recommend ? <span>✔️I recommend this product</span> : ""}
       </div>
       <div className="button-group">
 
-        <span className="mark-btn">Helpful?           {
+        <span className="mark-btn"> Helpful?           {
           helpful ?
-            <b >Yes</b> :
-            <a href="#" onClick={handleHelpful}>Yes</a>
+            <b >Yes </b> :
+            <a href="#" onClick={handleHelpful}> Yes </a>
         }
-          <span>{helpfullCount}</span>
+          <span> {helpfullCount} </span>
         </span>
-        <span>|</span>
+        <span> | </span>
         <span>
           {
             report ?
-              <b>Reported</b> :
-              < a href="#" onClick={handleReport}>Report</a>
+              <b> Reported </b> :
+              < a href="#" onClick={handleReport}> Report </a>
           }
         </span>
       </div>

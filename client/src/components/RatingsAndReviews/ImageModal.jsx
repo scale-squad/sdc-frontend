@@ -9,7 +9,7 @@ const ImageModal = ({ imageUrl, dimensions = 50 }) => {
   const style = { width: dimensions };
 
   return (<div>
-    <Modal modalClassName='rr-modal-fullscreen' className='rr-modal-fullscreen-image' showModal={showImage} onClose={() => setShowImage(false)}>
+    <Modal modalClassName='modal-fullscreen' className='modal-fullscreen-image' showModal={showImage} onClose={() => setShowImage(false)}>
       <img src={imageUrl}/>
     </Modal>
     <span className="modal-thumbnail">

@@ -19,7 +19,7 @@ const ReviewList = ({ recommended, productId, starFilter }) => {
       .get('/reviews', params)
       .then(res => {
         const filteredList = filterList(res.data.results);
-        console.log(filteredList);
+
         setRList(filteredList);
         setViewList(filteredList.slice(0, countPerQuery));
       })
@@ -33,8 +33,6 @@ const ReviewList = ({ recommended, productId, starFilter }) => {
       filteredList = filteredList.filter(({ rating }) => starFilter[rating - 1]);
     }
     if (sort === 'relevant') {
-      //a.Helpfulness-b.Helpfulness+
-
       filteredList = filteredList.sort((a, b) =>a.helpfulness - b.helpfulness).slice(0,50).sort((a,b)=>new Date(b.date) - new Date(a.date))
 
     }
