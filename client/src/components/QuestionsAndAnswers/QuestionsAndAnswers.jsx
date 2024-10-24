@@ -29,6 +29,24 @@ const QuestionsAndAnswers = ({ productId }) => {
     email: "",
     photos: [],
   });
+
+  const resetAnswerData  =()=>{
+    setAnswerData({
+      body: "",
+      name: "",
+      email: "",
+      photos: []
+    });
+  };
+
+  const resetQuestionData  =()=>{
+    setQuestionData({
+      body: "",
+      name: "",
+      email: ""
+    });
+  };
+
   const [votedQA, setvotedQA] = useState({
     questions: JSON.parse(localStorage.getItem("votedQuestions")) || [],
     answers: JSON.parse(localStorage.getItem("votedAnswers")) || [],
@@ -186,6 +204,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .post(`/qa/questions`, questionBody)
       .then(() => {
+        resetQuestionData();
         fetchQA();
         setShowAddQuestionForm(false);
       })
@@ -201,6 +220,7 @@ const QuestionsAndAnswers = ({ productId }) => {
     axios
       .post(`/qa/questions/${currentQuestionId}/answers`, ansBody)
       .then(() => {
+        resetAnswerData();
         fetchQA();
         setCurrentQuestionId(null);
         setShowAnswerForm(false);
