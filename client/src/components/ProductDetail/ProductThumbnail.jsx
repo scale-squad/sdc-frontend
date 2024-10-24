@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 
-const ProductThumbnail = ({photo, index, currentPhotoIndex, setCurrentPhotoIndex}) =>{
+const ProductThumbnail = ({photo, index, currentPhotoIndex, setCurrentPhotoIndex, isExpanded}) =>{
 
 
   function thumbnailClicked(){
@@ -13,9 +13,11 @@ const ProductThumbnail = ({photo, index, currentPhotoIndex, setCurrentPhotoIndex
     <div className="thumbnail-gallary" tabIndex="0">
       <img src={photo.thumbnail_url} onClick={thumbnailClicked}/>
 
-      {currentPhotoIndex===index ?
+      {currentPhotoIndex===index && !isExpanded ?
         <div className="selectedThumbnail"></div>
       : ""}
+
+
     </div>
   )
 
