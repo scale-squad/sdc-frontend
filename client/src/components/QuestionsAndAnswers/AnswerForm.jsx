@@ -36,7 +36,7 @@ const AnswerForm = ({
           />
         </label>
         <label>
-          What is your nickname:
+        What is your nickname:
           <input
             name="name"
             value={ansData.name}
@@ -46,11 +46,11 @@ const AnswerForm = ({
             required
           />
         </label>
-        <span>
-          For privacy reasons, do not use your full name or email address
+        <span className="note">
+        **For privacy reasons, do not use your full name or email address
         </span>
         <label>
-          Your email:
+        Your email:
           <input
             type="email"
             name="email"
@@ -61,7 +61,8 @@ const AnswerForm = ({
             required
           />
         </label>
-        <span>For authentication reasons, you will not be emailed</span>
+        <span className="note">
+        **For authentication reasons, you will not be emailed</span>
         <ImageUpload handleImageUpload={handleImageUpload} handleImageRemove={handleRemoveImage} />
 
         <div className="thumbnail-container">

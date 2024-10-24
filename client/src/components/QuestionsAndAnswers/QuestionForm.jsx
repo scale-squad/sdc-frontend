@@ -32,11 +32,11 @@ const QuestionForm = ({
           name="email"
           value={questionData.email}
           onChange={handleInputChange}
-          placeholder="Why did you like or not?"
+          placeholder="Example: anc@gmail.com"
           required
         />
-          <span >
-          For authentication reasons, you will not be emailed
+          <span className="note">
+          **For authentication reasons, you will not be emailed
         </span>
         <button type="submit">Submit</button>
         <button type="button" onClick={() => setShowAddQuestionForm(false)}>

@@ -258,3 +258,11 @@ button.add-question:hover {
   right: -8px;
   width: 20px;
 }
+
+.note {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  color: #555;
+}
