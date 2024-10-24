@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { CiCircleCheck } from "react-icons/ci";
 
 const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyles, currentPhotoIndex}) => {
 
@@ -20,7 +21,14 @@ const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyl
       <div className="style-selector">
         {productStyles.map((style, index) => (
           <div className="style-selector-image-crop" key={style.style_id}>
+
             <img className="style-image" key={index} src={style.photos[0].thumbnail_url} onClick={()=>styleClicked(index)} />
+
+            {style.style_id === currentProductStyle.style_id ?
+              <div className="checkIcon">
+                <CiCircleCheck size={24} color="black"/>
+              </div>
+              : "" }
           </div>
         ))}
       </div>

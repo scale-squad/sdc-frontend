@@ -82,16 +82,16 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
 
       </div>
       <div className="thumbnailDiv">
-        {curThumbnailIndex > 0 ? (
-          <button onClick={scrollThumbnailsBackward}>
+        {curThumbnailIndex > 0 && !isExpanded ? (
+          <button className="upDownButton" onClick={scrollThumbnailsBackward}>
             <FaAnglesUp />
           </button> ): ""
         }
         {currentProductStyle.photos.slice(curThumbnailIndex, curThumbnailIndex + 7).map((photo, index) => (
           <ProductThumbnail key={index} photo={photo} index={index + curThumbnailIndex} currentPhotoIndex={currentPhotoIndex} setCurrentPhotoIndex={setCurrentPhotoIndex} />
         ))}
-        {showThumbnailArrow ? (
-          <button onClick={scrollThumbnailsForward}>
+        {showThumbnailArrow && !isExpanded ? (
+          <button className="upDownButton" onClick={scrollThumbnailsForward}>
             <FaAnglesDown />
           </button>
         ):""}
