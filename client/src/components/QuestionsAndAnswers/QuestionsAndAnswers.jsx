@@ -31,7 +31,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   });
 
   const resetAnswerData  =()=>{
-    setAnswerData({
+    setNewAnswerData({
       body: "",
       name: "",
       email: "",
@@ -40,7 +40,7 @@ const QuestionsAndAnswers = ({ productId }) => {
   };
 
   const resetQuestionData  =()=>{
-    setQuestionData({
+    setNewQuestionData({
       body: "",
       name: "",
       email: ""
