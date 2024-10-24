@@ -1,4 +1,10 @@
-button{
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.button{
   border:1px;
   border-style: solid;
   background-color: rgb(255, 255, 255)
@@ -13,3 +19,11 @@ button:hover{
   background-color: red;
 }
 
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar-list {
+  height: 40px;
+}

@@ -146,3 +146,15 @@
   justify-content: center;
   align-items: center;
 }
+
+.add-card-item {
+  width: 150px;
+}
+.add-card-button{
+  margin: 50px
+}
+
+.dummyImg {
+  width: 120px;
+  padding: 33px;
+}

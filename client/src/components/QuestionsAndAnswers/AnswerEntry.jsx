@@ -53,9 +53,9 @@ const AnswerEntry = ({
             {reportedQA.answers.includes(answer.id) ? (
               <span>Reported</span>
             ) : (
-              <span className="link" onClick={() => handleAnsReport(answer.id)}>
+              <a className="link" onClick={() => handleAnsReport(answer.id)}>
                 Report
-              </span>
+              </a>
             )}
           </div>
         </div>

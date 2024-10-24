@@ -47,8 +47,8 @@ const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
   if (!productId) { return <div>Cannot render component</div> }
 
   return (
-    <div className="card-item" onClick={handleAddOutfit}>
-      <LuImagePlus className="scroll-button-cii" size={80}/>
+    <div className="add-card-item" onClick={handleAddOutfit}>
+      <LuImagePlus className="add-card-button" size={80}/>
     </div>
   )
 };

@@ -110,9 +110,9 @@ const QuestionsAndAnswers = ({ productId }) => {
     setSearchTerm(e.target.value);
   };
 
-  const questionsBody = qaList.filter((qa) =>
+  const questionsBody = searchTerm.length < 3 ? qaList : (qaList.filter((qa) =>
     qa.question_body.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ))
 
   const handleMarkQuestionHelpful = (id) => {
     if (votedQA.questions.includes(id)) return;
@@ -239,12 +239,18 @@ const QuestionsAndAnswers = ({ productId }) => {
 
       <div className="questions-list">
         {questionsBody.length === 0 ? (
-          <p>Loading...</p>
+          <p>No Data...</p>
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
+            const sortedAnswers = answersArray.sort((a, b) => {
+              if (a.answerer_name === "Seller" && b.answerer_name !== "Seller") return -1;
+              if (a.answerer_name !== "Seller" && b.answerer_name === "Seller") return 1;
+              return b.helpfulness - a.helpfulness;
+            });
+
             const isExpanded = selectedQuestionId === qa.question_id;
-            const visibleCount = isExpanded ? answersArray.length : 1;
+            const visibleCount = isExpanded ? sortedAnswers.length : 1;
             return (
               <div className="qa-item" key={index}>
                 <QAActions
@@ -258,7 +264,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                 />
 
                 <div className="answer-group">
-                  {answersArray.slice(0, visibleCount).map((answer, idx) => (
+                  {sortedAnswers.slice(0, visibleCount).map((answer, idx) => (
                     <AnswerEntry
                       key={idx}
                       answer={answer}
@@ -268,7 +274,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                       votedQA={votedQA}
                     />
                   ))}
-                  {answersArray.length > 1 && (
+                  {sortedAnswers.length > 1 && (
                     <a
                       className="link-more-ans"
                       onClick={() => toggleQuestion(qa.question_id)}
