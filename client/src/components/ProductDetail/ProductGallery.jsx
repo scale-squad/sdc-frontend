@@ -9,9 +9,11 @@ import { FaAnglesDown } from "react-icons/fa6";
 const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhotoIndex, isExpanded, setIsExpanded}) => {
   if(currentProductStyle === undefined){return <div>Error fetching current product style for gallery</div>}
 
+
   const [mousePosition, setMousePosition] = useState();
   const [curThumbnailIndex, setThumbnailIndex] = useState(0);
   const showThumbnailArrow = curThumbnailIndex + 7 < currentProductStyle.photos.length;
+
 
   const expand = useCallback(()=>{
     setIsExpanded(!isExpanded);
@@ -88,7 +90,7 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
           </button> ): ""
         }
         {currentProductStyle.photos.slice(curThumbnailIndex, curThumbnailIndex + 7).map((photo, index) => (
-          <ProductThumbnail key={index} photo={photo} index={index + curThumbnailIndex} currentPhotoIndex={currentPhotoIndex} setCurrentPhotoIndex={setCurrentPhotoIndex} />
+          <ProductThumbnail key={index} photo={photo} index={index + curThumbnailIndex} currentPhotoIndex={currentPhotoIndex} setCurrentPhotoIndex={setCurrentPhotoIndex} isExpanded={isExpanded}/>
         ))}
         {showThumbnailArrow && !isExpanded ? (
           <button className="upDownButton" onClick={scrollThumbnailsForward}>

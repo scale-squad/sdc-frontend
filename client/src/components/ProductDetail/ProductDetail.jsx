@@ -57,7 +57,7 @@ const ProductDetail = ({ productId, styleId, setStyleId }) => {
             <ProductInformation currentProductStyle={currentProductStyle} product={product}  reviews={reviews} />
           </div>
           <div>
-            <StyleSelector currentProductStyle={currentProductStyle} setCurrentProductStyle={setCurrentProductStyle} productStyles={productStyles} currentPhotoIndex={currentPhotoIndex}/>
+            <StyleSelector currentProductStyle={currentProductStyle} setCurrentProductStyle={setCurrentProductStyle} productStyles={productStyles} currentPhotoIndex={currentPhotoIndex} setCurrentPhotoIndex={setCurrentPhotoIndex}/>
           </div>
           <div>
             <AddToCart currentProductStyle={currentProductStyle} />

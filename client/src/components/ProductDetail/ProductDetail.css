@@ -28,7 +28,7 @@
   height: 650px;
   position: relative;
   overflow: visible;
-  z-index: 2;
+  z-index: 11;
   cursor: zoom-out;
 }
 
@@ -141,7 +141,7 @@
 
 .selectedThumbnail {
   border-bottom: 5px solid #b25930;
-  position: absolute;
+  position: inherit;
   z-index: 10;
 }
 

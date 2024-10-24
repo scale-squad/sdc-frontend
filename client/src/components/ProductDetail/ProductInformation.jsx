@@ -40,7 +40,6 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
     for(const [key, value] of Object.entries(reviews)) {
       total += Number(value);
     }
-    console.log(total, "total");
     return total;
   }
 

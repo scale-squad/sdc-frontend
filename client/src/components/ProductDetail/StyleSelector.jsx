@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { CiCircleCheck } from "react-icons/ci";
 
-const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyles, currentPhotoIndex}) => {
+const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyles, currentPhotoIndex, setCurrentPhotoIndex}) => {
 
   if(currentProductStyle===undefined) {
     return <div>Error loading current product style</div>
@@ -11,10 +11,14 @@ const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyl
   }
 
   function styleClicked(index) {
+
+    if(currentPhotoIndex > productStyles[index].photos.length - 1){
+      setCurrentPhotoIndex(productStyles[index].photos.length - 1);
+    }
+
     setCurrentProductStyle(productStyles[index]);
   }
 
-  console.log(productStyles);
   return (
     <div>
       <h4>{"STYLE > "}{currentProductStyle.name}</h4>
