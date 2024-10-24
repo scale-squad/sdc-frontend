@@ -106,7 +106,7 @@
 
 .thumbnailDiv {
   position: absolute;
-  top: 36px;
+  top: 15px;
   left: 20px;
   display: flex;
   flex-direction: column;
