@@ -266,11 +266,6 @@ b {
   color: #252525;
 }
 
-/* #add-review-form {
-  margin: auto;
-  padding: auto;
-  justify-content: center;
-} */
 
 #Review-Body {
   width: 250px;
@@ -281,8 +276,4 @@ b {
   margin: auto;
   padding: auto;
   margin: 20px;
-}
-#add-review-form{
-  height: 80%;
-  overflow-y:auto ;
 }
