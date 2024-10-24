@@ -17,6 +17,10 @@
   background: white;
   border-radius: 5px;
 }
-#add-review-form{
+
+#add-review-form {
+  height: 800px;
+  overflow-y: auto;
+  text-align: center;
   background-color: white;
 }
