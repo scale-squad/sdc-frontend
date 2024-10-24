@@ -243,6 +243,12 @@ const QuestionsAndAnswers = ({ productId }) => {
         ) : (
           questionsBody.slice(0, visibleQuestions).map((qa, index) => {
             const answersArray = Object.values(qa.answers);
+            const sortedAnswers = answers.sort((a, b) => {
+              if (a.answerer_name === "Seller" && b.answerer_name !== "Seller") return -1;
+              if (a.answerer_name !== "Seller" && b.answerer_name === "Seller") return 1;
+              return b.helpfulness - a.helpfulness;
+            });
+
             const isExpanded = selectedQuestionId === qa.question_id;
             const visibleCount = isExpanded ? answersArray.length : 1;
             return (
@@ -258,7 +264,7 @@ const QuestionsAndAnswers = ({ productId }) => {
                 />
 
                 <div className="answer-group">
-                  {answersArray.slice(0, visibleCount).map((answer, idx) => (
+                  {sortedAnswers.slice(0, visibleCount).map((answer, idx) => (
                     <AnswerEntry
                       key={idx}
                       answer={answer}
