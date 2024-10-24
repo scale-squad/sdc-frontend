@@ -138,6 +138,8 @@
 
 .review-body {
   padding-top: 60px;
+  height: 800px;
+  overflow-y: auto;
 }
 
 .review-title {
