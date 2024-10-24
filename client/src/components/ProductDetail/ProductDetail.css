@@ -91,6 +91,14 @@
   left: 20%;
 }
 
+.starsInProduct{
+  display: inline-flex;
+  font-size: 0px;
+}
+.totalReviews a{
+  color: black;
+}
+
 .product-slogan{
   display: grid;
   grid-column: 1 / span 2;
