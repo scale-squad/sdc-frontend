@@ -3,6 +3,8 @@ import ImageModal from './ImageModal.jsx';
 import axios from 'axios';
 import StarRating from '../sharedComponents/StarRating.jsx';
 import { MdOutlineVerified } from "react-icons/md";
+import { format } from "date-fns";
+
 const ReviewListEntry = ({ review, loadReviews }) => {
   if (review === undefined) { return <div>Error Loading  Component</div> }
   const { summary, rating, body, date, photos, helpfulness, reviewer_name, response, recommend } = review;
@@ -36,6 +38,8 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       })
       .catch(err => console.log(err))
   }
+  let newDate = new Date(date);
+  newDate.setTime(newDate.getTime() + (4*60*60*1000));
 
   return (
     <div className="review-entry">
@@ -44,7 +48,7 @@ const ReviewListEntry = ({ review, loadReviews }) => {
         <div>
           <span className="reviewer-name">{reviewer_name.charCodeAt(0)%5!==0?<span><MdOutlineVerified style={{'color':'blue'}} />Verified Purchaser - </span>:""}{reviewer_name}</span>
           <span className="review-entry-date">
-            {new Intl.DateTimeFormat('en-US').format(new Date(date))}
+            {format(new Date(newDate), "MM/dd/yyyy")}
           </span>
         </div>
       </div>
