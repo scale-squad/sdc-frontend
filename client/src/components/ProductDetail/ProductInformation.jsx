@@ -23,14 +23,14 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
     }
 
     if(selectedStyle.sale_price === null) {
-      return <>${selectedStyle.original_price}</>
+      return <h4 className="originalPrice">${selectedStyle.original_price}</h4>
     } else {
       return (
-        <>
+        <h4 className="salePrice">
           ${selectedStyle.sale_price}
           {'  '}
-          <s>${selectedStyle.original_price}</s>
-        </>
+          <s className="strikethroughPrice">${selectedStyle.original_price}</s>
+        </h4>
       )
     }
   };
@@ -56,7 +56,7 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
         <a className="centerLogo twitter" href="https://twitter.com"><FaXTwitter /></a>
         <a className="pinterest" href="https://www.pinterest.com"><FaPinterest /></a>
       </div>
-      <h4>{calcPrice()}</h4>
+      <div>{calcPrice()}</div>
     </div>
   )
 };
