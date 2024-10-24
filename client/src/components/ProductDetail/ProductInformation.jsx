@@ -33,11 +33,25 @@ const ProductInformation = ({currentProductStyle, product, reviews}) => {
         </>
       )
     }
+  };
+
+  function calcTotalReviews(){
+    let total = 0;
+    for(const [key, value] of Object.entries(reviews)) {
+      total += Number(value);
+    }
+    console.log(total, "total");
+    return total;
   }
 
   return (
     <div>
-      <StarRating ratingList={reviews} dimensions={20}/>
+      <div className="totalReviews">
+        <StarRating className="starsInProduct" ratingList={reviews} dimensions={20}/>
+        <span>
+        <a href="#rating-and-reviews-module">Read all {calcTotalReviews()} reviews</a>
+        </span>
+      </div>
       <h4>{product?.category.toUpperCase()}</h4>
       <h1>{product?.name}</h1>
       <div className="shareLogos">
