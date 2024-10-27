@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import AddOutfitCard from "./AddOutfitCard.jsx";
 import axios from "axios";
 import Card from "./Card.jsx";
-import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 
 const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
   let [relatedList, setRelatedList] = useState([]);
@@ -160,80 +159,100 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
 
   return (
     <div className="related-products">
-      <h3>Related Products</h3>
+    <h3>Related Products</h3>
 
-      <div className="related-carousel">
-        <div
-          className="scroll-button-right"
-          onClick={() => changePage(-1, "related")}
+    <div className="related-carousel">
+      <div
+        className="scroll-button-left"
+        onClick={() => changePage(-1, "related")}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          width="90"
+          height="90"
+          className="scroll-button-cii"
         >
-          <FiArrowLeftCircle className="scroll-button-cii" size={90} />
-        </div>
-        <div className="related-gallery">
-          {relatedList.length >= itemCount ? (
-            [...relatedList, ...relatedList]
-              .slice(relatedPage, relatedPage + itemCount)
-              .map((item, i) => (
-                <Card
-                  key={item.product_id * i}
-                  item={item}
-                  type="related"
-                  setProductId={setProductId}
-                  currentProduct={currentProduct}
-                />
-              ))
-          ) : relatedList.length >= 1 ? (
-            relatedList.map((item, i) => (
+          <circle cx="12" cy="12" r="10" fill="#ccc" />
+          <path d="M14 7l-5 5 5 5V7z" fill="black" />
+        </svg>
+      </div>
+      <div className="related-gallery">
+        {relatedList.length >= itemCount ? (
+          [...relatedList, ...relatedList]
+            .slice(relatedPage, relatedPage + itemCount)
+            .map((item, i) => (
               <Card
                 key={item.product_id * i}
                 item={item}
                 type="related"
                 setProductId={setProductId}
+                currentProduct={currentProduct}
               />
             ))
-          ) : (
-            <div>No Related Items Available</div>
-          )}
-        </div>
-        <div
-          className="scroll-button-right"
-          onClick={() => changePage(-1, "related")}
-        >
-          <FiArrowRightCircle className="scroll-button-cir" size={90} />
-        </div>
-      </div>
-      <h3>Your Outfit</h3>
-      <div className="outfit-carousel">
-        {outfitList.length >= itemCount - 1 ? (
-          <div
-            className="scroll-button-right"
-            onClick={() => changePage(1, "outfit")}
-          >
-            <FiArrowLeftCircle className="scroll-button-cii" size={90} />
-          </div>
+        ) : relatedList.length >= 1 ? (
+          relatedList.map((item, i) => (
+            <Card
+              key={item.product_id * i}
+              item={item}
+              type="related"
+              setProductId={setProductId}
+            />
+          ))
         ) : (
-          <div></div>
+          <div>No Related Items Available</div>
         )}
-        <div className="outfit-gallery">
-          <AddOutfitCard
-            productId={productId}
-            setOutfitList={setOutfitList}
-            outfitList={outfitList}
-          />
-          {outfitList.length >= Math.max(itemCount - 1, 0) ? (
-            [...outfitList, ...outfitList]
-              .slice(outfitPage, outfitPage + itemCount - 1)
-              .map((item, i) => (
-                <Card
-                  key={"outfit" + item.product_id * i}
-                  item={item}
-                  type="outfit"
-                  setProductId={setProductId}
-                  setOutfitList={setOutfitList}
-                />
-              ))
-          ) : outfitList.length >= 1 ? (
-            outfitList.map((item, i) => (
+      </div>
+      <div
+        className="scroll-button-right"
+        onClick={() => changePage(1, "related")}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          width="90"
+          height="90"
+          className="scroll-button-cir"
+        >
+          <circle cx="12" cy="12" r="10" fill="#ccc" />
+          <path d="M10 17l5-5-5-5v10z" fill="black" />
+        </svg>
+      </div>
+    </div>
+    <h3>Your Outfit</h3>
+    <div className="outfit-carousel">
+      {outfitList.length >= itemCount - 1 ? (
+        <div
+          className="scroll-button-left"
+          onClick={() => changePage(-1, "outfit")}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            width="90"
+            height="90"
+            className="scroll-button-cii"
+          >
+            <circle cx="12" cy="12" r="10" fill="#ccc" />
+            <path d="M14 7l-5 5 5 5V7z" fill="black" />
+          </svg>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      <div className="outfit-gallery">
+        <AddOutfitCard
+          productId={productId}
+          setOutfitList={setOutfitList}
+          outfitList={outfitList}
+        />
+        {outfitList.length >= Math.max(itemCount - 1, 0) ? (
+          [...outfitList, ...outfitList]
+            .slice(outfitPage, outfitPage + itemCount - 1)
+            .map((item, i) => (
               <Card
                 key={"outfit" + item.product_id * i}
                 item={item}
@@ -242,24 +261,44 @@ const RelatedItemsAndOutfitCreation = ({ productId, setProductId }) => {
                 setOutfitList={setOutfitList}
               />
             ))
-          ) : (
-            <div>
-              <img src={DummyImg} className="dummyImg" alt="Dummy" />
-            </div>
-          )}
-        </div>
-        {outfitList.length >= itemCount - 1 ? (
-          <div
-            className="scroll-button-right"
-            onClick={() => changePage(-1, "outfit")}
-          >
-            <FiArrowRightCircle className="scroll-button-cir" size={90} />
-          </div>
+        ) : outfitList.length >= 1 ? (
+          outfitList.map((item, i) => (
+            <Card
+              key={"outfit" + item.product_id * i}
+              item={item}
+              type="outfit"
+              setProductId={setProductId}
+              setOutfitList={setOutfitList}
+            />
+          ))
         ) : (
-          <div></div>
+          <div>
+            <img src={DummyImg} className="dummyImg" alt="Dummy" />
+          </div>
         )}
       </div>
+      {outfitList.length >= itemCount - 1 ? (
+        <div
+          className="scroll-button-right"
+          onClick={() => changePage(1, "outfit")}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            width="90"
+            height="90"
+            className="scroll-button-cir"
+          >
+            <circle cx="12" cy="12" r="10" fill="#ccc" />
+            <path d="M10 17l5-5-5-5v10z" fill="black" />
+          </svg>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
+  </div>
   );
 };
 

@@ -36,7 +36,7 @@ const FormComponent = ({ formItem, formData, setFormData }) => {
             [0, 1, 2, 3, 4].map((label, i) => {
               return (<span key={title + i}><input style={starStyle} name={title} id={title + i} onChange={() => ({})} onClick={handleChange} required={required} value={i + 1} type="radio"
                 checked={formData[value] >= i + 1 ? true : false} />
-                <label htmlFor={title + i}>{formData[value] >= i + 1 ? <img src={full} /> : <img src={empty} />}</label></span>)
+                <label htmlFor={title + i}>{formData[value] >= i + 1 ? <img alt="form_img" src={full} /> : <img alt="form_img" src={empty} />}</label></span>)
             })
           }
           <span>

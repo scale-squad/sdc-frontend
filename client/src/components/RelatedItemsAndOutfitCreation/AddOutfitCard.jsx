@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import StarRating from '../sharedComponents/StarRating.jsx';
-import { LuImagePlus } from "react-icons/lu";
 
 import axios from 'axios';
 
 import './RelatedItemsAndOutfitCreation.css'
+
 const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
   const handleAddOutfit = () => {
     getOutfitData(productId)
@@ -48,7 +48,16 @@ const AddOutfitCard = ({ productId, setOutfitList, outfitList }) => {
 
   return (
     <div className="add-card-item" onClick={handleAddOutfit}>
-      <LuImagePlus className="add-card-button" size={80}/>
+        <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    fill="currentColor"
+    className="add-card-button"
+  >
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-4H7v-2h4V7h2v4h4v2h-4v4z" />
+  </svg>
     </div>
   )
 };

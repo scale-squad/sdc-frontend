@@ -11,7 +11,7 @@ const ProductThumbnail = ({photo, index, currentPhotoIndex, setCurrentPhotoIndex
 
   return (
     <div className="thumbnail-gallary" tabIndex="0">
-      <img src={photo.thumbnail_url} onClick={thumbnailClicked}/>
+      <img src={photo.thumbnail_url} alt="thumbnail" onClick={thumbnailClicked}/>
 
       {currentPhotoIndex===index && !isExpanded ?
         <div className="selectedThumbnail"></div>

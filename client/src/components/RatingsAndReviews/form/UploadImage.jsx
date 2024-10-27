@@ -47,7 +47,7 @@ const UploadImage = ({ formData, setFormData, setImageList, imageList }) => {
   return (
     <div>
       {
-        imageList.map((image, i) => <span key={image + i}> <button onClick={() => handleRemove(i)}>X</button> <img src={image} style={thumbnailStyle}></img></span>)
+        imageList.map((image, i) => <span key={image + i}> <button onClick={() => handleRemove(i)}>X</button> <img alt="form_img" src={image} style={thumbnailStyle}></img></span>)
       }
       {imageList.length < 5 ?
         (<div>
