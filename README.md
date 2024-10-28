@@ -5,3 +5,6 @@
 #### Add selected styles to users outfit collection
 #### View related products view related products
 #### Engage with other users through Q and A feature where the user can review previous asked question and answers
+
+# SDC
+## Develop scalable backend for support of up to 10k queries per second
