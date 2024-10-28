@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import ImageModal from './ImageModal.jsx';
-import axios from 'axios';
-import StarRating from '../sharedComponents/StarRating.jsx';
-import { MdOutlineVerified } from "react-icons/md";
+import React, { useState } from "react";
+import ImageModal from "./ImageModal.jsx";
+import axios from "axios";
+import StarRating from "../sharedComponents/StarRating.jsx";
 import { format } from "date-fns";
+
 
 const ReviewListEntry = ({ review, loadReviews }) => {
   if (review === undefined) { return <div>Error Loading  Component</div> }
@@ -46,7 +46,26 @@ const ReviewListEntry = ({ review, loadReviews }) => {
       <div className="entry-top">
         <StarRating rating={rating} dimensions={15} />
         <div>
-          <span className="reviewer-name">{reviewer_name.charCodeAt(0)%5!==0?<span><MdOutlineVerified style={{'color':'blue'}} />Verified Purchaser - </span>:""}{reviewer_name}</span>
+          <span className="reviewer-name">
+            {reviewer_name.charCodeAt(0) % 5 !== 0 ? (
+              <span>
+                {" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z" />
+                </svg>
+                Verified Purchaser -{" "}
+              </span>
+            ) : (
+              ""
+            )}
+            {reviewer_name}
+          </span>
           <span className="review-entry-date">
             {format(new Date(newDate), "MM/dd/yyyy")}
           </span>
@@ -61,8 +80,8 @@ const ReviewListEntry = ({ review, loadReviews }) => {
         }
         {
           visibleBody.length !== body.length ?
-            <span>
-              <span>...</span>
+          <span>
+            <span>...</span>
               <button onClick={e => setVisibleBody(body)}>
                 Show More!
               </button>
@@ -80,7 +99,7 @@ const ReviewListEntry = ({ review, loadReviews }) => {
             )
           })
         }
-        </div>
+      </div>
 
 
       <div>

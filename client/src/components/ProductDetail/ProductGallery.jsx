@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ProductThumbnail from './ProductThumbnail.jsx';
-import { FaArrowRight } from "react-icons/fa6";
-import { FaArrowLeft } from "react-icons/fa6";
-import { IoMdExpand } from "react-icons/io";
-import { FaAnglesUp } from "react-icons/fa6";
-import { FaAnglesDown } from "react-icons/fa6";
 
 const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhotoIndex, isExpanded, setIsExpanded}) => {
   if(currentProductStyle === undefined){return <div>Error fetching current product style for gallery</div>}
@@ -58,47 +53,50 @@ const ProductGallery = ({currentProductStyle, setCurrentPhotoIndex, currentPhoto
   };
 
   return (
-    <div className="gallery-container ">
-      <div className="mainImage"  >
-      <button id="expandButton" onClick={expand}><IoMdExpand /></button>
+<div className="gallery-container">
+  <div className="mainImage">
+    <button id="expandButton" onClick={expand} className="expand-icon">⤢</button>
 
-        {currentPhotoIndex !== 0 && !isExpanded ?
-          <button id="mainImageLeftButton" onClick={decrement}><FaArrowLeft/></button>
-        : ""}
+    {currentPhotoIndex !== 0 && !isExpanded ? (
+      <button id="mainImageLeftButton" onClick={decrement} className="left-arrow">←</button>
+    ) : ""}
 
-        <div id="productImage"
-          style={
-            {backgroundImage: `url(${currentProductStyle.photos[currentPhotoIndex]?.url})`,
-            height:"100%",
-            width:"100%",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: isExpanded ? '250%' : 'cover'}}
-            onClick={expand} onMouseMove={hoverhandler} >
-        </div>
-
-
-        {currentPhotoIndex < currentProductStyle.photos.length - 1 && !isExpanded ?
-          <button id="mainImageRightButton" onClick={increment}><FaArrowRight/></button>
-          : ""}
-
-      </div>
-      <div className="thumbnailDiv">
-        {curThumbnailIndex > 0 && !isExpanded ? (
-          <button className="upDownButton" onClick={scrollThumbnailsBackward}>
-            <FaAnglesUp />
-          </button> ): ""
-        }
-        {currentProductStyle.photos.slice(curThumbnailIndex, curThumbnailIndex + 7).map((photo, index) => (
-          <ProductThumbnail key={index} photo={photo} index={index + curThumbnailIndex} currentPhotoIndex={currentPhotoIndex} setCurrentPhotoIndex={setCurrentPhotoIndex} isExpanded={isExpanded}/>
-        ))}
-        {showThumbnailArrow && !isExpanded ? (
-          <button className="upDownButton" onClick={scrollThumbnailsForward}>
-            <FaAnglesDown />
-          </button>
-        ):""}
-      </div>
+    <div id="productImage"
+      style={{
+        backgroundImage: `url(${currentProductStyle.photos[currentPhotoIndex]?.url})`,
+        height: "100%",
+        width: "100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: isExpanded ? '250%' : 'cover'
+      }}
+      onClick={expand}
+      onMouseMove={hoverhandler}>
     </div>
+
+    {currentPhotoIndex < currentProductStyle.photos.length - 1 && !isExpanded ? (
+      <button id="mainImageRightButton" onClick={increment} className="right-arrow">→</button>
+    ) : ""}
+  </div>
+  <div className="thumbnailDiv">
+    {curThumbnailIndex > 0 && !isExpanded ? (
+      <button className="upDownButton" onClick={scrollThumbnailsBackward} className="up-arrow">↑</button>
+    ) : ""}
+    {currentProductStyle.photos.slice(curThumbnailIndex, curThumbnailIndex + 7).map((photo, index) => (
+      <ProductThumbnail
+        key={index}
+        photo={photo}
+        index={index + curThumbnailIndex}
+        currentPhotoIndex={currentPhotoIndex}
+        setCurrentPhotoIndex={setCurrentPhotoIndex}
+        isExpanded={isExpanded}
+      />
+    ))}
+    {showThumbnailArrow && !isExpanded ? (
+      <button className="upDownButton" onClick={scrollThumbnailsForward} className="down-arrow">↓</button>
+    ) : ""}
+  </div>
+</div>
   )
 };
 

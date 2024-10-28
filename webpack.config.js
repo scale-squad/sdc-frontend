@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -31,5 +32,15 @@ module.exports = {
   },
   plugins: [
     new Dotenv(),
-  ]
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  }
 };
+
+

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { CiCircleCheck } from "react-icons/ci";
+import React, { useEffect, useState } from "react";
+
 
 const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyles, currentPhotoIndex, setCurrentPhotoIndex}) => {
 
@@ -25,14 +25,31 @@ const StyleSelector = ({currentProductStyle, setCurrentProductStyle, productStyl
       <div className="style-selector">
         {productStyles.map((style, index) => (
           <div className="style-selector-image-crop" key={style.style_id}>
+            <img
+              alt="product_thumbnail"
+              className="style-image"
+              key={index}
+              src={style.photos[0].thumbnail_url}
+              onClick={() => styleClicked(index)}
+            />
 
-            <img className="style-image" key={index} src={style.photos[0].thumbnail_url} onClick={()=>styleClicked(index)} />
-
-            {style.style_id === currentProductStyle.style_id ?
+            {style.style_id === currentProductStyle.style_id ? (
               <div className="checkIcon">
-                <CiCircleCheck size={24} color="black"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  size={24}
+                  color="black"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z" />
+                </svg>
               </div>
-              : "" }
+            ) : (
+              ""
+            )}
           </div>
         ))}
       </div>
